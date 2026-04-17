@@ -5,7 +5,7 @@ export default function Shop() {
     <div className="bg-gray-100 min-h-screen">
 
       {/* HERO SECTION */}
-      <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-14 text-center">
+      <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-5 text-center">
         <h1 className="text-4xl font-bold mb-2">Our Products</h1>
         <p className="text-sm text-gray-200">
           Pure • Healthy • Trusted Oils for Every Home

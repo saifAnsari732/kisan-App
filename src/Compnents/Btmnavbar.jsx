@@ -4,13 +4,13 @@ import {Link} from 'react-router-dom';
 
 export default function MobileNavbar() {
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-green-200 shadow-xl rounded-t-3xl  flex justify-around items-center md:hidden z-50">
+    <div className="fixed bottom-0 left-0 w-full bg-green-200 shadow-xl rounded-t-3xl h-15 flex justify-around items-center md:hidden z-50">
       <div className="flex flex-col cursor-pointer items-center text-black">
         <Home size={22} />
         <Link to={"/"} className="text-xs mt-1 font-medium ">Home</Link>
       </div>
 
-      <div className="flex flex-col items-center text-black">
+      <div className="flex flex-col  items-center text-black">
         <BriefcaseBusiness size={22} />
         <Link to={"/career"} className="text-xs mt-1">Career</Link>
       </div>

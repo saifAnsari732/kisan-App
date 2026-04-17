@@ -29,7 +29,7 @@ export default function Career() {
     <div className="bg-gray-100">
 
       {/* HERO */}
-      <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-16 text-center">
+      <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-5 text-center">
         <h1 className="text-4xl font-bold mb-3">Join Our Team</h1>
         <p className="text-gray-200 text-sm">
           Build your career with Kisan Agro 🚀

@@ -5,7 +5,7 @@ export default function About() {
     <div className="bg-gray-100">
 
       {/* HERO */}
-      <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-16 text-center">
+      <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-5 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           About Kisan Agro
         </h1>
