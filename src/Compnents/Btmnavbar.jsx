@@ -1,29 +1,35 @@
 import React from "react";
-import { Home, Search, Headset, User, ChartBar,BriefcaseBusiness } from "lucide-react";
-import {Link} from 'react-router-dom';
+import { Home, Search, Headset, ChartBar, BriefcaseBusiness } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function MobileNavbar() {
+  const { pathname } = useLocation();
+
+  const navItems = [
+    { to: "/",        icon: <Home size={22} />,             label: "Home"     },
+    { to: "/career",  icon: <BriefcaseBusiness size={22} />, label: "Career"   },
+    { to: "/shop",    icon: <ChartBar size={22} />,          label: "Products" },
+    { to: "/form",    icon: <Headset size={22} />,           label: "Support"  },
+  ];
+
   return (
     <div className="fixed bottom-0 left-0 w-full bg-green-200 shadow-xl rounded-t-3xl h-15 flex justify-around items-center md:hidden z-50">
-      <div className="flex flex-col cursor-pointer items-center text-black">
-        <Home size={22} />
-        <Link to={"/"} className="text-xs mt-1 font-medium ">Home</Link>
-      </div>
+      {navItems.map(({ to, icon, label }) => {
+        // ✅ exact match for "/" so it doesn't stay active on all routes
+        const isActive = to === "/" ? pathname === "/" : pathname.startsWith(to);
 
-      <div className="flex flex-col  items-center text-black">
-        <BriefcaseBusiness size={22} />
-        <Link to={"/career"} className="text-xs mt-1">Career</Link>
-      </div>
-
-      <div className="flex flex-col items-center text-black">
-        <ChartBar size={22} />
-        <Link to={"/shop"} className="text-md mt-1">Products</Link>
-      </div>
-
-      <div className="flex flex-col items-center text-black">
-        <Headset  size={22} />
-        <Link to={'/form'} className="text-xs mt-1">Support</Link>
-      </div>
+        return (
+          <Link
+            key={to}
+            to={to}
+            className={`flex flex-col items-center text-black transition-all duration-200
+              ${isActive ? "bg-gray-200 p-2 rounded-2xl" : ""}`}
+          >
+            {icon}
+            <span className="text-xs mt-1 font-medium">{label}</span>
+          </Link>
+        );
+      })}
     </div>
   );
 }
