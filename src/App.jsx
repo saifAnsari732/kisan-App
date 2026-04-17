@@ -1,50 +1,73 @@
 import './App.css'
 import Navbar from './Compnents/Navbar'
-import HeroCarousel from './Pages/Homepage'
+import Footer from './Compnents/Footer'
+import MobileNavbar from './Compnents/Btmnavbar'
+import WhatsapForm from './Compnents/WhatsappForm'
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import About from "./Pages/About";
-import Shop from "./Pages/Shop";
-import Contact from "./Pages/Contact";
-import Career from "./Pages/Career";
-import MobileNavbar from './Compnents/Btmnavbar';
-import WhatsapForm from './Compnents/WhatsappForm';
-import Footer from './Compnents/Footer';
-import IndianChoice from './Pages/indchoice';
-import Kachighani from './Pages/Kachighani';
-import KachighaniMustard from './Pages/KachighaniMustard';
-import Rsoyabean from './Pages/RefiendOil/Rsoyabean';
-import Rpalmolein from './Pages/RefiendOil/Rpalmolein';
-import Rsunflower from './Pages/RefiendOil/Rsunflow';
-import Rcoconut from './Pages/RefiendOil/Rcoconut';
-import Alsi from './Pages/AlsiOil';
-import Pooja from './Pages/PoojaOil';
-import Ground from './Pages/GroundnutOil';
+import { Suspense, lazy } from "react";
+
+// 🔥 Lazy Load Pages
+const HeroCarousel = lazy(() => import('./Pages/Homepage'));
+const About = lazy(() => import('./Pages/About'));
+const Shop = lazy(() => import('./Pages/Shop'));
+const Contact = lazy(() => import('./Pages/Contact'));
+const Career = lazy(() => import('./Pages/Career'));
+
+const IndianChoice = lazy(() => import('./Pages/indchoice'));
+const Kachighani = lazy(() => import('./Pages/Kachighani'));
+const KachighaniMustard = lazy(() => import('./Pages/KachighaniMustard'));
+
+const Rsoyabean = lazy(() => import('./Pages/RefiendOil/Rsoyabean'));
+const Rpalmolein = lazy(() => import('./Pages/RefiendOil/Rpalmolein'));
+const Rsunflower = lazy(() => import('./Pages/RefiendOil/Rsunflow'));
+const Rcoconut = lazy(() => import('./Pages/RefiendOil/Rcoconut'));
+
+const Alsi = lazy(() => import('./Pages/AlsiOil'));
+const Pooja = lazy(() => import('./Pages/PoojaOil'));
+const Ground = lazy(() => import('./Pages/GroundnutOil'));
+
 function App() {
   return (
-    <BrowserRouter> 
-      <Navbar/>
-      <Routes>
-        <Route path="/" element={<HeroCarousel />} />
-      <Route path="/about" element={<About />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/career" element={<Career />} />
-        <Route path="/form" element={<WhatsapForm />} />
-        <Route path="/choice" element={<IndianChoice />} />
-        <Route path="/kachighani" element={<Kachighani />} />
-        <Route path="/kachighanimustard" element={<KachighaniMustard />} />
-        <Route path="/soyabean" element={<Rsoyabean/>} />
-        <Route path="/palmleion" element={<Rpalmolein />} />
-        <Route path="/sunflower" element={<Rsunflower />} />
-        <Route path="/coconut" element={<Rcoconut />} />
-        <Route path="/alsi" element={<Alsi />} />
-        <Route path="/pooja" element={<Pooja />} />
-        <Route path="/ground" element={<Ground />} />
+    <BrowserRouter>
 
+      <Navbar />
 
-      </Routes>
-      <Footer/>
-      <MobileNavbar/>
+      {/* 🔥 Suspense Loader */}
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center h-screen text-green-700 text-lg font-semibold">
+            Loading...
+          </div>
+        }
+      >
+        <Routes>
+          <Route path="/" element={<HeroCarousel />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/career" element={<Career />} />
+
+          <Route path="/form" element={<WhatsapForm />} />
+
+          <Route path="/choice" element={<IndianChoice />} />
+          <Route path="/kachighani" element={<Kachighani />} />
+          <Route path="/kachighanimustard" element={<KachighaniMustard />} />
+
+          <Route path="/soyabean" element={<Rsoyabean />} />
+          <Route path="/palmleion" element={<Rpalmolein />} />
+          <Route path="/sunflower" element={<Rsunflower />} />
+          <Route path="/coconut" element={<Rcoconut />} />
+
+          <Route path="/alsi" element={<Alsi />} />
+          <Route path="/pooja" element={<Pooja />} />
+          <Route path="/ground" element={<Ground />} />
+        </Routes>
+      </Suspense>
+
+      <Footer />
+      <MobileNavbar />
+
     </BrowserRouter>
   )
 }

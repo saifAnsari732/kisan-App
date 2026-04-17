@@ -73,12 +73,12 @@ export default function HeroCarousel() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: direction > 0 ? "-100%" : "100%", opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute  inset-0 flex items-center justify-center"
           >
             <img
               src={slides[current].img}
               alt="hero"
-              className=" h-full object-cove md:object-cover object-center"
+              className=" h-full object-cover  md:object-cover object-center"
               
             />
           </motion.div>
@@ -96,9 +96,9 @@ export default function HeroCarousel() {
         <button
           onClick={nextSlide}
           className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black p-2 rounded-full shadow"
-        >
+          >
           <ChevronRight />
-        </button>
+          </button>
 
         {/* Dots */}
         <div className="absolute bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
