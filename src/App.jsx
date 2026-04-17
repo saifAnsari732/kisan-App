@@ -11,6 +11,14 @@ import WhatsapForm from './Compnents/WhatsappForm';
 import Footer from './Compnents/Footer';
 import IndianChoice from './Pages/indchoice';
 import Kachighani from './Pages/Kachighani';
+import KachighaniMustard from './Pages/KachighaniMustard';
+import Rsoyabean from './Pages/RefiendOil/Rsoyabean';
+import Rpalmolein from './Pages/RefiendOil/Rpalmolein';
+import Rsunflower from './Pages/RefiendOil/Rsunflow';
+import Rcoconut from './Pages/RefiendOil/Rcoconut';
+import Alsi from './Pages/AlsiOil';
+import Pooja from './Pages/PoojaOil';
+import Ground from './Pages/GroundnutOil';
 function App() {
   return (
     <BrowserRouter> 
@@ -24,6 +32,14 @@ function App() {
         <Route path="/form" element={<WhatsapForm />} />
         <Route path="/choice" element={<IndianChoice />} />
         <Route path="/kachighani" element={<Kachighani />} />
+        <Route path="/kachighanimustard" element={<KachighaniMustard />} />
+        <Route path="/soyabean" element={<Rsoyabean/>} />
+        <Route path="/palmleion" element={<Rpalmolein />} />
+        <Route path="/sunflower" element={<Rsunflower />} />
+        <Route path="/coconut" element={<Rcoconut />} />
+        <Route path="/alsi" element={<Alsi />} />
+        <Route path="/pooja" element={<Pooja />} />
+        <Route path="/ground" element={<Ground />} />
 
 
       </Routes>

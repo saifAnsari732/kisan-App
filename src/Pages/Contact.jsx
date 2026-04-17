@@ -1,56 +1,113 @@
-import contactImg from "../../public/35.png"; // 👈 replace with your image
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaYoutube,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
-      
-      <div className="max-w-6xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden grid md:grid-cols-2">
-        
-        {/* LEFT - FORM */}
-        <div className="p-6 md:p-10">
-          <h1 className="text-3xl font-bold text-green-700 mb-2">
-            Contact Us
-          </h1>
-          <p className="text-gray-500 mb-6">
-            Have questions? We’d love to hear from you.
+    <div className="bg-gray-100 py-10 px-4">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6">
+
+        {/* 🔶 LEFT SECTION */}
+        <div className="bg-green-50 p-6 rounded-xl">
+
+          <h2 className="text-lg font-semibold text-green-900 mb-2">
+            We are always ready to help you and answer your questions
+          </h2>
+          <p className="text-sm text-gray-600 mb-6">
+            We're always happy to assist.
           </p>
 
-          <form className="space-y-4">
-            <input
-              className="w-full border border-gray-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Your Name"
-            />
+          {/* Address */}
+          <h3 className="font-semibold text-green-900 mb-2">Address</h3>
 
-            <input
-              className="w-full border border-gray-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Your Email"
-            />
+          <p className="text-xs text-gray-700 mb-3">
+            <span className="font-semibold">REGD. OFFICE:</span><br />
+            KH. NO. 137, VILL & POST BIJNAUR SAROJINI NAGAR,
+            LUCKNOW - 226002 (U.P.) INDIA
+          </p>
 
-            <textarea
-              rows="4"
-              className="w-full border border-gray-200 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Your Message"
-            />
+          <p className="text-xs text-gray-700 mb-4">
+            <span className="font-semibold">CORP. OFFICE:</span><br />
+            OFFICE NO. 129 & 122, 4TH FLOOR, J.B. EMPEROR SQUARE,
+            NEAR APOLLO HOSPITAL, KANPUR ROAD, LUCKNOW - 226012
+          </p>
 
-            <button className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-xl font-semibold shadow-md hover:scale-[1.02] transition">
-              Send Message
-            </button>
-          </form>
+          {/* Contact */}
+          <p className="text-sm text-gray-700 mb-1">📞 6390059995</p>
+          <p className="text-sm text-gray-700 mb-4">📞 18008890860</p>
+
+          {/* Email */}
+          <h3 className="font-semibold text-green-900 mb-1">Email</h3>
+          <p className="text-sm text-gray-700 mb-4">
+            info@kisangroups.in
+          </p>
+
+          {/* Social */}
+          <h3 className="font-semibold text-green-900 mb-2">
+            Social Links
+          </h3>
+
+          <div className="flex gap-3 mb-6">
+            <div className="w-8 h-8 bg-blue-600 text-white flex items-center justify-center rounded-full"><FaFacebookF /></div>
+            <div className="w-8 h-8 bg-pink-500 text-white flex items-center justify-center rounded-full"><FaInstagram /></div>
+            <div className="w-8 h-8 bg-red-500 text-white flex items-center justify-center rounded-full"><FaYoutube /></div>
+            <div className="w-8 h-8 bg-blue-700 text-white flex items-center justify-center rounded-full"><FaLinkedinIn /></div>
+          </div>
+
+          {/* MAP */}
+          <div className="w-full h-[250px] rounded-xl overflow-hidden">
+            <iframe
+              title="map"
+              src="https://maps.google.com/maps?q=lucknow&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              className="w-full h-full border-0"
+            ></iframe>
+          </div>
+
         </div>
 
-        {/* RIGHT - IMAGE */}
-        <div className="hidden md:flex items-center justify-center bg-gradient-to-br from-green-600 to-green-800 p-6">
-          
-          <div className="relative">
-            {/* Glow effect */}
-            <div className="absolute inset-0 bg-yellow-300 blur-3xl opacity-30 rounded-full"></div>
+        {/* 🔶 RIGHT SECTION (FORM) */}
+        <div className="bg-white p-6 rounded-xl shadow">
 
-            <img
-              src={contactImg}
-              alt="contact"
-              className="relative h-[350px] object-contain drop-shadow-2xl"
+          <h2 className="text-xl font-semibold text-green-900 mb-6 border p-3">
+            Get in Touch
+          </h2>
+
+          <form className="space-y-4">
+
+            {/* Name Row */}
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                placeholder="First Name"
+                className="border p-2 rounded-md w-full"
+              />
+              <input
+                placeholder="Last Name"
+                className="border p-2 rounded-md w-full"
+              />
+            </div>
+
+            {/* Email */}
+            <input
+              placeholder="Email Address"
+              className="border p-2 rounded-md w-full"
             />
-          </div>
+
+            {/* Message */}
+            <textarea
+              rows="5"
+              placeholder="Your Message"
+              className="border p-2 rounded-md w-full"
+            ></textarea>
+
+            {/* Button */}
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-md">
+              Submit Form
+            </button>
+
+          </form>
 
         </div>
 

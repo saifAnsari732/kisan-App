@@ -28,13 +28,13 @@ const FetureProduct = () => {
               <img
                 src={item.img}
                 alt={item.title}
-                className="h-40 object-contain transition duration-300 hover:scale-110"
+                className="h-60  object-contain transition duration-300 hover:scale-110"
               />
             </div>
 
             {/* Content */}
             <div className="p-4 text-center">
-              <h3 className="font-bold text-lg">{item.title}</h3>
+              <h3 className="font-semibold text-lg">{item.title}</h3>
 
               <div className="flex justify-center gap-3 mt-4">
                 <CallButton />
