@@ -78,7 +78,7 @@ export default function HeroCarousel() {
             <img
               src={slides[current].img}
               alt="hero"
-              className=" h-full object-cover  md:object-cover object-center"
+              className=" h-full object-cove  md:object-cover object-center"
               
             />
           </motion.div>
