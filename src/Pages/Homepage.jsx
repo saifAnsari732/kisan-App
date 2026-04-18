@@ -65,106 +65,105 @@ export default function HeroCarousel() {
   };
 
   return (
-    <> 
-    <div className="w-full flex justify-center md:py-6 bg-gray-100">
-      <div className="relative w-full md:w-[90%] h-[65vh] md:h-[60vh] overflow-hidden md:rounded-3xl md:shadow-lg bg-gray-100">
-        <AnimatePresence custom={direction}>
-          <motion.div
-            key={current}
-            custom={direction}
-            initial={{ x: direction > 0 ? "100%" : "-100%", opacity: 1 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: direction > 0 ? "-100%" : "100%", opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute  inset-0 flex items-start justify-center"
-          >
-            <img
-              src={slides[current].img}
-              alt="hero"
-              className=" h-ful object-cover  md:object-cover object-center rounded-3xl"
-              
-            />
-          </motion.div>
-          <SocialSidebar/>
-        </AnimatePresence>
+    <>
+      <div className="w-full flex justify-center  md:py-6 bg-gray-100 ">
+        <div className="relative w-full md:w-[90%] h-[60vh] md:h-[65vh] overflow-hidden md:rounded-3xl md:shadow-lg ">
+          <AnimatePresence custom={direction}>
+            <motion.div
+              key={current}
+              custom={direction}
+              initial={{ x: direction > 0 ? "100%" : "-100%", opacity: 1 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: direction > 0 ? "-100%" : "100%", opacity: 1 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="absolute inset-0 flex items-center justify-center w-full h-full"
+            >
+              <img
+                src={slides[current].img}
+                alt="hero"
+                className="w-full h-full object-cover object-center md:rounded-3xl"
+              />
+            </motion.div>
+            <SocialSidebar />
+          </AnimatePresence>
 
-        {/* Buttons */}
-        <button
-          onClick={prevSlide}
-          className="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black p-2 rounded-full shadow"
-        >
-          <ChevronLeft />
-        </button>
-
-        <button
-          onClick={nextSlide}
-          className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black p-2 rounded-full shadow"
+          {/* Buttons */}
+          <button
+            onClick={prevSlide}
+            className="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black px-2 rounded-full shadow"
           >
-          <ChevronRight />
+            <ChevronLeft />
           </button>
 
-        {/* Dots */}
-        <div className="absolute bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-          {slides.map((_, i) => (
-            <div
-              key={i}
-              onClick={() => {
-                setDirection(i > current ? 1 : -1);
-                setCurrent(i);
-              }}
-              className={`w-2 md:w-3 h-2 md:h-3 rounded-full cursor-pointer ${
-                current === i ? "bg-black" : "bg-black/30"
-              }`}
-            />
-          ))}
+          <button
+            onClick={nextSlide}
+            className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black px-2 rounded-full shadow"
+          >
+            <ChevronRight />
+          </button>
+
+          {/* Dots */}
+          <div className="absolute bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {slides.map((_, i) => (
+              <div
+                key={i}
+                onClick={() => {
+                  setDirection(i > current ? 1 : -1);
+                  setCurrent(i);
+                }}
+                className={`w-2 md:w-3 h-2 md:h-3 rounded-full cursor-pointer ${current === i ? "bg-black" : "bg-black/30"
+                  }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-    <CategorySection/>
+      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-6 font-semibold"> OUR PRODUCTS</h1>
+      <CategorySection />
 
-    {/* map image  */}
-   {/* ✅ MAP SECTION */}
-<div className="w-full bg-gray-100 pt-8 px-4">
-  
-  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
-    
-    {/* 🔹 LEFT SIDE TEXT */}
-    <div className="w-full md:w-1/2 space-y-4 px-7">
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-        Our Presence Across India
-      </h2>
+      {/* map image  */}
+      {/* ✅ MAP SECTION */}
+      <div className="w-full bg-gray-100  px-4">
 
-      <p className="text-gray-600 leading-relaxed">
-        We are delivering high-quality edible oils across multiple states in India. 
-        Our strong distribution network ensures that every household gets pure, 
-        healthy, and affordable products.
-      </p>
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
 
-      <p className="text-gray-600 leading-relaxed">
-        From mustard oil to refined oils, we maintain the highest standards of 
-        quality and authenticity in every drop.
-      </p>
+          {/* 🔹 LEFT SIDE TEXT */}
+          <div className="w-full md:w-1/2 space-y-4 px-7">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+              Our Presence Across India
+            </h2>
 
-      <button className="mt-3 px-5 py-2 bg-green-700 text-white rounded-lg shadow hover:bg-green-800 transition">
-        Learn More
-      </button>
-    </div>
+            <p className="text-gray-600 leading-relaxed">
+              We are delivering high-quality edible oils across multiple states in India.
+              Our strong distribution network ensures that every household gets pure,
+              healthy, and affordable products.
+            </p>
 
-    {/* 🔹 RIGHT SIDE IMAGE */}
-    <div className="w-full md:w-1/2 mt-6 ">
-      <img
-        src={mapimg}
-        alt="map"
-        className="w-full h-auto md:h-[700px] object-cover  rounded-[50px] object-contai"
-      />
-    </div>
+            <p className="text-gray-600 leading-relaxed">
+              From mustard oil to refined oils, we maintain the highest standards of
+              quality and authenticity in every drop.
+            </p>
 
-  </div>
-</div>
-    <FetureProduct/>
-    <Testimonials/>
-    <Reviews/>
-    <FAQ/>
+            <button className="mt-3 px-5 py-2 bg-green-700 text-white rounded-lg shadow hover:bg-green-800 transition">
+              Learn More
+            </button>
+          </div>
+
+          {/* 🔹 RIGHT SIDE IMAGE */}
+          <div className="w-full md:w-1/2 mt-6 ">
+            <img
+              src={mapimg}
+              alt="map"
+              className="w-full h-auto md:h-[700px] object-cover  rounded-[50px] object-contai"
+            />
+          </div>
+
+        </div>
+      </div>
+      <FetureProduct />
+      <Testimonials />
+      <Reviews />
+      <FAQ />
     </>
   );
 }

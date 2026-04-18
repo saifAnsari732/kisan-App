@@ -76,7 +76,7 @@ const hr = () => {
   return (
     <>
       {/* ✅ FIXED HEADER */}
-      <div className="fixed top-0 left-0 w-full z-50 font-sans">
+      <div className="fixed top-0 left-0 w-full z-50 font-sans bg-gray-100">
 
         {/* 🔹 TOP BAR */}
         <div className="bg-green-700 text-white text-xs md:text-sm h-10 flex items-center px-3">
@@ -108,12 +108,17 @@ const hr = () => {
         </div>
 
         {/* 🔹 MAIN NAVBAR */}
-        <div className="bg-white shadow-md h-14 flex items-center">
-          <div className="max-w-7xl mx-auto w-full px-4 flex items-center justify-between">
+        <div className="  h-16 flex items-center">
+          <div className="max-w-7xl mx-auto w-full px-4 flex items-center justify-between ">
 
-            {/* LOGO */}
-            <div className="text-xl font-bold text-green-700">KISAN AGRO</div>
-
+           {/* LOGO */}
+<div className="flex items-center">
+  <img
+    src="Logo.png"
+    alt="Logo"
+    className="h-9 w-auto md:h-12 object-contain"
+  />
+</div>
             {/* DESKTOP MENU */}
             <div className="hidden md:flex items-center gap-6 text-gray-700 font-medium">
 

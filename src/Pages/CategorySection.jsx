@@ -7,7 +7,7 @@ export default function CategorySection() {
   ];
 
   return (
-    <div className="w-full py-6 mt-7 bg-gray-100">
+    <div className="w-full py-10  bg-gray-100">
 
       {/* ✅ MOBILE VIEW */}
  <div className="md:hidden px-4 space-y-8">

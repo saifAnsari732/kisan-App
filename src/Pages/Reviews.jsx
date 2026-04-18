@@ -91,7 +91,7 @@ export default function Reviews() {
                 <h4 className="font-semibold">
                   {review.name}
                 </h4>
-                <p className="text-sm text-gray-200">
+                <p className="text-sm text-black-200">
                   {review.location}
                 </p>
               </div>
