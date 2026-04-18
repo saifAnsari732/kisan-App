@@ -67,7 +67,7 @@ export default function HeroCarousel() {
   return (
     <> 
     <div className="w-full flex justify-center md:py-6 bg-gray-100">
-      <div className="relative w-full md:w-[90%] h-[75vh] md:h-[60vh] overflow-hidden md:rounded-3xl md:shadow-lg bg-white">
+      <div className="relative w-full md:w-[90%] h-[65vh] md:h-[60vh] overflow-hidden md:rounded-3xl md:shadow-lg bg-gray-100">
         <AnimatePresence custom={direction}>
           <motion.div
             key={current}
@@ -76,12 +76,12 @@ export default function HeroCarousel() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: direction > 0 ? "-100%" : "100%", opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute  inset-0 flex items-center justify-center"
+            className="absolute  inset-0 flex items-start justify-center"
           >
             <img
               src={slides[current].img}
               alt="hero"
-              className=" h-full object-cove  md:object-cover object-center"
+              className=" h-ful object-cover  md:object-cover object-center rounded-3xl"
               
             />
           </motion.div>
