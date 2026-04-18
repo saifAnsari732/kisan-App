@@ -67,7 +67,7 @@ export default function HeroCarousel() {
   return (
     <>
       <div className="w-full flex justify-center  md:py-6 bg-gray-100 ">
-        <div className="relative w-full md:w-[90%] h-[60vh] md:h-[65vh] overflow-hidden md:rounded-3xl md:shadow-lg ">
+        <div className="relative w-full md:w-[90%] h-[65vh] md:h-[75vh] overflow-hidden md:rounded-3xl md:shadow-lg ">
           <AnimatePresence custom={direction}>
             <motion.div
               key={current}
@@ -81,7 +81,7 @@ export default function HeroCarousel() {
               <img
                 src={slides[current].img}
                 alt="hero"
-                className="w-full h-full object-cover object-center md:rounded-3xl"
+                className="w-full h-full object-cove object-center md:rounded-3xl"
               />
             </motion.div>
             <SocialSidebar />
@@ -118,7 +118,7 @@ export default function HeroCarousel() {
           </div>
         </div>
       </div>
-      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-6 font-semibold"> OUR PRODUCTS</h1>
+      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-6 font-semibold"> OUR CATEGORY</h1>
       <CategorySection />
 
       {/* map image  */}

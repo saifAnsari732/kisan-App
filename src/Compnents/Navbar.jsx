@@ -56,19 +56,19 @@ export default function Navbar() {
     ],
   };
 
-let conform="hr1"
-const hr = () => {
-  const value = window.prompt("Enter Role (HR)");
+  let conform = "hr1"
+  const hr = () => {
+    const value = window.prompt("Enter Role (HR)");
 
-  if (value === conform) {
-    navigation.navigate("/jobdata");
-  } else {
-    alert("Invalid Role");
-  }
-};
+    if (value === conform) {
+      navigation.navigate("/jobdata");
+    } else {
+      alert("Invalid Role");
+    }
+  };
 
-// CALL ACTION
- const phoneNumber = "9905234866";
+  // CALL ACTION
+  const phoneNumber = "9905234866";
 
   const handleCallClick = () => {
     window.location.href = `tel:${phoneNumber}`;
@@ -79,7 +79,7 @@ const hr = () => {
       <div className="fixed top-0 left-0 w-full z-50 font-sans bg-gray-100">
 
         {/* 🔹 TOP BAR */}
-        <div className="bg-green-700 text-white text-xs md:text-sm h-10 flex items-center px-3">
+        <div className="bg-green-700 text-white text-xs md:text-sm h-8 flex items-center px-3">
           <div className="w-full max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
@@ -102,25 +102,25 @@ const hr = () => {
               <Link to={'https://x.com/ecokisanchoice'}><FaTwitter /></Link>
               <Link to={'https://www.youtube.com/@ecokisanchoice'}><FaYoutube /></Link>
               <Link to={'https://www.linkedin.com/company/ecokisanchoice'}><FaLinkedin /></Link>
-          <button onClick={hr} className="bg-green-650 hover:bg-green-500 rounded-xl p-2">Admin / HR</button>
+              <button onClick={hr} className="bg-green-650 hover:bg-green-500 rounded-xl p-2">Admin / HR</button>
             </div>
           </div>
         </div>
 
         {/* 🔹 MAIN NAVBAR */}
-        <div className="  h-16 flex items-center">
-          <div className="max-w-7xl mx-auto w-full px-4 flex items-center justify-between ">
+        <div className="  h-18 flex items-center">
+          <div className="max-w-7xl mx-auto w-full  flex items-center justify-between ">
 
-           {/* LOGO */}
-<div className="flex items-center">
-  <img
-    src="Logo.png"
-    alt="Logo"
-    className="h-9 w-auto md:h-12 object-contain"
-  />
-</div>
+            {/* LOGO */}
+            <div className="flex items-start ">
+              <img
+                src="Logo.png"
+                alt="Logo"
+                className="h-12 w-auto md:h-14 object-contain"
+              />
+            </div>
             {/* DESKTOP MENU */}
-            <div className="hidden md:flex items-center gap-6 text-gray-700 font-medium">
+            <div className="hidden md:flex items-center gap-4 text-gray-700 font-medium">
 
               <Link to="/" className="hover:text-green-600">HOME</Link>
               <Link to="/about" className="hover:text-green-600">ABOUT US</Link>
@@ -196,17 +196,17 @@ const hr = () => {
 
             {/* DESKTOP BUTTONS */}
             <div className="hidden md:flex gap-3">
-              <button onClick={()=>navigate('/distributionform')} className="bg-yellow-500 cursor-pointer hover:bg-yellow-600 text-white px-3 py-2 text-sm rounded-lg shadow">
-               Distribution Form
+              <button onClick={() => navigate('/distributionform')} className="bg-yellow-500 cursor-pointer hover:bg-yellow-600 text-white px-3 py-2 text-sm rounded-lg shadow">
+                Distribution Form
               </button>
-              <button onClick={()=>navigate('/distagreement')} className="bg-red-400 hover:bg-red-500 cursor-pointer text-white px-3 py-2 text-sm rounded-lg shadow">
-               Distribution Agreement
+              <button onClick={() => navigate('/distagreement')} className="bg-red-400 hover:bg-red-500 cursor-pointer text-white px-3 py-2 text-sm rounded-lg shadow">
+                Distribution Agreement
               </button>
-              <button onClick={()=>navigate('/catalog')} className="bg-green-800 hover:bg-green-900 cursor-pointer text-white px-3 py-2 text-sm rounded-lg shadow">
+              <button onClick={() => navigate('/catalog')} className="bg-green-700 hover:bg-green-900 cursor-pointer text-white px-3 py-2 text-sm rounded-lg shadow">
                 Catalog
               </button>
             </div>
-            
+
 
             {/* MOBILE HAMBURGER */}
             <div className="md:hidden">
@@ -231,9 +231,15 @@ const hr = () => {
           >
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold">KISAN AGRO</h2>
+             <div className="flex items-start ">
+              <img
+                src="Logo.png"
+                alt="Logo"
+                className="h-10 w-auto md:h-14 object-contain"
+              />
+            </div>
               <button onClick={() => setIsOpen(false)}>
-                <X size={22} />
+                <X size={32} />
               </button>
             </div>
 
@@ -241,13 +247,13 @@ const hr = () => {
             <div className="space-y-3">
 
               {/* ✅ FIX: phoneclose replaced with proper close handler */}
-              <Link onClick={() => setIsOpen(false)} to="/" className="block px-4 py-2 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/" className="block px-4 py-3 rounded-xl bg-white/10">
                 Home
               </Link>
-              <Link onClick={() => setIsOpen(false)} to="/about" className="block px-4 py-2 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/about" className="block px-4 py-3 rounded-xl bg-white/10">
                 About
               </Link>
-              <Link onClick={() => setIsOpen(false)} to="/shop" className="block px-4 py-2 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/shop" className="block px-4 py-3 rounded-xl bg-white/10">
                 Product
               </Link>
 
@@ -255,7 +261,7 @@ const hr = () => {
               <div className="bg-white/10 rounded-xl overflow-hidden">
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="w-full flex justify-between items-center px-4 py-2"
+                  className="w-full flex justify-between items-center px-4 py-3"
                 >
                   OUR RANGE
                   <span className={`transition ${showDropdown ? "rotate-90" : ""}`}>›</span>
@@ -273,10 +279,10 @@ const hr = () => {
                         <div key={i} className="border-b">
                           <div
                             onClick={() => setActiveCategory(cat)}
-                            className="px-4 py-2 font-medium flex justify-between cursor-pointer hover:bg-gray-100"
+                            className="px-4 py-3 font-medium flex justify-between cursor-pointer hover:bg-gray-100"
                           >
                             {cat}
-                            <span>›</span>
+                            <span className="">›</span>
                           </div>
 
                           {activeCategory === cat && categories[cat] && (
@@ -298,7 +304,7 @@ const hr = () => {
                       ))}
 
                       {/* ✅ FIX: Standalone items use closeAllAndNavigate */}
-                      <div className="ml-3.5 py-2 space-y-2">
+                      <div className="ml-3.5 py-3 space-y-2">
                         <p onClick={goToAlsi} className="cursor-pointer hover:text-orange-500 py-1">Alsi Oil</p>
                         <p onClick={goToPooja} className="cursor-pointer hover:text-orange-500 py-1">Pooja Oil</p>
                         <p onClick={goToGround} className="cursor-pointer hover:text-orange-500 py-1">Groundnut Oil</p>
@@ -308,10 +314,10 @@ const hr = () => {
                 </AnimatePresence>
               </div>
 
-              <Link onClick={() => setIsOpen(false)} to="/contact" className="block px-4 py-2 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/contact" className="block px-4 py-3 rounded-xl bg-white/10">
                 Contact
               </Link>
-              <Link onClick={() => setIsOpen(false)} to="/career" className="block px-4 py-2 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/career" className="block px-4 py-3 rounded-xl bg-white/10">
                 Career
               </Link>
 
@@ -319,10 +325,10 @@ const hr = () => {
 
             {/* Buttons */}
             <div className="mt-6 space-y-3">
-              <button className="w-full py-2 rounded-xl bg-yellow-600">Distribution Form</button>
-              <button className="w-full py-2 rounded-xl bg-red-400">Distribution Agreement</button>
-              <button className="w-full py-2 rounded-xl bg-green-900">Catalog</button>
-              <button onClick={hr} className="w-full py-2 rounded-xl bg-green-900 ">Admin / HR</button>
+              <button className="w-full py-3 rounded-xl bg-yellow-600">Distribution Form</button>
+              <button className="w-full py-3 rounded-xl bg-red-400">Distribution Agreement</button>
+              <button className="w-full py-3 rounded-xl bg-green-900">Catalog</button>
+              <button onClick={hr} className="w-full py-3 rounded-xl bg-green-900 ">Admin / HR</button>
             </div>
           </motion.div>
         )}
