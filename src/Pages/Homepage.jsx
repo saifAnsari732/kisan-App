@@ -67,7 +67,7 @@ export default function HeroCarousel() {
   return (
     <>
       <div className="w-full flex justify-center  md:py-6 bg-gray-100 ">
-        <div className="relative w-full md:w-[90%] h-[65vh] md:h-[75vh] overflow-hidden md:rounded-3xl md:shadow-lg ">
+        <div className="relative w-full md:w-[90%] h-[60vh] md:h-[65vh] overflow-hidden md:rounded-3xl md:shadow-lg  ">
           <AnimatePresence custom={direction}>
             <motion.div
               key={current}
@@ -76,12 +76,12 @@ export default function HeroCarousel() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: direction > 0 ? "-100%" : "100%", opacity: 1 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="absolute inset-0 flex items-center justify-center w-full h-full"
+              className="absolute inset-0 flex items-center justify-center w-full h-full "
             >
               <img
                 src={slides[current].img}
                 alt="hero"
-                className="w-full h-full object-cove object-center md:rounded-3xl"
+                className="w-full  h-full object-cove object-center md:rounded-3xl rounded-3xl"
               />
             </motion.div>
             <SocialSidebar />
