@@ -5,6 +5,9 @@ import SocialSidebar from "../Compnents/SocialmediaIcon";
 import CategorySection from "./CategorySection";
 import mapimg from '../../public/map.png'
 import FetureProduct from "./FetureProduct";
+import Testimonials from "../Compnents/Testimonials";
+import FAQ from "./FreQuestion";
+import Reviews from "./Reviews";
 
 
 
@@ -121,7 +124,7 @@ export default function HeroCarousel() {
 
     {/* map image  */}
    {/* ✅ MAP SECTION */}
-<div className="w-full bg-gray-100  px-4">
+<div className="w-full bg-gray-100 pt-8 px-4">
   
   <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
     
@@ -152,13 +155,16 @@ export default function HeroCarousel() {
       <img
         src={mapimg}
         alt="map"
-        className="w-full h-auto md:h-[550px] object-cove  rounded-4xl object-contai"
+        className="w-full h-auto md:h-[700px] object-cover  rounded-[50px] object-contai"
       />
     </div>
 
   </div>
 </div>
     <FetureProduct/>
+    <Testimonials/>
+    <Reviews/>
+    <FAQ/>
     </>
   );
 }

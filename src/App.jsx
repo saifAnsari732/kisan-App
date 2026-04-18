@@ -6,6 +6,8 @@ import WhatsapForm from './Compnents/WhatsappForm'
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
+import Reviews from './Pages/Reviews'
+import PreviewPage from './Pages/PreviewPage'
 
 // 🔥 Lazy Load Pages
 const HeroCarousel = lazy(() => import('./Pages/Homepage'));
@@ -26,6 +28,10 @@ const Rcoconut = lazy(() => import('./Pages/RefiendOil/Rcoconut'));
 const Alsi = lazy(() => import('./Pages/AlsiOil'));
 const Pooja = lazy(() => import('./Pages/PoojaOil'));
 const Ground = lazy(() => import('./Pages/GroundnutOil'));
+const Distribution=lazy(()=>import('./Compnents/DistributionForm'))
+const Distagreement=lazy(()=>import('./Compnents/AgreementViewer'))
+const Catalog=lazy(()=>import('./Compnents/Catalog'))
+const Testmonial=lazy(()=>import('./Compnents/Testimonials'))
 
 function App() {
   return (
@@ -62,6 +68,12 @@ function App() {
           <Route path="/alsi" element={<Alsi />} />
           <Route path="/pooja" element={<Pooja />} />
           <Route path="/ground" element={<Ground />} />
+          <Route path="/distributionform" element={<Distribution />} />
+          <Route path="/distagreement" element={<Distagreement />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/testmonial" element={<Testmonial />} />
+          <Route path="/review" element={<Reviews />} />
+          <Route path="/jobdata" element={<PreviewPage />} />
         </Routes>
       </Suspense>
 

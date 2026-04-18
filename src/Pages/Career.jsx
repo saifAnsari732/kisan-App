@@ -20,10 +20,16 @@ export default function Career() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("User Data:", formData);
+    // old data lo
+  const existingData = JSON.parse(localStorage.getItem("applyData")) || [];
 
-    alert("Application Submitted Successfully ✅");
+  // new data add karo
+  const updatedData = [...existingData, formData];
+
+  // save again
+  localStorage.setItem("applyData", JSON.stringify(updatedData));
   };
+
 
   return (
     <div className="bg-gray-100">
@@ -127,7 +133,7 @@ export default function Career() {
                 accept=".pdf,.doc,.docx"
                 onChange={handleChange}
                 className="w-full text-sm"
-                required
+
               />
             </div>
 

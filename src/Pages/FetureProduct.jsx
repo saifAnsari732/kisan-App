@@ -11,17 +11,16 @@ const FetureProduct = () => {
   ];
 
   return (
-    <section className="py-5 bg-gray-100" id="products">
+    <section className="py-5 pt-8 bg-gray-100" id="products">
       <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
         Our Products
       </h2>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-4 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6  px-4 max-w-7xl ">
         
         {categories.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition"
+            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition pt-2"
           >
             {/* Image */}
             <div className="h-48 flex items-center justify-center bg-gray-50">

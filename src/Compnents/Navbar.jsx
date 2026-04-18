@@ -56,6 +56,23 @@ export default function Navbar() {
     ],
   };
 
+let conform="hr1"
+const hr = () => {
+  const value = window.prompt("Enter Role (HR)");
+
+  if (value === conform) {
+    navigation.navigate("/jobdata");
+  } else {
+    alert("Invalid Role");
+  }
+};
+
+// CALL ACTION
+ const phoneNumber = "9905234866";
+
+  const handleCallClick = () => {
+    window.location.href = `tel:${phoneNumber}`;
+  };
   return (
     <>
       {/* ✅ FIXED HEADER */}
@@ -69,7 +86,7 @@ export default function Navbar() {
                 <Phone size={14} />
                 <span>1800 8890 860</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div onClick={handleCallClick} className="flex items-center gap-2 cursor-pointer">
                 <Phone size={14} />
                 <span>6390059995</span>
               </div>
@@ -78,12 +95,14 @@ export default function Navbar() {
                 <span>info@kisangroups.in</span>
               </div>
             </div>
+
             <div className="hidden md:flex items-center gap-3">
-              <FaFacebook />
-              <FaInstagram />
-              <FaTwitter />
-              <FaLinkedin />
-              <FaYoutube />
+              <Link to={'https://www.facebook.com/ecokisanchoice/'}><FaFacebook /></Link>
+              <Link to={'https://www.instagram.com/kisan.choice'}><FaInstagram /></Link>
+              <Link to={'https://x.com/ecokisanchoice'}><FaTwitter /></Link>
+              <Link to={'https://www.youtube.com/@ecokisanchoice'}><FaYoutube /></Link>
+              <Link to={'https://www.linkedin.com/company/ecokisanchoice'}><FaLinkedin /></Link>
+          <button onClick={hr} className="bg-green-650 hover:bg-green-500 rounded-xl p-2">Admin / HR</button>
             </div>
           </div>
         </div>
@@ -172,16 +191,17 @@ export default function Navbar() {
 
             {/* DESKTOP BUTTONS */}
             <div className="hidden md:flex gap-3">
-              <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 text-sm rounded-lg shadow">
-                Form
+              <button onClick={()=>navigate('/distributionform')} className="bg-yellow-500 cursor-pointer hover:bg-yellow-600 text-white px-3 py-2 text-sm rounded-lg shadow">
+               Distribution Form
               </button>
-              <button className="bg-red-400 hover:bg-red-500 text-white px-3 py-2 text-sm rounded-lg shadow">
-                Agreement
+              <button onClick={()=>navigate('/distagreement')} className="bg-red-400 hover:bg-red-500 cursor-pointer text-white px-3 py-2 text-sm rounded-lg shadow">
+               Distribution Agreement
               </button>
-              <button className="bg-green-800 hover:bg-green-900 text-white px-3 py-2 text-sm rounded-lg shadow">
+              <button onClick={()=>navigate('/catalog')} className="bg-green-800 hover:bg-green-900 cursor-pointer text-white px-3 py-2 text-sm rounded-lg shadow">
                 Catalog
               </button>
             </div>
+            
 
             {/* MOBILE HAMBURGER */}
             <div className="md:hidden">
@@ -294,9 +314,10 @@ export default function Navbar() {
 
             {/* Buttons */}
             <div className="mt-6 space-y-3">
-              <button className="w-full py-2 rounded-xl bg-yellow-500">Form</button>
-              <button className="w-full py-2 rounded-xl bg-red-400">Agreement</button>
+              <button className="w-full py-2 rounded-xl bg-yellow-600">Distribution Form</button>
+              <button className="w-full py-2 rounded-xl bg-red-400">Distribution Agreement</button>
               <button className="w-full py-2 rounded-xl bg-green-900">Catalog</button>
+              <button onClick={hr} className="w-full py-2 rounded-xl bg-green-900 ">Admin / HR</button>
             </div>
           </motion.div>
         )}
