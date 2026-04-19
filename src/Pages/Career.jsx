@@ -28,7 +28,16 @@ export default function Career() {
 
   // save again
   localStorage.setItem("applyData", JSON.stringify(updatedData));
-  };
+ 
+  // reset form
+    setFormData({
+      email: "",
+      name: "",
+      phone: "",
+      position: "",
+    });
+
+};
 
 
   return (

@@ -6,6 +6,7 @@ import {
   FaPinterestP,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function SocialSidebar() {
 
@@ -51,12 +52,12 @@ export default function SocialSidebar() {
   return (
     <div className="fixed top-1/2 left-0 -translate-y-1/2 z-50 hidden md:block">
       {socials.map((item, i) => (
-        <a
+        <Link
           key={i}
-          href={item.url}
+          to={item.url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`group flex items-center rounded-md ${item.color} text-white cursor-pointer overflow-hidden transition-all duration-300 hover:w-40 w-12`}
+          className={`group flex items-center rounded-r-md ${item.color} text-white cursor-pointer overflow-hidden transition-all duration-300 hover:w-40 w-12`}
         >
           {/* Icon */}
           <div className="p-3 text-lg flex-shrink-0">
@@ -67,7 +68,7 @@ export default function SocialSidebar() {
           <span className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap">
             {item.name}
           </span>
-        </a>
+        </Link>
       ))}
     </div>
   );

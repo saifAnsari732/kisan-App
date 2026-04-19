@@ -6,7 +6,7 @@ import {
   FaTwitter,
   FaLinkedin,
   FaYoutube,
-} from "react-icons/fa";
+} from "react-icons/fa";  
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -25,18 +25,19 @@ export default function Navbar() {
         setShowDropdown(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // ✅ FIX: Close dropdown + mobile menu, then navigate
+  //✅ FIX: Close dropdown + mobile menu, then navigate
   const closeAllAndNavigate = (path) => {
     setShowDropdown(false);
     setIsOpen(false);
     navigate(path);
   };
 
-  // ✅ FIX: Individual named handlers now use closeAllAndNavigate
+  //✅ FIX: Individual named handlers now use closeAllAndNavigate
   const goToAlsi = () => closeAllAndNavigate("/alsi");
   const goToPooja = () => closeAllAndNavigate("/pooja");
   const goToGround = () => closeAllAndNavigate("/ground");
@@ -114,9 +115,10 @@ export default function Navbar() {
             {/* LOGO */}
             <div className="flex items-start ">
               <img
+              onClick={()=>navigate('/')}
                 src="Logo.png"
                 alt="Logo"
-                className="h-12 w-auto md:h-14 object-contain"
+                className="h-12 w-auto md:h-14 object-contain cursor-pointer"
               />
             </div>
             {/* DESKTOP MENU */}
@@ -209,9 +211,9 @@ export default function Navbar() {
 
 
             {/* MOBILE HAMBURGER */}
-            <div className="md:hidden">
+            <div className="md:hidden mr-2 ">
               <button onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? <X /> : <Menu />}
+                {isOpen ? <X /> : <Menu size={30} />}
               </button>
             </div>
 
@@ -227,7 +229,7 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.35 }}
-            className="fixed top-0 right-0 w-full max-w-sm h-screen bg-gradient-to-b from-green-800 via-green-700 to-green-600 text-white z-50 px-5 py-4 shadow-2xl overflow-y-auto text-sm"
+            className="fixed top-0 right-0 w-full max-w-sm h-screen bg-gradient-to-b from-green-300 via-gray-400 to-gray-200 text-black z-50 px-5 py-4 overflow-y-auto text-sm"
           >
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
@@ -247,18 +249,18 @@ export default function Navbar() {
             <div className="space-y-3">
 
               {/* ✅ FIX: phoneclose replaced with proper close handler */}
-              <Link onClick={() => setIsOpen(false)} to="/" className="block px-4 py-3 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/" className="block px-4 py-3 rounded-xl bg-white/100">
                 Home
               </Link>
-              <Link onClick={() => setIsOpen(false)} to="/about" className="block px-4 py-3 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/about" className="block px-4 py-3 rounded-xl bg-white/100">
                 About
               </Link>
-              <Link onClick={() => setIsOpen(false)} to="/shop" className="block px-4 py-3 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/shop" className="block px-4 py-3 rounded-xl bg-white/100">
                 Product
               </Link>
 
               {/* ✅ MOBILE DROPDOWN */}
-              <div className="bg-white/10 rounded-xl overflow-hidden">
+              <div className="bg-white/100 rounded-xl overflow-hidden">
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
                   className="w-full flex justify-between items-center px-4 py-3"
@@ -314,10 +316,10 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
 
-              <Link onClick={() => setIsOpen(false)} to="/contact" className="block px-4 py-3 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/contact" className="block px-4 py-3 rounded-xl bg-white/100">
                 Contact
               </Link>
-              <Link onClick={() => setIsOpen(false)} to="/career" className="block px-4 py-3 rounded-xl bg-white/10">
+              <Link onClick={() => setIsOpen(false)} to="/career" className="block px-4 py-3 rounded-xl bg-white/100">
                 Career
               </Link>
 

@@ -69,6 +69,9 @@ export default function Reviews() {
           1024: { slidesPerView: 3 },
         }}
       >
+
+{/* nlgpothrohhjtojtopote */}
+
         {reviews.map((review, index) => (
           <SwiperSlide key={index}>
             <div className="bg-gradient-to-r from-green-200  to-green-200 text-black p-6 rounded-xl shadow-lg text-center h-full flex flex-col justify-between">

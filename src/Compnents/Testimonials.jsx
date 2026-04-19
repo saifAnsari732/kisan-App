@@ -30,7 +30,6 @@ export default function Testimonials() {
         modules={[Navigation, Autoplay]}
         spaceBetween={20}
         slidesPerView={4}
-        navigation
         autoplay={{ delay: 2500 }}
         breakpoints={{
           0: { slidesPerView: 1 },
@@ -41,11 +40,11 @@ export default function Testimonials() {
       >
         {videos.map((video, index) => (
           <SwiperSlide key={index}>
-            <div className="bg-white p-3 shadow rounded">
+            <div className="bg-white p-3 shadow rounded ">
 
               <iframe
                 width="100%"
-                height="200"
+                height="250"
                 src={video}
                 title={`video-${index}`}
                 frameBorder="0"
