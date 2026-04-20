@@ -7,7 +7,7 @@ export default function About() {
       {/* HERO */}
       <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-5 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          About Kisan Agro
+          About KisanChoice
         </h1>
         <p className="max-w-2xl mx-auto text-sm md:text-base text-gray-200">
           Delivering purity, health, and trust in every drop of oil across India.

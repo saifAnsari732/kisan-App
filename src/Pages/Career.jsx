@@ -47,7 +47,7 @@ export default function Career() {
       <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-5 text-center">
         <h1 className="text-4xl font-bold mb-3">Join Our Team</h1>
         <p className="text-gray-200 text-sm">
-          Build your career with Kisan Agro 🚀
+          Build your career with KisanChoice 
         </p>
       </div>
 
@@ -70,6 +70,21 @@ export default function Career() {
                 title: "Marketing Manager",
                 location: "Lucknow",
                 exp: "3+ Years",
+              },
+               {
+                title: "TeleSales",
+                location: "Lucknow",
+                exp: "1+ Years",
+              },
+               {
+                title: "Graphics Designer",
+                location: "Lucknow",
+                exp: "1+ Years",
+              },
+              {
+                title: "Office Staff",
+                location: "Lucknow",
+                exp: "1+ Years",
               },
             ].map((job, i) => (
               <div
@@ -129,6 +144,10 @@ export default function Career() {
               <option value="">Select Position</option>
               <option>Sales Executive</option>
               <option>Marketing Manager</option>
+               <option>TeleSales (WFH)</option>
+               <option>TeleSales (WFO)</option>
+               <option>Graphics Designer</option>
+               <option>Video Edditor</option>
             </select>
 
             {/* Resume Upload */}
@@ -142,7 +161,6 @@ export default function Career() {
                 accept=".pdf,.doc,.docx"
                 onChange={handleChange}
                 className="w-full text-sm"
-
               />
             </div>
 

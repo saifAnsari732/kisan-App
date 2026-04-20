@@ -74,15 +74,28 @@ LOCATION: ${location}`;
                             required
                         />
                     </div>
+                    <div>
+                        <label className="text-sm font-medium text-gray-700">
+                            Phone No
+                        </label>
+                        <input
+                            type="email"
+                            placeholder="Enter your Number"
+                            className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
 
                     {/* Location */}
                     <div>
                         <label className="text-sm font-medium text-gray-700">
-                            Location
+                            Address
                         </label>
                         <input
                             type="text"
-                            placeholder="Enter your location"
+                            placeholder="Enter your Address"
                             className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}

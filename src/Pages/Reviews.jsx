@@ -70,7 +70,7 @@ export default function Reviews() {
         }}
       >
 
-{/* nlgpothrohhjtojtopote */}
+
 
         {reviews.map((review, index) => (
           <SwiperSlide key={index}>

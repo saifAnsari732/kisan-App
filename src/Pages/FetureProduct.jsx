@@ -16,7 +16,7 @@ const FetureProduct = () => {
         Our Products
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6  px-4 max-w-7xl ">
-        
+         
         {categories.map((item, index) => (
           <div
             key={index}
