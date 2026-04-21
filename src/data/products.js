@@ -1,8 +1,13 @@
 export const products = [
   {
     id: 1,
-    title: "MUSTARD OILS",
+    title: "INDIAN CHOICE MUSTARD OILS",
     img: "/34.png",
+     images: [
+      "/3.png",        // default
+      "/112.png",  // 500ml
+      "/34.png",  // 500ml
+    ],
     category: "Mustard Oil",
     description:
       "Premium quality mustard oil with strong natural aroma, perfect for traditional Indian cooking and pickles.",
@@ -17,8 +22,14 @@ export const products = [
   },
   {
     id: 2,
-    title: "REFINED OILS",
+    title:  "SUNFLOWER REFINED OILS",
     img: "/36.png",
+    images: [
+      "/6.png",        // default
+      "/12.png",  // 500ml
+      "/36.png", // 1L
+     
+    ],
     category: "Refined Oil",
     description:
       "Light, odorless refined oil ideal for everyday cooking with a high smoke point.",
@@ -33,8 +44,14 @@ export const products = [
   },
   {
     id: 3,
-    title: "VEGETABLE OILS",
+    title: "KISAN CHOICE KACHI GHANI OILS",
     img: "/35.png",
+    images: [
+      "/35.png",        // default
+      "/113.png",  // 500ml
+      "/2.png", // 1L
+     
+    ],
     category: "Vegetable Oil",
     description:
       "Versatile vegetable oil suitable for all types of cooking needs.",
@@ -49,8 +66,14 @@ export const products = [
   },
   {
     id: 4,
-    title: "COLD PRESSED",
+    title: "KISAN CHOICE REFINED SOYABEAN OIL",
     img: "/37.png",
+    images: [
+      "/37.png",        // default
+      "/114.png",  // 500ml
+      "/1.png", // 1L
+     
+    ],
     category: "Cold Pressed",
     description:
       "100% natural cold pressed oil retaining maximum nutrients and flavor.",
@@ -143,15 +166,20 @@ export const products = [
       "Affordable"
     ]
   },
-  {
+ {
     id: 10,
     title: "SUNFLOWER OIL",
-    img: "/6.png",
+    img: "/6.png", // default main image
+    images: [
+      "/6.png",        // default
+      "/12.png",  // 500ml
+      "/suncard.png", // 1L
+     
+    ],
     category: "Refined Oil",
-    description:
-      "Healthy sunflower oil rich in Vitamin E and antioxidants.",
+    description: "Healthy sunflower oil rich in Vitamin E and antioxidants.",
     about:
-      "Sunflower oil is known for its light texture and health benefits. It helps maintain heart health and is suitable for all types of cooking.",
+      "Sunflower oil is known for its light texture and health benefits.",
     benefits: [
       "Rich in Vitamin E",
       "Heart-friendly",

@@ -13,10 +13,10 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
   const navigate = useNavigate();
 
   const categories = [
-    { id: 1, title: "MUSTARD OILS", img: "/34.png", category: "Mustard Oil" },
-    { id: 2, title: "REFINED OILS", img: "/36.png", category: "Refined Oil" },
-    { id: 3, title: "VEGETABLE OILS", img: "/35.png", category: "Vegetable Oil" },
-    { id: 4, title: "COLD PRESSED", img: "/37.png", category: "Cold Pressed" },
+    { id: 1, title:  "IMDIAN CHOICE OILS", img: "/34.png", category: "Mustard Oil" },
+    { id: 2, title: "KISAN CHOICE REFINED ", img: "/36.png", category: "Refined Oil" },
+    { id: 3, title: "KISAN CHOICE MUSTARD", img: "/35.png", category: "Vegetable Oil" },
+    { id: 4, title: "KISAN CHOICE REFINED", img: "/37.png", category: "Cold Pressed" },
     { id: 5, title: "SOYABEAN OILS", img: "/1.png", category: "Vegetable Oil" },
     { id: 6, title: "KACHIGHANI OILS", img: "/2.png", category: "Mustard Oil" },
     { id: 7, title: "KACHIGHANI MUSTARD", img: "/3.png", category: "Mustard Oil" },
@@ -60,7 +60,7 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
                     <img
                       src={item.img}
                       alt={item.title}
-                      className="h-40 object-contain drop-shadow-lg"
+                      className="h-55 object-contain drop-shadow-lg"
                     />
                   </div>
 
@@ -111,7 +111,7 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
                       <img
                         src={item.img}
                         alt={item.title}
-                        className="h-40 object-contain drop-shadow-lg"
+                        className="h-55 object-contain drop-shadow-lg"
                       />
                     </div>
 
