@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import Reviews from './Pages/Reviews'
 import PreviewPage from './Pages/PreviewPage'
+import ProductDetails from './Pages/ProductDetails'
 
 // 🔥 Lazy Load Pages
 const HeroCarousel = lazy(() => import('./Pages/Homepage'));
@@ -73,6 +74,11 @@ function App() {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/testmonial" element={<Testmonial />} />
           <Route path="/review" element={<Reviews />} />
+         
+         <Route path="/product/:id" element={<ProductDetails />} />
+  
+        
+        
           <Route path="/jobdata" element={<PreviewPage />} />
         </Routes>
       </Suspense>

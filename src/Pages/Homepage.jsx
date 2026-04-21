@@ -28,7 +28,8 @@ export default function HeroCarousel() {
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== "undefined" ? window.innerWidth < 768 : false
   );
-
+ const [selected, setSelected] = useState("All");
+  const [viewAll, setViewAll] = useState(false);
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
     const handleChange = (e) => setIsMobile(e.matches);
@@ -160,7 +161,9 @@ export default function HeroCarousel() {
 
         </div>
       </div>
-      <FetureProduct />
+
+      <FetureProduct selectedCategory={selected} />
+
       <Testimonials />
       <Reviews />
       <FAQ />

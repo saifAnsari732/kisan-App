@@ -60,26 +60,12 @@ LOCATION: ${location}`;
                         />
                     </div>
 
-                    {/* Email */}
-                    <div>
-                        <label className="text-sm font-medium text-gray-700">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
                     <div>
                         <label className="text-sm font-medium text-gray-700">
                             Phone No
                         </label>
                         <input
-                            type="email"
+                            type="number"
                             placeholder="Enter your Number"
                             className="w-full mt-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
                             value={email}

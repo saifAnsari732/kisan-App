@@ -229,7 +229,7 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.35 }}
-            className="fixed top-0 right-0 w-full max-w-sm h-screen bg-gradient-to-b from-green-300 via-gray-400 to-gray-200 text-black z-50 px-5 py-4 overflow-y-auto text-sm"
+            className="fixed top-0 right-0 w-70  h-screen bg-gradient-to-b from-green-300 via-gray-400 to-gray-200 text-black z-50 px-5 py-4 overflow-y-auto text-sm"
           >
             {/* Header */}
             <div className="flex justify-between items-center mb-6">

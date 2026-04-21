@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import FetureProduct from "./FetureProduct";
 import AvailableOn from "./AvailableOn";
 import FAQ from "./FreQuestion";
 
 export default function Kachighani() {
+             const [selected, setSelected] = useState("All");
+    
     return (
         <div className="w-full bg-gray-50">
 
@@ -105,7 +107,8 @@ export default function Kachighani() {
 
                 </div>
             </div>
-               <FetureProduct/>
+                             <FetureProduct selectedCategory={selected}/>
+
                <AvailableOn/>
                <FAQ/>
         </div>
