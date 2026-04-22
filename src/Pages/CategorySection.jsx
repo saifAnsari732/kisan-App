@@ -77,7 +77,7 @@ export default function CategorySection() {
               >
                 {/* CARD */}
                 <div className={`relative h-72 rounded-3xl ${item.color} shadow-xl`}>
-                  <h2 className="absolute inset-0 flex items-center justify-center text-white font-[900] tracking-widest rotate-90 text-lg">
+                  <h2 className="absolute inset-0 flex items-center justify-start text-white font-[800] py-2 mt-4 tracking-widest rotate-90 text-lg">
                     {item.title}
                   </h2>
                 </div>
