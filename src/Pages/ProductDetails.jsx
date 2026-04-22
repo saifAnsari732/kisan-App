@@ -135,13 +135,13 @@ const ProductDetails = () => {
               onClick={handleCallClick}
               className="flex-1 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700"
             >
-              📞 Call
+               Call
             </button>
             <button
               onClick={() => navigate('/form')}
               className="flex-1 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600"
             >
-              💬 WhatsApp
+               WhatsApp
             </button>
           </div>
 

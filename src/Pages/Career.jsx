@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { FaLocationDot } from "react-icons/fa6";
 export default function Career() {
   const [formData, setFormData] = useState({
     name: "",
@@ -93,7 +93,7 @@ export default function Career() {
               >
                 <h3 className="font-semibold text-lg">{job.title}</h3>
                 <p className="text-sm text-gray-600">
-                  📍 {job.location} | 💼 {job.exp}
+                  <FaLocationDot className="flex inline text-black"/>  {job.location} | {job.exp}
                 </p>
               </div>
             ))}
