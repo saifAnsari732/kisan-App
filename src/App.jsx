@@ -4,6 +4,10 @@ import Footer from './Compnents/Footer'
 import MobileNavbar from './Compnents/Btmnavbar'
 import WhatsapForm from './Compnents/WhatsappForm'
 
+import CategoryPage from "./pages/CategoryPage";
+import Vegitbl from './Pages/VagitableOil'
+import Coldpress from './Pages/Coldpresed'
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import Reviews from './Pages/Reviews'
@@ -33,9 +37,7 @@ const Distribution=lazy(()=>import('./Compnents/DistributionForm'))
 const Distagreement=lazy(()=>import('./Compnents/AgreementViewer'))
 const Catalog=lazy(()=>import('./Compnents/Catalog'))
 const Testmonial=lazy(()=>import('./Compnents/Testimonials'))
-import CategoryPage from "./pages/CategoryPage";
-import Vegitbl from './Pages/VagitableOil'
-import Coldpress from './Pages/Coldpresed'
+
 function App() {
   return (
     <BrowserRouter>

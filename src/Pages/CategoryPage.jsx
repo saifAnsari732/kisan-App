@@ -1,7 +1,7 @@
 import { useParams,Link } from "react-router-dom";
 import categories from "../data/categories";
 
-export default function CategoryPage() {
+export default function Categorypage() {
   const { id } = useParams();
   const category = categories.find((c) => c.id === id);
 
