@@ -4,7 +4,7 @@ import Footer from './Compnents/Footer'
 import MobileNavbar from './Compnents/Btmnavbar'
 import WhatsapForm from './Compnents/WhatsappForm'
 
-import CategoryPage from "./pages/CategoryPage";
+import Categrypage from "./pages/CategoryPage";
 import Vegitbl from './Pages/VagitableOil'
 import Coldpress from './Pages/Coldpresed'
 
@@ -58,7 +58,7 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/career" element={<Career />} />
-         <Route path="/category/:id" element={<CategoryPage />} />
+         <Route path="/category/:id" element={<Categrypage />} />
           <Route path="/form" element={<WhatsapForm />} />
 
           <Route path="/choice" element={<IndianChoice />} />
