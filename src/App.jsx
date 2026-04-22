@@ -58,7 +58,7 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/career" element={<Career />} />
-         <Route path="/category/:id" element={<Categrypage />} />
+         <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/form" element={<WhatsapForm />} />
 
           <Route path="/choice" element={<IndianChoice />} />

@@ -11,9 +11,13 @@ export default function Footer() {
 
         {/* Company Info */}
         <div>
-          <h2 className="text-2xl font-bold mb-3 text-yellow-400">
-            KISAN AGRO
-          </h2>
+            <img
+                onClick={() => navigate("/")}
+                src="Logo.png"
+                alt="Logo"
+                /* FIX: Consistent sizing across breakpoints */
+                className="h-10 sm:h-12 lg:h-14 w-auto object-contain cursor-pointer"
+              />
           <p className="text-sm text-gray-200 leading-relaxed">
             Trusted name in quality edible oils. Delivering purity, health and
             authentic taste across India with years of excellence.
@@ -21,11 +25,11 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="flex gap-3 mt-4 text-lg">
-            <a href="#" className="hover:text-yellow-400 transition"><FaFacebook /></a>
-            <a href="#" className="hover:text-yellow-400 transition"><FaInstagram /></a>
-            <a href="#" className="hover:text-yellow-400 transition"><FaTwitter /></a>
-            <a href="#" className="hover:text-yellow-400 transition"><FaLinkedin /></a>
-            <a href="#" className="hover:text-yellow-400 transition"><FaYoutube /></a>
+            <a href="https://www.facebook.com/ecokisanchoice/" className="hover:text-yellow-400 transition"><FaFacebook /></a>
+            <a href="https://www.instagram.com/kisan.choice/" className="hover:text-yellow-400 transition"><FaInstagram /></a>
+            <a href="https://x.com/ecokisanchoice" className="hover:text-yellow-400 transition"><FaTwitter /></a>
+            <a href="https://www.linkedin.com/company/ecokisanchoice" className="hover:text-yellow-400 transition"><FaLinkedin /></a>
+            <a href="https://www.youtube.com/@ecokisanchoice" className="hover:text-yellow-400 transition"><FaYoutube /></a>
           </div>
         </div>
 
