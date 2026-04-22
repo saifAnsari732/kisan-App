@@ -33,7 +33,9 @@ const Distribution=lazy(()=>import('./Compnents/DistributionForm'))
 const Distagreement=lazy(()=>import('./Compnents/AgreementViewer'))
 const Catalog=lazy(()=>import('./Compnents/Catalog'))
 const Testmonial=lazy(()=>import('./Compnents/Testimonials'))
-
+import CategoryPage from "./pages/CategoryPage";
+import Vegitbl from './Pages/VagitableOil'
+import Coldpress from './Pages/Coldpresed'
 function App() {
   return (
     <BrowserRouter>
@@ -54,7 +56,7 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/career" element={<Career />} />
-
+         <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/form" element={<WhatsapForm />} />
 
           <Route path="/choice" element={<IndianChoice />} />
@@ -65,6 +67,9 @@ function App() {
           <Route path="/palmleion" element={<Rpalmolein />} />
           <Route path="/sunflower" element={<Rsunflower />} />
           <Route path="/coconut" element={<Rcoconut />} />
+
+          <Route path="/vegitable" element={<Vegitbl />} />
+          <Route path="/coldpress" element={<Coldpress />} />
 
           <Route path="/alsi" element={<Alsi />} />
           <Route path="/pooja" element={<Pooja />} />
