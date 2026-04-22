@@ -154,6 +154,10 @@ export const products = [
     id: 9,
     title: "CUSTOMERCHOICE OIL",
     img: "/5.png",
+    images:[
+        "/ricebran.png",
+        "/5.png"
+    ],
     category: "Refined Oil",
     description:
       "Popular refined oil trusted by customers for daily cooking.",
@@ -223,6 +227,22 @@ export const products = [
     id: 13,
     title: "GROUNDNUT OIL",
     img: "/11.png",
+    category: "Vegetable Oil",
+    description:
+      "Nutritious groundnut oil with rich taste and high smoke point.",
+    about:
+      "Groundnut oil is widely used for frying due to its high smoke point. It is rich in healthy fats and adds a unique flavor to food.",
+    benefits: [
+      "High smoke point",
+      "Rich taste",
+      "Healthy fats",
+      "Perfect for frying"
+    ]
+  },
+  {
+    id: 14,
+    title: "KISAN CHOICE COCONUT OIL",
+    img: "/coconut.png",
     category: "Vegetable Oil",
     description:
       "Nutritious groundnut oil with rich taste and high smoke point.",

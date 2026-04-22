@@ -17,15 +17,16 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
     { id: 2, title: "KISAN CHOICE REFINED ", img: "/36.png", category: "Refined Oil" },
     { id: 3, title: "KISAN CHOICE MUSTARD", img: "/35.png", category: "Vegetable Oil" },
     { id: 4, title: "KISAN CHOICE REFINED", img: "/37.png", category: "Cold Pressed" },
-    { id: 5, title: "SOYABEAN OILS", img: "/1.png", category: "Vegetable Oil" },
-    { id: 6, title: "KACHIGHANI OILS", img: "/2.png", category: "Mustard Oil" },
-    { id: 7, title: "KACHIGHANI MUSTARD", img: "/3.png", category: "Mustard Oil" },
+    { id: 4, title: "SOYABEAN OILS", img: "/1.png", category: "Vegetable Oil" },
+    { id: 3, title: "KACHIGHANI OILS", img: "/2.png", category: "Mustard Oil" },
+    { id: 1, title: "INDIAN CHOICE KACHIGHANI MUSTARD", img: "/3.png", category: "Mustard Oil" },
     { id: 8, title: "KISAN KACHIGHANI", img: "/4.png", category: "Mustard Oil" },
-    { id: 9, title: "CUSTOMERCHOICE OIL", img: "/5.png", category: "Refined Oil" },
+    { id: 9, title: "CUSTOMER CHOICE OIL", img: "/5.png", category: "Refined Oil" },
     { id: 10, title: "SUNFLOWER OIL", img: "/6.png", category: "Refined Oil" },
     { id: 11, title: "ALSI OIL", img: "/9.png", category: "Cold Pressed" },
     { id: 12, title: "POOJA OIL", img: "/10.png", category: "Special Oil" },
-    { id: 13, title: "GROUNDNUT OIL", img: "/11.png", category: "Vegetable Oil" }
+    { id: 13, title: "GROUNDNUT OIL", img: "/11.png", category: "Vegetable Oil" },
+    { id: 14, title: "COCONUT OIL", img: "/coconut.png", category: "Vegetable Oil" }
   ];
 
   const filteredData =
