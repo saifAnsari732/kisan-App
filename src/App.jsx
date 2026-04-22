@@ -4,7 +4,7 @@ import Footer from './Compnents/Footer'
 import MobileNavbar from './Compnents/Btmnavbar'
 import WhatsapForm from './Compnents/WhatsappForm'
 
-import Categrypage from "./pages/CategoryPage";
+import CategoryPage from "./pages/CategoryPage";
 import Vegitbl from './Pages/VagitableOil'
 import Coldpress from './Pages/Coldpresed'
 
