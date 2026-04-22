@@ -3,13 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import SocialSidebar from "../Compnents/SocialmediaIcon";
 import CategorySection from "./CategorySection";
-import mapimg from '../../public/map.png'
+import mapimg from "../../public/map.png";
 import FetureProduct from "./FetureProduct";
 import Testimonials from "../Compnents/Testimonials";
 import FAQ from "./FreQuestion";
 import Reviews from "./Reviews";
-
-
+import "../Styles/Home.css";
 
 const desktopSlides = [
   { id: 1, img: "/img1.png" },
@@ -17,21 +16,20 @@ const desktopSlides = [
   { id: 3, img: "/img3.png" },
 ];
 
-const mobileSlides = [
-  { id: 1, img: "/pimg1.png" },
-  { id: 2, img: "/pimg2.png" },
-];
+const mobileSlides = [{ id: 1, img: "/pimg2.png" }];
 
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1); // 👉 NEW (slide direction)
+  const [direction, setDirection] = useState(1);
   const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth < 768 : false
+    typeof window !== "undefined" ? window.innerWidth <= 650 : false,
   );
- const [selected, setSelected] = useState("All");
+  const [selected, setSelected] = useState("All");
   const [viewAll, setViewAll] = useState(false);
+
+  // Detect mobile/desktop breakpoint at 600px
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
+    const media = window.matchMedia("(max-width: 650px)");
     const handleChange = (e) => setIsMobile(e.matches);
 
     setIsMobile(media.matches);
@@ -42,6 +40,7 @@ export default function HeroCarousel() {
 
   const slides = isMobile ? mobileSlides : desktopSlides;
 
+  // Reset to first slide when switching between mobile/desktop
   useEffect(() => {
     setCurrent(0);
   }, [isMobile]);
@@ -51,7 +50,7 @@ export default function HeroCarousel() {
     const interval = setInterval(() => {
       setDirection(1);
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 4000);
+    }, 500000); // Changed to 5 seconds for better UX
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -67,82 +66,97 @@ export default function HeroCarousel() {
 
   return (
     <>
-      <div className="w-full flex justify-center  md:py-6 bg-gray-100 ">
-        <div className="relative w-full md:w-[90%] h-[60vh] md:h-[65vh] overflow-hidden md:rounded-3xl md:shadow-lg  ">
-          <AnimatePresence custom={direction}>
+      <div className="w-full flex justify-center md:py-6 bg-gray-100 mx-0">
+        <div className="slider-container">
+          <AnimatePresence custom={direction} mode="wait">
             <motion.div
-              key={current}
+              key={`${isMobile ? "mobile" : "desktop"}-${current}`}
               custom={direction}
-              initial={{ x: direction > 0 ? "100%" : "-100%", opacity: 1 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: direction > 0 ? "-100%" : "100%", opacity: 1 }}
+              initial={{ x: direction > 0 ? "100%" : "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: direction > 0 ? "-100%" : "100%" }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="absolute inset-0 flex items-center justify-center w-full h-full "
+              className="slide"
             >
-              <img
-                src={slides[current].img}
-                alt="hero"
-                className="w-full  h-full object-cove object-center md:rounded-3xl rounded-3xl"
-              />
+              <picture className="slide-img">
+                <source
+                  media="(max-width: 650px)"
+                  srcSet={mobileSlides[current % mobileSlides.length].img}
+                />
+                <img
+                  src={desktopSlides[current % desktopSlides.length].img}
+                  className="img"
+                  alt="banner"
+                />
+              </picture>
             </motion.div>
-            <SocialSidebar />
           </AnimatePresence>
 
-          {/* Buttons */}
-          <button
-            onClick={prevSlide}
-            className="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black px-2 rounded-full shadow"
-          >
-            <ChevronLeft />
-          </button>
+          <SocialSidebar />
 
-          <button
-            onClick={nextSlide}
-            className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black px-2 rounded-full shadow"
-          >
-            <ChevronRight />
-          </button>
+          {/* Navigation Buttons - Only show if more than 1 slide */}
+          {slides.length > 1 && (
+            <>
+              <button
+                onClick={prevSlide}
+                className="nav-btn prev"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft size={24} />
+              </button>
 
-          {/* Dots */}
-          <div className="absolute bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {slides.map((_, i) => (
-              <div
-                key={i}
-                onClick={() => {
-                  setDirection(i > current ? 1 : -1);
-                  setCurrent(i);
-                }}
-                className={`w-2 md:w-3 h-2 md:h-3 rounded-full cursor-pointer ${current === i ? "bg-black" : "bg-black/30"
-                  }`}
-              />
-            ))}
-          </div>
+              <button
+                onClick={nextSlide}
+                className="nav-btn next"
+                aria-label="Next slide"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </>
+          )}
+
+          {/* Dots - Only show if more than 1 slide */}
+          {slides.length > 1 && (
+            <div className="dots">
+              {slides.map((_, i) => (
+                <div
+                  key={i}
+                  onClick={() => {
+                    setDirection(i > current ? 1 : -1);
+                    setCurrent(i);
+                  }}
+                  className={`dot ${current === i ? "active" : ""}`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
-      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-6 font-semibold"> OUR CATEGORY</h1>
+
+      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-6 font-semibold">
+        OUR CATEGORY
+      </h1>
       <CategorySection />
 
-      {/* map image  */}
-      {/* ✅ MAP SECTION */}
-      <div className="w-full bg-gray-100  px-4">
-
+      {/* MAP SECTION */}
+      <div className="w-full bg-gray-100 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
-
-          {/* 🔹 LEFT SIDE TEXT */}
+          {/* LEFT SIDE TEXT */}
           <div className="w-full md:w-1/2 space-y-4 px-7">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
               Our Presence Across India
             </h2>
 
             <p className="text-gray-600 leading-relaxed">
-              We are delivering high-quality edible oils across multiple states in India.
-              Our strong distribution network ensures that every household gets pure,
-              healthy, and affordable products.
+              We are delivering high-quality edible oils across multiple states
+              in India. Our strong distribution network ensures that every
+              household gets pure, healthy, and affordable products.
             </p>
 
             <p className="text-gray-600 leading-relaxed">
-              From mustard oil to refined oils, we maintain the highest standards of
-              quality and authenticity in every drop.
+              From mustard oil to refined oils, we maintain the highest
+              standards of quality and authenticity in every drop.
             </p>
 
             <button className="mt-3 px-5 py-2 bg-green-700 text-white rounded-lg shadow hover:bg-green-800 transition">
@@ -150,20 +164,18 @@ export default function HeroCarousel() {
             </button>
           </div>
 
-          {/* 🔹 RIGHT SIDE IMAGE */}
-          <div className="w-full md:w-1/2 mt-6 ">
+          {/* RIGHT SIDE IMAGE */}
+          <div className="w-full md:w-1/2 mt-6">
             <img
               src={mapimg}
-              alt="map"
-              className="w-full h-auto md:h-[700px] object-cover  rounded-[50px] object-contai"
+              alt="India map showing our presence"
+              className="w-full h-auto md:h-[700px] object-cover rounded-[50px]"
             />
           </div>
-
         </div>
       </div>
 
       <FetureProduct selectedCategory={selected} />
-
       <Testimonials />
       <Reviews />
       <FAQ />

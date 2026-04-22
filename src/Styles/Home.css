@@ -1,0 +1,201 @@
+/* ========================================
+   HERO CAROUSEL - FINAL RESPONSIVE CSS
+======================================== */
+
+/* ===== BASE (COMMON) ===== */
+.slider-container {
+  position: relative;
+   width: 100%;     /* 🔥 FULL WIDTH */
+  /* margin: 0 0; */
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;     /* 🔥 fix bottom gap */
+  justify-content: center;
+}
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-position: center;
+}
+
+
+/* ============================= */
+/* 📱 MOBILE (0–650px) */
+/* ============================= */
+@media (max-width: 650px) {
+  .slider-container {
+    height: 70vh;
+    min-height: 500px;
+    max-height: 700px;
+    border-radius: 0;
+  }
+
+  .img {
+    object-fit: cove; 
+    border-radius: 30px;  /* 🔥 full visible */
+  }
+}
+
+
+/* ============================= */
+/* 💻 601px – 800px */
+/* ============================= */
+@media (min-width: 651px) and (max-width: 800px) {
+  .slider-container {
+    width: 95%;
+    height: 52vh;   /* 🔥 reduced to remove gap */
+    margin: 0 0;
+    border-radius: 12px;
+  }
+
+ 
+}
+
+
+/* ============================= */
+/* 💻 801px – 900px */
+/* ============================= */
+@media (min-width: 801px) and (max-width: 900px) {
+  .slider-container {
+    width: 96%;
+    height: 55vh;
+    margin: 0 auto;
+    border-radius: 14px;
+  }
+
+  .img {
+    object-fit: contai;
+  }
+}
+
+
+/* ============================= */
+/* 💻 901px – 1023px */
+/* ============================= */
+@media (min-width: 901px) and (max-width: 1023px) {
+  .slider-container {
+    width: 94%;
+    height: 54vh;
+    margin: 0 auto;
+    border-radius: 16px;
+  }
+
+  .img {
+    object-fit: cove;   /* start fill */
+  }
+}
+
+
+/* ============================= */
+/* 🖥️ 1024px – 1200px */
+/* ============================= */
+@media (min-width: 1024px) and (max-width: 1200px) {
+  .slider-container {
+    width: 92%;
+    height: 54vh;
+    margin: 0 auto;
+    border-radius: 20px;
+  }
+
+  .img {
+    object-fit: cove;
+  }
+}
+
+
+/* ============================= */
+/* 🖥️ 1201px – 1440px */
+/* ============================= */
+@media (min-width: 1201px) and (max-width: 1440px) {
+  .slider-container {
+    width: 90%;
+    height: 68vh;
+    margin: 0 auto;
+    border-radius: 22px;
+  }
+
+  .img {
+    object-fit: cove;
+  }
+}
+
+
+/* ============================= */
+/* 🖥️ 1440px+ */
+/* ============================= */
+@media (min-width: 1441px) {
+  .slider-container {
+    width: 85%;
+    max-width: 2000px;
+    height: 55vh;
+    margin: 0 auto;
+    border-radius: 24px;
+  }
+
+  .img {
+    object-fit: cove;
+  }
+}
+
+
+/* ===== NAV BUTTONS ===== */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  z-index: 10;
+}
+
+.nav-btn.prev { left: 16px; }
+.nav-btn.next { right: 16px; }
+
+@media (min-width: 768px) {
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+
+/* ===== DOTS ===== */
+.dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: black;
+}
