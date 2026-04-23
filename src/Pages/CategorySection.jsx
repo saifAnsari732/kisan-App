@@ -4,14 +4,14 @@ export default function CategorySection() {
   const navigate = useNavigate();
 
   const categories = [
-    { id: "mustard", title: "MUSTARD OILS", color: "bg-red-800", img: "/35.png" },
     { id: "refined", title: "REFINED OILS", color: "bg-lime-600", img: "/37.png" },
+    { id: "mustard", title: "MUSTARD OILS", color: "bg-red-800", img: "/35.png" },
     { id: "vegetable", title: "VEGETABLE OIL", color: "bg-yellow-600", img: "/38.png" },
     { id: "cold", title: "COLD PRESSED", color: "bg-red-500", img: "/39.png" },
   ];
 
   return (
-    <div className="w-full py-4 bg-gray-100">
+    <div className="w-full py-4  bg-gray-100">
 
       {/* ================= MOBILE ================= */}
       <div className="md:hidden px-4 space-y-10">
@@ -26,15 +26,15 @@ export default function CategorySection() {
             >
               <div
                 className={`
-                  relative w-[85%] h-28 rounded-2xl ${item.color}
+                  relative w-[88%] h-28 rounded-2xl ${item.color}
                   shadow-lg px-4 flex items-center
                 `}
               >
                 {/* TITLE */}
                 <h2
                   className={`
-                    text-white font-bold text-sm tracking-widest z-20
-                    ${isLeft ? "pr-16" : "pl-25"}
+                    text-white font-bold text-md tracking-widest z-20
+                    ${isLeft ? "pr-28" : "pl-30"}
                   `}
                 >
                   {item.title}
@@ -47,7 +47,7 @@ export default function CategorySection() {
                   className={`
                     absolute z-10
                     ${isLeft ? "-right-14" : "-left-13"}
-                    h-40 object-contain
+                    h-48 object-contain
                     drop-shadow-2xl
                   `}
                 />

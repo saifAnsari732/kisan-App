@@ -50,7 +50,7 @@ export default function HeroCarousel() {
     const interval = setInterval(() => {
       setDirection(1);
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 500000); // Changed to 5 seconds for better UX
+    }, 50000); // Changed to 5 seconds for better UX
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -140,7 +140,7 @@ export default function HeroCarousel() {
       <CategorySection />
 
       {/* MAP SECTION */}
-      <div className="w-full bg-gray-100 px-4">
+      <div className="w-full bg-gray-100 pt-6 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
           {/* LEFT SIDE TEXT */}
           <div className="w-full md:w-1/2 space-y-4 px-7">
