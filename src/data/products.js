@@ -88,7 +88,7 @@ export const products = [
   },
   {
     id: 5,
-    title: "SOYABEAN OILS",
+    title: "SOYABEAN REFINED OILS",
     img: "/1.png",
     category: "Vegetable Oil",
     description:
@@ -104,7 +104,7 @@ export const products = [
   },
   {
     id: 6,
-    title: "KACHIGHANI OILS",
+    title: "KACHIGHANI MUSTARD OILS",
     img: "/2.png",
     category: "Mustard Oil",
     description:
@@ -136,7 +136,7 @@ export const products = [
   },
   {
     id: 8,
-    title: "KISAN KACHIGHANI",
+    title: "KISAN CHOICE KACHIGHANI",
     img: "/4.png",
     category: "Mustard Oil",
     description:
@@ -152,7 +152,7 @@ export const products = [
   },
   {
     id: 9,
-    title: "CUSTOMERCHOICE OIL",
+    title: "CUSTOMER CHOICE OIL",
     img: "/5.png",
     images:[
         "/ricebran.png",
@@ -172,7 +172,7 @@ export const products = [
   },
  {
     id: 10,
-    title: "SUNFLOWER OIL",
+    title: "SUNFLOWER REFINED OIL",
     img: "/6.png", // default main image
     images: [
       "/6.png",        // default

@@ -13,8 +13,9 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [mobileOpenCategory, setMobileOpenCategory] = useState(null);
   const [activeCategory, setActiveCategory] = useState("Mustard Oil");
-
+const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const dropdownRef = useRef();
   const navigate = useNavigate();
 
@@ -284,7 +285,10 @@ export default function Navbar() {
                 {/* MOBILE DROPDOWN */}
                 <div className="bg-white rounded-xl overflow-hidden">
                   <button
-                    onClick={() => setShowDropdown(!showDropdown)}
+                   onClick={(e) => {
+  e.stopPropagation();
+  setMobileDropdownOpen(!mobileDropdownOpen);
+}}
                     className="w-full flex justify-between items-center px-4 py-3 font-medium"
                   >
                     OUR RANGE
@@ -292,7 +296,7 @@ export default function Navbar() {
                   </button>
 
                   <AnimatePresence>
-                    {showDropdown && (
+                    {mobileDropdownOpen  && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
@@ -300,32 +304,50 @@ export default function Navbar() {
                         transition={{ duration: 0.2 }}
                         className="bg-white text-black overflow-hidden"
                       >
-                        {Object.keys(categories).map((cat, i) => (
-                          <div key={i} className="border-t">
-                            <div
-                              onClick={() => setActiveCategory(cat)}
-                              className="px-4 py-3 font-medium flex justify-between cursor-pointer hover:bg-gray-100"
-                            >
-                              {cat}
-                              <span>›</span>
-                            </div>
+                        {/* chngesss */}
+            {Object.keys(categories).map((cat, i) => (
+  <div key={i} className="border-t">
 
-                            {activeCategory === cat && (
-                              <div className="bg-gray-50">
-                                {categories[cat].map((item, idx) => (
-                                  <Link
-                                    key={idx}
-                                    to={item.to}
-                                    onClick={() => { setShowDropdown(false); setIsOpen(false); }}
-                                    className="block px-6 py-2 text-sm text-gray-600 hover:text-orange-500"
-                                  >
-                                    {item.label}
-                                  </Link>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ))}
+    {/* CATEGORY CLICK */}
+    <div
+     onClick={(e) => {
+  e.stopPropagation();
+  setMobileOpenCategory(
+    mobileOpenCategory === cat ? null : cat
+  );
+}}
+      className="px-4 py-3 font-medium flex justify-between cursor-pointer hover:bg-gray-100"
+    >
+      {cat}
+      <span
+        className={`transition-transform ${
+          mobileOpenCategory === cat ? "rotate-90" : ""
+        }`}
+      >
+        ›
+      </span>
+    </div>
+
+    {/* SUB ITEMS */}
+    {mobileOpenCategory === cat && (
+      <div className="bg-gray-50">
+        {categories[cat].map((item, idx) => (
+          <Link
+            key={idx}
+            to={item.to}
+            onClick={() => {
+              setIsOpen(false);
+              setMobileOpenCategory(null);
+            }}
+            className="block px-6 py-2 text-sm text-gray-600 hover:text-orange-500"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
+    )}
+  </div>
+))}
 
                         {/* Standalone items */}
                         <div className="border-t px-5 py-3 space-y-2 bg-gray-50">

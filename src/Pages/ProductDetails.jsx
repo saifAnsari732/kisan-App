@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { products } from "../data/products";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -9,15 +9,22 @@ const ProductDetails = () => {
   const product = products.find(p => p.id === Number(id));
   if (!product) return <div className="p-10">Product not found</div>;
 
+  // ✅ MAIN IMAGE STATE
   const [mainImg, setMainImg] = useState(product.img);
   const [zoomStyle, setZoomStyle] = useState({});
 
+  // ✅ FIX: product change hone par image update
+  useEffect(() => {
+    setMainImg(product.img);
+    window.scrollTo(0, 0); // UX improvement
+  }, [product]);
+
+  // ✅ SUGGESTIONS
   const suggestions = products
     .filter(item => item.id !== product.id)
     .slice(0, 5);
 
   const rating = 4.5;
-
   const phoneNumber = "9905234866";
 
   const handleCallClick = () => {
@@ -27,7 +34,7 @@ const ProductDetails = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4">
 
-      {/* BACK */}
+      {/* 🔙 BACK */}
       <div className="max-w-7xl mx-auto mb-6">
         <button
           onClick={() => navigate(-1)}
@@ -37,13 +44,13 @@ const ProductDetails = () => {
         </button>
       </div>
 
-      {/* MAIN */}
+      {/* 🔥 MAIN CARD */}
       <div className="max-w-7xl mx-auto bg-white rounded-3xl shadow-lg grid md:grid-cols-2 gap-8 p-6 md:p-10">
 
         {/* LEFT SIDE */}
         <div>
 
-          {/* 🔍 MAIN IMAGE WITH ZOOM */}
+          {/* 🔍 MAIN IMAGE */}
           <div
             className="relative rounded-2xl overflow-hidden bg-gray-100"
             onMouseMove={(e) => {
@@ -60,7 +67,7 @@ const ProductDetails = () => {
             onMouseLeave={() => setZoomStyle({})}
           >
             <div
-              className="h-80 md:h-96 w-full bg-no-repeat transition"
+              className="h-80 md:h-96 w-full bg-no-repeat transition-all duration-300"
               style={
                 zoomStyle.backgroundImage
                   ? zoomStyle
@@ -73,7 +80,7 @@ const ProductDetails = () => {
             />
           </div>
 
-          {/* 🔥 THUMBNAILS (NEW FEATURE) */}
+          {/* 🔥 THUMBNAILS */}
           <div className="flex gap-3 mt-4 justify-center flex-wrap">
             {(product.images || [product.img]).map((img, index) => (
               <img
@@ -82,7 +89,7 @@ const ProductDetails = () => {
                 alt="variant"
                 onClick={() => setMainImg(img)}
                 className={`w-20 h-20 object-contain border rounded-lg cursor-pointer p-1 transition 
-                  ${mainImg === img ? "border-green-600 scale-105" : "border-gray-300"}`}
+                  ${mainImg === img ? "border-green-600 scale-105" : "border-gray-300 hover:scale-105"}`}
               />
             ))}
           </div>
@@ -116,7 +123,7 @@ const ProductDetails = () => {
               {product.about}
             </p>
 
-            {/* BENEFITS */}
+            {/* ✅ BENEFITS */}
             {product.benefits && (
               <div className="bg-gray-100 p-4 rounded-xl mb-6">
                 <h3 className="font-semibold mb-2">Health Benefits</h3>
@@ -129,19 +136,19 @@ const ProductDetails = () => {
             )}
           </div>
 
-          {/* CTA */}
+          {/* ✅ CTA */}
           <div className="flex gap-3">
             <button
               onClick={handleCallClick}
               className="flex-1 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700"
             >
-               Call
+              Call
             </button>
             <button
               onClick={() => navigate('/form')}
               className="flex-1 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600"
             >
-               WhatsApp
+              WhatsApp
             </button>
           </div>
 
@@ -165,7 +172,7 @@ const ProductDetails = () => {
                 <img
                   src={item.img}
                   alt={item.title}
-                  className="h-35 object-contain group-hover:scale-105 transition"
+                  className="h-32 object-contain group-hover:scale-105 transition"
                 />
               </div>
 

@@ -42,7 +42,7 @@ const categories = [
     img: "/39.png",
     description: "Cold pressed oils with maximum nutrients.",
     products: [
-      { img: "/coconut.png", name: "KISAN CHOICE  COCONUT",path:"/coconut" },
+      { img: "/coconut.png", name: "KISAN CHOICE COCONUT",path:"/coconut" },
       { img: "/112.png", name: "INDIAN CHOICE MUSTARD" , path: "/choice"},
       { img: "/113.png", name: "KISAN CHOICE MUSTARD OIL", path: "/kachighanimustard" },
     ],

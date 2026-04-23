@@ -16,7 +16,7 @@ export default function Categorypage() {
   <div className="bg-gradient-to-r from-yellow-100 to-yellow-200">
     <div className="max-w-6xl mx-auto py-10 px-4 text-center">
 
-      <h2 className="text-2xl font-bold mb-12">OUR {category.title} Varaities</h2>
+      <h2 className="text-2xl font-bold mb-12">OUR {category.title} VARIETY</h2>
 
       {/* ✅ FLEX GRID (AUTO CENTER) */}
       <div className="flex flex-wrap justify-center gap-8">

@@ -11,7 +11,7 @@ export default function CategorySection() {
   ];
 
   return (
-    <div className="w-full py-10 bg-gray-100">
+    <div className="w-full py-4 bg-gray-100">
 
       {/* ================= MOBILE ================= */}
       <div className="md:hidden px-4 space-y-10">
@@ -34,7 +34,7 @@ export default function CategorySection() {
                 <h2
                   className={`
                     text-white font-bold text-sm tracking-widest z-20
-                    ${isLeft ? "pr-16" : "pl-16"}
+                    ${isLeft ? "pr-16" : "pl-25"}
                   `}
                 >
                   {item.title}
@@ -46,7 +46,7 @@ export default function CategorySection() {
                   alt={item.title}
                   className={`
                     absolute z-10
-                    ${isLeft ? "-right-10" : "-left-10"}
+                    ${isLeft ? "-right-14" : "-left-13"}
                     h-40 object-contain
                     drop-shadow-2xl
                   `}

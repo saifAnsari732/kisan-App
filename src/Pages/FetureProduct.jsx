@@ -13,14 +13,14 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
   const navigate = useNavigate();
 
   const categories = [
-    { id: 1, title:  "IMDIAN CHOICE OILS", img: "/34.png", category: "Mustard Oil" },
+    { id: 1, title:  "INDIAN CHOICE OILS", img: "/34.png", category: "Mustard Oil" },
     { id: 2, title: "KISAN CHOICE REFINED ", img: "/36.png", category: "Refined Oil" },
     { id: 3, title: "KISAN CHOICE MUSTARD", img: "/35.png", category: "Vegetable Oil" },
     { id: 4, title: "KISAN CHOICE REFINED", img: "/37.png", category: "Cold Pressed" },
     { id: 4, title: "SOYABEAN OILS", img: "/1.png", category: "Vegetable Oil" },
-    { id: 3, title: "KACHIGHANI OILS", img: "/2.png", category: "Mustard Oil" },
+    { id: 3, title: "KACHIGHANI MUSTARD OILS", img: "/2.png", category: "Mustard Oil" },
     { id: 1, title: "INDIAN CHOICE KACHIGHANI MUSTARD", img: "/3.png", category: "Mustard Oil" },
-    { id: 8, title: "KISAN KACHIGHANI", img: "/4.png", category: "Mustard Oil" },
+    { id: 8, title: "KISAN CHOICE KACHIGHANI", img: "/4.png", category: "Mustard Oil" },
     { id: 9, title: "CUSTOMER CHOICE OIL", img: "/5.png", category: "Refined Oil" },
     { id: 10, title: "SUNFLOWER OIL", img: "/6.png", category: "Refined Oil" },
     { id: 11, title: "ALSI OIL", img: "/9.png", category: "Cold Pressed" },
@@ -95,8 +95,8 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
               1024: { slidesPerView: 4 },
             }}
           >
-            {filteredData.map((item) => (
-              <SwiperSlide key={item.id}>
+            {filteredData.map((item,id) => (
+              <SwiperSlide key={id}>
                 <div
                   className="bg-gradient-to-br from-yellow-100 via-yellow-50 to-white 
                   hover:shadow-xl hover:-translate-y-1 transition 
@@ -108,7 +108,7 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
                     onClick={() => navigate(`/product/${item.id}`)}
                     className="cursor-pointer"
                   >
-                    <div className="h-48 flex items-center justify-center">
+                    <div className="h-54 flex items-center justify-center">
                       <img
                         src={item.img}
                         alt={item.title}

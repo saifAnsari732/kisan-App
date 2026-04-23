@@ -22,12 +22,12 @@ export default function Palmolein() {
                     <div className="max-w-7xl mx-auto flex flex-col md:grid md:grid-cols-2 items-center w-full">
 
                         {/* ✅ TEXT */}
-                        <div className="text-center md:text-left -mt-6 md:mt-0">
+                        <div className=" px-3 text-center md:text-left -mt-6 md:mt-0">
                             <h1 className="text-xl md:text-3xl font-bold text-green-900 mb-3">
                                 KisanChoice Refined Palmolein Oil
                             </h1>
 
-                            <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
+                            <p className="text-gray-700 text-sm md:text-lg leading-relaxed px-3">
                                 <span className="text-lg font-serif font-semibold">
                                     Kisan Choice Refined Palmolein Oil
                                 </span>{" "}
@@ -56,7 +56,7 @@ export default function Palmolein() {
             </div>
 
             {/* 🔶 SECTION 2 */}
-            <div className="bg-white py-8 md:py-12">
+            <div className="bg-gray-100 py-8 md:py-12">
                 <div className="max-w-7xl mx-auto px-4 flex flex-col md:grid md:grid-cols-2 gap-10 items-center">
 
                     {/* IMAGE */}
@@ -64,7 +64,7 @@ export default function Palmolein() {
                         <img
                             src="/gpalmolein.png"
                             alt="Palmolein Oil"
-                            className="w-full max-w-m object-contain"
+                            className="w-ful object-contain"
                         />
                     </div>
 
@@ -74,7 +74,7 @@ export default function Palmolein() {
                             Perfect for Everyday Cooking
                         </h2>
 
-                        <p className="text-gray-600 mb-6 text-sm md:text-lg">
+                        <p className="text-gray-600 mb-6 px-4 text-sm md:text-lg">
                             KisanChoice Palmolein Oil is widely used for frying and cooking due to its 
                             neutral taste and high stability. It ensures crispy texture, consistent taste, 
                             and longer usability without compromising quality.

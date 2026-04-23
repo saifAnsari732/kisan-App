@@ -26,13 +26,13 @@ export default function Kachighani() {
 
                         {/* ✅ TEXT */}
                         <div className="text-center md:text-left -mt-6 md:mt-0">
-                            <h1 className="text-xl md:text-3xl font-bold text-green-900 mb-3">
+                            <h1 className="text-xl md:text-3xl font-bold text-green-900 px-3 mb-3">
                                 Kachi Ghani Wooden & Cold Pressed Mustard Oil Premium
                             </h1>
 
-                            <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
+                            <p className="text-gray-700 text-sm md:text-lg leading-relaxed px-4">
                            
-                           <span className="text-lg font-serif font-semibold">Kisan Choice Kachi Ghani Wooden & Cold Pressed Mustard Oil</span>Premium is a premium cold-pressed mustard oil extracted traditionally (often using wood or wooden presses), preserving the natural aroma, pungency and flavour of mustard seeds. It’s typically marketed for cooking purposes and as a natural choice compared to highly refined oils.
+                           <span className="text-lg font-serif">Kisan Choice Kachi Ghani Wooden & Cold Pressed Mustard Oil</span>Premium is a premium cold-pressed mustard oil extracted traditionally (often using wood or wooden presses), preserving the natural aroma, pungency and flavour of mustard seeds. It’s typically marketed for cooking purposes and as a natural choice compared to highly refined oils.
                             </p>
                         </div>
 
@@ -55,7 +55,7 @@ export default function Kachighani() {
             </div>
 
             {/* 🔶 SECTION 2 */}
-            <div className="bg-white py-8 md:py-12">
+            <div className="bg-gray-100 py-8 md:py-12">
                 <div className="max-w-7xl mx-auto px-4 
                         flex flex-col md:grid md:grid-cols-2 gap-10 items-center">
 
@@ -74,7 +74,7 @@ export default function Kachighani() {
                             Bring a rich aromatic sizzle to your dishes
                         </h2>
 
-                        <p className="text-gray-600 mb-6 text-sm md:text-lg">
+                        <p className="px-4 text-gray-600 mb-6 text-sm md:text-lg">
                             Just a hint of Kachi Ghani Mustard Oil fills your kitchen with
                             authentic aroma and taste. Perfect for cooking and pickles.
                         </p>

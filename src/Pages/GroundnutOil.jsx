@@ -57,7 +57,7 @@ export default function Ground() {
       </div>
 
       {/* 🔶 SECTION 2 */}
-      <div className="bg-white py-8 md:py-12">
+      <div className="bg-gray-100 py-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:grid md:grid-cols-2 gap-10 items-center">
 
           {/* IMAGE */}
@@ -109,7 +109,6 @@ export default function Ground() {
 
             </div>
           </div>
- <h1>jfks</h1>
         </div>
       </div>
 

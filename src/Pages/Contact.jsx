@@ -71,6 +71,24 @@ export default function Contact() {
             <div className="w-8 h-8 bg-red-500 text-white flex items-center justify-center rounded-full"><FaYoutube /></div>
             <div className="w-8 h-8 bg-blue-700 text-white flex items-center justify-center rounded-full"><FaLinkedinIn /></div>
           </div>
+          {/* 🔥 GOOGLE MAP SECTION */}
+<div className="max-w-7xl mx-auto mt-10 px-4">
+  <h2 className="text-2xl font-semibold text-center text-green-900 mb-4">
+    Our Location
+  </h2>
+
+  <div className="w-full h-[350px] md:h-[450px] rounded-xl overflow-hidden shadow-lg">
+    <iframe
+      src="https://www.google.com/maps?q=Lucknow,Uttar%20Pradesh,India&output=embed"
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+</div>
         </div>
 
         {/* RIGHT FORM */}

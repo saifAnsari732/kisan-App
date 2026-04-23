@@ -6,7 +6,7 @@ export default function FAQ() {
 
   const faqs = [
     {
-      question: "What products does Eco Kisan Agro offer?",
+      question: "What products does Eco Kisan Choice offer?",
       answer:
         "Eco Kisan Agro specializes in premium edible oils including Kachi Ghani Mustard Oil, Refined Soyabean Oil, Sunflower Oil, Rice Bran Oil, Coconut Oil, Groundnut Oil, Alsi Oil, and Pooja Oil.",
     },

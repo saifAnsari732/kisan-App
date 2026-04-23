@@ -22,12 +22,12 @@ export default function Sunflower() {
           <div className="max-w-7xl mx-auto flex flex-col md:grid md:grid-cols-2 items-center w-full">
 
             {/* ✅ TEXT */}
-            <div className="text-center md:text-left -mt-6 md:mt-0">
+            <div className=" px-3 text-center md:text-left -mt-6 md:mt-0">
               <h1 className="text-xl md:text-3xl font-bold text-green-900 mb-3">
                 KisanChoice Refined Sunflower Oil
               </h1>
 
-              <p className="text-gray-700 text-sm md:text-lg leading-relaxed">
+              <p className="px-2 text-gray-700 text-sm md:text-lg leading-relaxed">
                 <span className="text-lg font-serif font-semibold">
                   KisanChoice Refined Sunflower Oil
                 </span>{" "}
@@ -55,7 +55,7 @@ export default function Sunflower() {
       </div>
 
       {/* 🔶 SECTION 2 */}
-      <div className="bg-white py-8 md:py-12">
+      <div className="bg-gray-100 py-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:grid md:grid-cols-2 gap-10 items-center">
 
           {/* IMAGE */}
@@ -73,7 +73,7 @@ export default function Sunflower() {
               Light & Heart-Friendly Oil
             </h2>
 
-            <p className="text-gray-600 mb-6 text-sm md:text-lg">
+            <p className="px-4 text-gray-600 mb-6 text-sm md:text-lg">
               KisanChoice Refined Sunflower Oil is a light and healthy choice 
               for your kitchen. It helps retain the natural taste of food while 
               being easy to digest. Ideal for frying, sautéing, and daily cooking, 

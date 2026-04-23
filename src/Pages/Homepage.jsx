@@ -134,7 +134,7 @@ export default function HeroCarousel() {
         </div>
       </div>
 
-      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-6 font-semibold">
+      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 pt-12 font-semibold">
         OUR CATEGORY
       </h1>
       <CategorySection />
