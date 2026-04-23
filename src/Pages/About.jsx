@@ -186,12 +186,7 @@ export default function About() {
       </div>
 
       {/* FOOTER */}
-      <div className="bg-green-700 text-white text-center py-8">
-        <h2 className="text-xl font-semibold mb-2">
-          Our Promise
-        </h2>
-        <p>"Purity You Can Taste, Trust You Can Feel."</p>
-      </div>
+      
     </div>
   );
 }

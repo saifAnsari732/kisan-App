@@ -14,6 +14,10 @@ import Reviews from './Pages/Reviews'
 import PreviewPage from './Pages/PreviewPage'
 import ProductDetails from './Pages/ProductDetails'
 import HeroCarousel from './Pages/Homepage'
+import PrivacyPolicy from './Pages/PrivacyPolicy'
+import TermsConditions from './Pages/TermsConditions'
+
+
 // 🔥 Lazy Load Pages
 // const HeroCarousel = lazy(() => import('./Pages/Homepage'));
 const About = lazy(() => import('./Pages/About'));
@@ -83,7 +87,8 @@ function App() {
           <Route path="/review" element={<Reviews />} />
          
          <Route path="/product/:id" element={<ProductDetails />} />
-  
+         <Route path="/privacy" element={<PrivacyPolicy />} />
+<Route path="/terms" element={<TermsConditions />} />
         
         
           <Route path="/jobdata" element={<PreviewPage />} />

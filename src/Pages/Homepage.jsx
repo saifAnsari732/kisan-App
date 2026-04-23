@@ -22,12 +22,12 @@ export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth <= 650 : false,
+    typeof window !== "undefined" ? window.innerWidth <= 650 : false
   );
-  const [selected, setSelected] = useState("All");
-  const [viewAll, setViewAll] = useState(false);
 
-  // Detect mobile/desktop breakpoint at 600px
+  const [selected, setSelected] = useState("All");
+
+  // 📱 Responsive detect
   useEffect(() => {
     const media = window.matchMedia("(max-width: 650px)");
     const handleChange = (e) => setIsMobile(e.matches);
@@ -40,17 +40,18 @@ export default function HeroCarousel() {
 
   const slides = isMobile ? mobileSlides : desktopSlides;
 
-  // Reset to first slide when switching between mobile/desktop
+  // reset slide
   useEffect(() => {
     setCurrent(0);
   }, [isMobile]);
 
-  // Auto slide
+  // 🔁 Auto slide FIXED (5 sec)
   useEffect(() => {
     const interval = setInterval(() => {
       setDirection(1);
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 50000); // Changed to 5 seconds for better UX
+    }, 5000);
+
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -66,8 +67,10 @@ export default function HeroCarousel() {
 
   return (
     <>
-      <div className="w-full flex justify-center md:py-6 bg-gray-100 mx-0">
+      {/* 🔥 HERO SLIDER */}
+      <div className="w-full flex justify-center  bg-gray-100">
         <div className="slider-container">
+
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
               key={`${isMobile ? "mobile" : "desktop"}-${current}`}
@@ -75,7 +78,7 @@ export default function HeroCarousel() {
               initial={{ x: direction > 0 ? "100%" : "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: direction > 0 ? "-100%" : "100%" }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
+              transition={{ duration: 0.6 }}
               className="slide"
             >
               <picture className="slide-img">
@@ -85,7 +88,7 @@ export default function HeroCarousel() {
                 />
                 <img
                   src={desktopSlides[current % desktopSlides.length].img}
-                  className="img"
+                  className="img w-full h-auto object-contain"
                   alt="banner"
                 />
               </picture>
@@ -94,28 +97,20 @@ export default function HeroCarousel() {
 
           <SocialSidebar />
 
-          {/* Navigation Buttons - Only show if more than 1 slide */}
+          {/* ⬅➡ Buttons */}
           {slides.length > 1 && (
             <>
-              <button
-                onClick={prevSlide}
-                className="nav-btn prev"
-                aria-label="Previous slide"
-              >
+              <button onClick={prevSlide} className="nav-btn prev">
                 <ChevronLeft size={24} />
               </button>
 
-              <button
-                onClick={nextSlide}
-                className="nav-btn next"
-                aria-label="Next slide"
-              >
+              <button onClick={nextSlide} className="nav-btn next">
                 <ChevronRight size={24} />
               </button>
             </>
           )}
 
-          {/* Dots - Only show if more than 1 slide */}
+          {/* 🔘 Dots */}
           {slides.length > 1 && (
             <div className="dots">
               {slides.map((_, i) => (
@@ -126,7 +121,6 @@ export default function HeroCarousel() {
                     setCurrent(i);
                   }}
                   className={`dot ${current === i ? "active" : ""}`}
-                  aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
             </div>
@@ -134,50 +128,50 @@ export default function HeroCarousel() {
         </div>
       </div>
 
-      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 pt-12 font-semibold">
+      {/* CATEGORY */}
+      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-12 font-semibold">
         OUR CATEGORY
       </h1>
+
       <CategorySection />
 
-      {/* MAP SECTION */}
-      <div className="w-full bg-gray-100 pt-6 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
-          {/* LEFT SIDE TEXT */}
-          <div className="w-full md:w-1/2 space-y-4 px-7">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-              Our Presence Across India
-            </h2>
+   {/* 🔥 MAP SECTION (FIXED - NO SCROLL) */}
+<div className="w-full bg-gray-100 pt-10 px-">
+  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
 
-            <p className="text-gray-600 leading-relaxed">
-              We are delivering high-quality edible oils across multiple states
-              in India. Our strong distribution network ensures that every
-              household gets pure, healthy, and affordable products.
-            </p>
+    {/* TEXT */}
+    <div className="w-full md:w-1/2 space-y-4">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+        Our Presence Across India
+      </h2>
 
-            <p className="text-gray-600 leading-relaxed">
-              From mustard oil to refined oils, we maintain the highest
-              standards of quality and authenticity in every drop.
-            </p>
+      <p className="text-gray-600">
+        We deliver high-quality edible oils across multiple states in India. From mustard oil to refined oils, we maintain top quality standards
+        Our strong distribution network ensures purity and trust.
+      </p>
 
-            <button className="mt-3 px-5 py-2 bg-green-700 text-white rounded-lg shadow hover:bg-green-800 transition">
-              Learn More
-            </button>
-          </div>
+      <p className="text-gray-600">
+        From mustard oil to refined oils, we maintain top quality standards.
+      </p>
+    </div>
 
-          {/* RIGHT SIDE IMAGE */}
-          <div className="w-full md:w-1/2 mt-6">
-            <img
-              src={mapimg}
-              alt="India map showing our presence"
-              className="w-full h-auto md:h-[700px] object-cover rounded-[50px]"
-            />
-          </div>
-        </div>
+    {/* IMAGE FIXED */}
+    <div className="w-full md:w-1/2">
+      <div className="rounded-3xl overflow-hidden shadow-lg">
+        <img
+          src={mapimg}
+          alt="India map"
+          className="w-full h-auto object-cover"
+        />
       </div>
+    </div>
 
+  </div>
+</div>
+      {/* OTHER SECTIONS */}
       <FetureProduct selectedCategory={selected} />
-      <Testimonials />
       <Reviews />
+      <Testimonials />
       <FAQ />
     </>
   );

@@ -26,7 +26,7 @@ export default function Kachighani() {
 
                         {/* ✅ TEXT */}
                         <div className="text-center md:text-left -mt-6 md:mt-0">
-                            <h1 className="text-xl md:text-3xl font-bold text-green-900 px-3 mb-3">
+                            <h1 className="text-xl md:text-3xl mt-20 font-bold text-green-900 px-3 mb-3">
                                 Kachi Ghani Wooden & Cold Pressed Mustard Oil Premium
                             </h1>
 

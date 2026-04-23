@@ -56,7 +56,7 @@ const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   };
 
   // ✅ FIX: typo was `navigation.navigate` — corrected to `navigate`
-  const conform = "hr1";
+  const conform = "saif";
   const hr = () => {
     const value = window.prompt("Enter Role (HR)");
     if (value === conform) {

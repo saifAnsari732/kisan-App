@@ -57,7 +57,7 @@ export default function SocialSidebar() {
           to={item.url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`group flex items-center rounded-r-md ${item.color} text-white cursor-pointer overflow-hidden transition-all duration-300 hover:w-40 w-12`}
+          className={`group flex items-center rounded-r-md ${item.color} text-b cursor-pointer overflow-hidden transition-all duration-300 hover:w-40 w-12`}
         >
           {/* Icon */}
           <div className="p-3 text-lg flex-shrink-0">

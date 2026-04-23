@@ -26,7 +26,7 @@ export default function Kachighani() {
 
                         {/* ✅ TEXT */}
                         <div className="text-center md:text-left -mt-6 md:mt-0">
-                            <h1 className="text-xl md:text-3xl font-bold text-green-900 px-4 mb-3">
+                            <h1 className="text-xl md:text-3xl mt-10 font-bold text-green-900 px-4 mb-3">
                                 KisanChoice Kachi Ghani Mustard Oil
                             </h1>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-
+import { FaStar } from "react-icons/fa";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -72,36 +72,40 @@ export default function Reviews() {
 
 
 
-        {reviews.map((review, index) => (
-          <SwiperSlide key={index}>
-            <div className="bg-gradient-to-r from-green-200  to-green-200 text-black p-6 rounded-xl shadow-lg text-center h-full flex flex-col justify-between">
+ {reviews.map((review, index) => (
+  <SwiperSlide key={index}>
+    <div className="bg-white text-black p-6 rounded-xl shadow-lg text-center h-full flex flex-col justify-between">
 
-              {/* Quote */}
-              <div className="text-5xl mb-3">❝</div>
+      {/* Quote */}
+      <div className="text-5xl mb-3">❝</div>
 
-              {/* Text */}
-              <p className="text-sm leading-relaxed mb-4">
-                {review.text}
-              </p>
+      {/* Text */}
+      <p className="text-sm leading-relaxed mb-4">
+        {review.text}
+      </p>
 
-              {/* Stars */}
-              <div className="text-yellow-300 text-lg mb-4">
-                ⭐ ⭐ ⭐ ⭐ ⭐
-              </div>
+      {/* ⭐ Stars (FIXED CENTER) */}
+      <div className="text-yellow-400 text-lg mb-4 flex justify-center items-center gap-1">
+        <FaStar size={20}/>
+        <FaStar size={20}/>
+        <FaStar size={20}/>
+        <FaStar size={20}/>
+        <FaStar size={20}/>
+      </div>
 
-              {/* Name */}
-              <div className="mt-auto">
-                <h4 className="font-semibold">
-                  {review.name}
-                </h4>
-                <p className="text-sm text-black-200">
-                  {review.location}
-                </p>
-              </div>
+      {/* Name */}
+      <div className="mt-auto">
+        <h4 className="font-semibold">
+          {review.name}
+        </h4>
+        <p className="text-sm text-gray-500">
+          {review.location}
+        </p>
+      </div>
 
-            </div>
-          </SwiperSlide>
-        ))}
+    </div>
+  </SwiperSlide>
+))}
       </Swiper>
 
     </div>
