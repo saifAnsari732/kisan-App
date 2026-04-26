@@ -7,7 +7,7 @@ export default function WhatsapForm() {
     const [email, setEmail] = useState("");
     const [location, setLocation] = useState("");
 
-    const phoneNumber = "919905234866";
+    const phoneNumber = "916390059995";
 
     const message = `Hello, I'm interested in your products!
 NAME: ${name}

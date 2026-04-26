@@ -55,26 +55,26 @@ export default function Alsi() {
       </div>
 
       {/* 🔶 DETAILS SECTION */}
-      <div className="bg-white py-10 md:py-14">
-        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+      <div className="bg-gray-100 py-8 md:py-12">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:grid md:grid-cols-2 gap-10 items-center">
 
           {/* IMAGE */}
-          <div className="flex justify-center">
+          <div className="flex justify-center order-1 md:order-none">
             <img
-              src="/gsoyabean.png"
-              alt="oil"
-              className="w-full max-w-sm object-contain"
+              src="/alsioil.png"
+              alt="groundnut oil"
+              className="w-full max-w-sm object-contai"
             />
           </div>
 
           {/* TEXT */}
           <div className="text-center md:text-left">
-            <h2 className="text-2xl md:text-3xl font-bold text-green-900 mb-4">
-              Why Choose Alsi Oil?
+            <h2 className="text-xl md:text-3xl font-bold text-green-900 mb-4">
+              Pure & Healthy Cooking Oil
             </h2>
 
-            <p className="text-gray-600 mb-6 text-sm md:text-lg leading-relaxed">
-              KisanChoice Alsi Oil is a natural source of essential fatty acids,
+            <p className="text-gray-600 mb-6 text-sm md:text-lg">
+               KisanChoice Alsi Oil is a natural source of essential fatty acids,
               especially Omega-3, which helps maintain a healthy heart and
               improves metabolism. Its mild nutty flavor makes it perfect for
               modern healthy diets. Carefully processed and quality-tested, this
@@ -84,30 +84,29 @@ export default function Alsi() {
             {/* FEATURES */}
             <div className="flex justify-center md:justify-start gap-6 flex-wrap">
 
-              <div className="flex flex-col items-center w-24 text-center">
-                <div className="w-12 h-12 bg-orange-400 rounded-full flex items-center justify-center text-white shadow-lg">
-                  🌿
+              <div className="flex flex-col items-center text-center w-24">
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-yellow-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                  🥜
                 </div>
-                <p className="text-xs mt-2">Rich in Omega-3</p>
+                <p className="text-xs mt-2">Pure Peanuts</p>
               </div>
 
-              <div className="flex flex-col items-center w-24 text-center">
-                <div className="w-12 h-12 bg-cyan-400 rounded-full flex items-center justify-center text-white shadow-lg">
+              <div className="flex flex-col items-center text-center w-24">
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg">
                   ❤️
                 </div>
                 <p className="text-xs mt-2">Heart Friendly</p>
               </div>
 
-              <div className="flex flex-col items-center w-24 text-center">
-                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg">
-                  🧴
+              <div className="flex flex-col items-center text-center w-24">
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-orange-400 rounded-full flex items-center justify-center text-white shadow-lg">
+                  🔥
                 </div>
-                <p className="text-xs mt-2">Cold Pressed</p>
+                <p className="text-xs mt-2">High Smoke Point</p>
               </div>
 
             </div>
           </div>
-
         </div>
       </div>
 

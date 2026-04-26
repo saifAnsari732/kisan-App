@@ -1,53 +1,55 @@
 import { useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
+import { toast } from 'react-toastify';
+
 export default function Career() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     position: "",
-    resume: null,
+    resume: "",
   });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+
     setFormData({
       ...formData,
-      [name]: files ? files[0] : value,
+      [name]: files ? files[0]?.name : value, // ✅ only file name store
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const existingData =
+    JSON.parse(localStorage.getItem("applyData")) || [];
+    
+    const updatedData = [...existingData, formData];
+    
+    localStorage.setItem("applyData", JSON.stringify(updatedData));
+    toast.success("Form Submitted ✅ Successfull")
 
-    // old data lo
-  const existingData = JSON.parse(localStorage.getItem("applyData")) || [];
+    console.log("Form Submitted ✅", formData);
 
-  // new data add karo
-  const updatedData = [...existingData, formData];
-
-  // save again
-  localStorage.setItem("applyData", JSON.stringify(updatedData));
- 
-  // reset form
+    // reset form
     setFormData({
-      email: "",
       name: "",
+      email: "",
       phone: "",
       position: "",
+      resume: "",
     });
-
-};
-
+  };
 
   return (
     <div className="bg-gray-100">
 
       {/* HERO */}
-      <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-5 text-center">
-        <h1 className="text-4xl font-bold mb-3">Join Our Team</h1>
+      <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-6 text-center">
+        <h1 className="text-4xl font-bold mb-2">Join Our Team</h1>
         <p className="text-gray-200 text-sm">
-          Build your career with KisanChoice 
+          Build your career with KisanChoice
         </p>
       </div>
 
@@ -61,39 +63,20 @@ export default function Career() {
 
           <div className="space-y-4">
             {[
-              {
-                title: "Sales Executive",
-                location: "Lucknow",
-                exp: "1+ Years",
-              },
-              {
-                title: "Marketing Manager",
-                location: "Lucknow",
-                exp: "3+ Years",
-              },
-               {
-                title: "TeleSales",
-                location: "Lucknow",
-                exp: "1+ Years",
-              },
-               {
-                title: "Graphics Designer",
-                location: "Lucknow",
-                exp: "1+ Years",
-              },
-              {
-                title: "Office Staff",
-                location: "Lucknow",
-                exp: "1+ Years",
-              },
+              { title: "Sales Executive", location: "Lucknow", exp: "1+ Years" },
+              { title: "Marketing Manager", location: "Lucknow", exp: "3+ Years" },
+              { title: "TeleSales", location: "Lucknow", exp: "1+ Years" },
+              { title: "Graphics Designer", location: "Lucknow", exp: "1+ Years" },
+              { title: "Office Staff", location: "Lucknow", exp: "1+ Years" },
             ].map((job, i) => (
               <div
                 key={i}
                 className="p-5 bg-white rounded-2xl shadow-md hover:shadow-lg transition"
               >
                 <h3 className="font-semibold text-lg">{job.title}</h3>
-                <p className="text-sm text-gray-600">
-                  <FaLocationDot className="flex inline text-black"/>  {job.location} | {job.exp}
+                <p className="text-sm text-gray-600 flex items-center gap-2">
+                  <FaLocationDot className="text-black" />
+                  {job.location} | {job.exp}
                 </p>
               </div>
             ))}
@@ -106,12 +89,14 @@ export default function Career() {
             Apply Now
           </h2>
 
+          {/* ✅ FIXED FORM */}
           <form onSubmit={handleSubmit} className="space-y-4">
 
             <input
               type="text"
               name="name"
               placeholder="Full Name"
+              value={formData.name}
               onChange={handleChange}
               required
               className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-green-500 outline-none"
@@ -121,6 +106,7 @@ export default function Career() {
               type="email"
               name="email"
               placeholder="Email"
+              value={formData.email}
               onChange={handleChange}
               required
               className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-green-500 outline-none"
@@ -130,6 +116,7 @@ export default function Career() {
               type="tel"
               name="phone"
               placeholder="Phone Number"
+              value={formData.phone}
               onChange={handleChange}
               required
               className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-green-500 outline-none"
@@ -137,6 +124,7 @@ export default function Career() {
 
             <select
               name="position"
+              value={formData.position}
               onChange={handleChange}
               required
               className="w-full border p-3 rounded-xl focus:ring-2 focus:ring-green-500 outline-none"
@@ -144,10 +132,10 @@ export default function Career() {
               <option value="">Select Position</option>
               <option>Sales Executive</option>
               <option>Marketing Manager</option>
-               <option>TeleSales (WFH)</option>
-               <option>TeleSales (WFO)</option>
-               <option>Graphics Designer</option>
-               <option>Video Edditor</option>
+              <option>TeleSales (WFH)</option>
+              <option>TeleSales (WFO)</option>
+              <option>Graphics Designer</option>
+              <option>Video Editor</option>
             </select>
 
             {/* Resume Upload */}
@@ -162,9 +150,17 @@ export default function Career() {
                 onChange={handleChange}
                 className="w-full text-sm"
               />
+              {formData.resume && (
+                <p className="text-xs text-green-600 mt-2">
+                  Selected: {formData.resume}
+                </p>
+              )}
             </div>
 
-            <button className="w-full bg-gradient-to-r from-green-600 to-green-800 text-white py-3 rounded-xl font-semibold shadow-md hover:scale-[1.02] transition">
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-green-600 to-green-800 text-white py-3 rounded-xl font-semibold shadow-md hover:scale-[1.02] transition"
+            >
               Submit Application
             </button>
 

@@ -25,7 +25,7 @@ const ProductDetails = () => {
     .slice(0, 5);
 
   const rating = 4.5;
-  const phoneNumber = "9905234866";
+  const phoneNumber = "6390059995";
 
   const handleCallClick = () => {
     window.location.href = `tel:${phoneNumber}`;

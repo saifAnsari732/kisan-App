@@ -16,6 +16,7 @@ import ProductDetails from './Pages/ProductDetails'
 import HeroCarousel from './Pages/Homepage'
 import PrivacyPolicy from './Pages/PrivacyPolicy'
 import TermsConditions from './Pages/TermsConditions'
+import { ToastContainer } from 'react-toastify'
 
 
 // 🔥 Lazy Load Pages
@@ -93,6 +94,19 @@ function App() {
         
           <Route path="/jobdata" element={<PreviewPage />} />
         </Routes>
+         <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+      
+          />
       </Suspense>
 
       <Footer />

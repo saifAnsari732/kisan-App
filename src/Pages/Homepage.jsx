@@ -81,11 +81,11 @@ export default function HeroCarousel() {
               transition={{ duration: 0.6 }}
               className="slide"
             >
-              <picture className="slide-img">
+              <picture className="slide-img rounded-4xl">
                 <source
                   media="(max-width: 650px)"
                   srcSet={mobileSlides[current % mobileSlides.length].img}
-                />
+                />          
                 <img
                   src={desktopSlides[current % desktopSlides.length].img}
                   className="img w-full h-auto object-contain"

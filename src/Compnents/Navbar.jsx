@@ -266,7 +266,7 @@ const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
               exit={{ x: "100%" }}
               transition={{ duration: 0.3 }}
               /* FIX: w-[280px] is valid (w-70 was not a standard Tailwind class) */
-              className="fixed top-0 right-0 w-[280px] sm:w-[320px] h-screen bg-gradient-to-b from-green-300 via-gray-400 to-gray-200 text-black z-50 px-5 py-4 overflow-y-auto text-sm"
+              className="fixed top-0 right-0 w-[280px] sm:w-[320px] h-screen bg-gradient-to-b from-yellow-100 to-yello-200 text-black z-50 px-5 py-4 overflow-y-auto text-sm"
             >
               {/* Header */}
               <div className="flex justify-between items-center mb-6">
@@ -286,9 +286,9 @@ const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
                 <div className="bg-white rounded-xl overflow-hidden">
                   <button
                    onClick={(e) => {
-  e.stopPropagation();
-  setMobileDropdownOpen(!mobileDropdownOpen);
-}}
+                    e.stopPropagation();
+                     setMobileDropdownOpen(!mobileDropdownOpen);
+                           }}
                     className="w-full flex justify-between items-center px-4 py-3 font-medium"
                   >
                     OUR RANGE
@@ -369,13 +369,13 @@ const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
               <div className="mt-6 space-y-3">
                 <button
                   onClick={() => closeAllAndNavigate("/distributionform")}
-                  className="w-full py-3 rounded-xl bg-yellow-500 text-white font-medium"
+                  className="w-full py-3 rounded-xl bg-yellow-200 text-black font-medium"
                 >
                   Distribution Form
                 </button>
-                <button
+                <button 
                   onClick={() => closeAllAndNavigate("/distagreement")}
-                  className="w-full py-3 rounded-xl bg-red-400 text-white font-medium"
+                  className="w-full py-3 rounded-xl bg-sky-800 text-white font-medium"
                 >
                   Distribution Agreement
                 </button>

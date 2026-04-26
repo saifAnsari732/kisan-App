@@ -55,14 +55,14 @@ export default function Pooja() {
 
       {/* 🔶 DETAILS SECTION */}
       <div className="bg-white py-10 md:py-14">
-        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:grid md:grid-cols-2 gap-10 items-center">
 
           {/* IMAGE */}
-          <div className="flex justify-center">
+          <div className="flex justify-center order-1 md:order-none">
             <img
-              src="/gsoyabean.png"
+              src="/poojaoii.png"
               alt="pooja oil"
-              className="w-full max-w-sm object-contain"
+              className="w-full sm:h-[350px] h-[400px] max-w-m object-cover"
             />
           </div>
 

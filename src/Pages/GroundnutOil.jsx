@@ -63,9 +63,9 @@ export default function Ground() {
           {/* IMAGE */}
           <div className="flex justify-center order-1 md:order-none">
             <img
-              src="/gsoyabean.png"
+              src="/groundnutoil.png"
               alt="groundnut oil"
-              className="w-full max-w-md object-contain"
+              className="w-ful max-w-md object-contain h-[450px]"
             />
           </div>
 
