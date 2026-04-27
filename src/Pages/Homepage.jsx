@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import SocialSidebar from "../Compnents/SocialmediaIcon";
-import CategorySection from "./CategorySection";
+const CategorySection = lazy(() => import("./CategorySection"));
 import mapimg from "../../public/map.webp";
-import FetureProduct from "./FetureProduct";
-import Testimonials from "../Compnents/Testimonials";
-import FAQ from "./FreQuestion";
-import Reviews from "./Reviews";
 import "../Styles/Home.css";
 
+// 🔥 Lazy Load (Performance Boost)
+const FetureProduct = lazy(() => import("./FetureProduct"));
+const Testimonials = lazy(() => import("../Compnents/Testimonials"));
+const Reviews = lazy(() => import("./Reviews"));
+const FAQ = lazy(() => import("./FreQuestion"));
+
+// ✅ Images
 const desktopSlides = [
   { id: 1, img: "/img1.webp" },
   { id: 2, img: "/img2.webp" },
@@ -26,7 +29,7 @@ export default function HeroCarousel() {
 
   const [selected, setSelected] = useState("All");
 
-  // 📱 responsive detect
+  // 📱 Responsive detect
   useEffect(() => {
     const media = window.matchMedia("(max-width: 650px)");
     const handleChange = (e) => setIsMobile(e.matches);
@@ -37,14 +40,17 @@ export default function HeroCarousel() {
     return () => media.removeEventListener("change", handleChange);
   }, []);
 
-  const slides = isMobile ? mobileSlides : desktopSlides;
+  // ✅ Memoized slides
+  const slides = useMemo(
+    () => (isMobile ? mobileSlides : desktopSlides),
+    [isMobile]
+  );
 
-  // reset when device changes
   useEffect(() => {
     setCurrent(0);
   }, [isMobile]);
 
-  // 👉 manual navigation only (NO AUTO SLIDE)
+  // 👉 Manual Slider
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % slides.length);
   };
@@ -55,7 +61,7 @@ export default function HeroCarousel() {
 
   return (
     <>
-      {/* ✅ SEO */}
+      {/* ✅ SEO + Preload */}
       <Helmet>
         <title>Kisan Choice - Best Edible Oil Brand in India</title>
 
@@ -74,19 +80,27 @@ export default function HeroCarousel() {
           property="og:description"
           content="High-quality edible oils with purity and trust across India."
         />
-        <meta property="og:image" content="/img1.png" />
+
+        {/* 🔥 LCP Boost */}
+        <link rel="preload" as="image" href="/img1.webp" />
       </Helmet>
 
-      {/* 🔥 HERO SLIDER (NO ANIMATION) */}
+      {/* 🔥 HERO */}
       <div className="w-full flex justify-center bg-gray-100">
         <div className="slider-container relative">
 
-          <img
-            src={slides[current].img}
-            alt="banner"
-            className="w-full h-auto object-contain rounded-2xl"
-            loading="eager"
-          />
+          <picture>
+            <source srcSet={slides[current].img} type="image/webp" />
+            <img
+              src={slides[current].img}
+              alt="Kisan Choice edible oil banner"
+              loading="eager"
+              fetchpriority="high"
+              width="1200"
+              height="500"
+              className="w-full h-auto object-contain rounded-2xl"
+            />
+          </picture>
 
           <SocialSidebar />
 
@@ -104,17 +118,15 @@ export default function HeroCarousel() {
           )}
 
           {/* 🔘 Dots */}
-          {slides.length > 1 && (
-            <div className="dots">
-              {slides.map((_, i) => (
-                <div
-                  key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`dot ${current === i ? "active" : ""}`}
-                />
-              ))}
-            </div>
-          )}
+          <div className="dots">
+            {slides.map((_, i) => (
+              <div
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`dot ${current === i ? "active" : ""}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -123,7 +135,9 @@ export default function HeroCarousel() {
         OUR CATEGORY
       </h1>
 
-      <CategorySection />
+     <Suspense fallback={<div>Loading Categories...</div>}>
+  <CategorySection />
+</Suspense>
 
       {/* MAP SECTION */}
       <div className="w-full bg-gray-100 pt-10 px-6">
@@ -144,7 +158,10 @@ export default function HeroCarousel() {
             <div className="rounded-3xl overflow-hidden shadow-lg">
               <img
                 src={mapimg}
-                alt="India map"
+                alt="India distribution map"
+                loading="lazy"
+                width="600"
+                height="400"
                 className="w-full h-auto object-cover"
               />
             </div>
@@ -153,11 +170,23 @@ export default function HeroCarousel() {
         </div>
       </div>
 
-      {/* OTHER SECTIONS */}
-      <FetureProduct selectedCategory={selected} />
-      <Reviews />
-      <Testimonials />
-      <FAQ />
+      {/* 🔥 LAZY LOADED SECTIONS */}
+
+      <Suspense fallback={<div className="text-center py-10">Loading Products...</div>}>
+        <FetureProduct selectedCategory={selected} />
+      </Suspense>
+
+      <Suspense fallback={<div className="text-center py-10">Loading Reviews...</div>}>
+        <Reviews />
+      </Suspense>
+
+      <Suspense fallback={<div className="text-center py-10">Loading Videos...</div>}>
+        <Testimonials />
+      </Suspense>
+
+      <Suspense fallback={<div className="text-center py-10">Loading FAQ...</div>}>
+        <FAQ />
+      </Suspense>
     </>
   );
 }

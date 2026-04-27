@@ -1,121 +1,127 @@
-import './App.css'
-import Navbar from './Compnents/Navbar'
-import Footer from './Compnents/Footer'
-import MobileNavbar from './Compnents/Btmnavbar'
-import WhatsapForm from './Compnents/WhatsappForm'
-
-import CategoryPage from "./Pages/CategoryPage";
-import Vegitbl from './Pages/VagitableOil'
-import Coldpress from './Pages/Coldpresed'
-
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import Reviews from './Pages/Reviews'
-import PreviewPage from './Pages/PreviewPage'
-import ProductDetails from './Pages/ProductDetails'
-import HeroCarousel from './Pages/Homepage'
-import PrivacyPolicy from './Pages/PrivacyPolicy'
-import TermsConditions from './Pages/TermsConditions'
-import { ToastContainer } from 'react-toastify'
 import { HelmetProvider } from "react-helmet-async";
+import { ToastContainer } from "react-toastify";
 
-// 🔥 Lazy Load Pages
-// const HeroCarousel = lazy(() => import('./Pages/Homepage'));
-const About = lazy(() => import('./Pages/About'));
-const Shop = lazy(() => import('./Pages/Shop'));
-const Contact = lazy(() => import('./Pages/Contact'));
-const Career = lazy(() => import('./Pages/Career'));
+// ✅ IMPORTANT (DO NOT LAZY)
+import Navbar from "./Compnents/Navbar";
+import Footer from "./Compnents/Footer";
+import MobileNavbar from "./Compnents/Btmnavbar";
+import HeroCarousel from "./Pages/Homepage";
 
-const IndianChoice = lazy(() => import('./Pages/indchoice'));
-const Kachighani = lazy(() => import('./Pages/Kachighani'));
-const KachighaniMustard = lazy(() => import('./Pages/KachighaniMustard'));
+// 🔥 LAZY LOAD ALL PAGES
+const About = lazy(() => import("./Pages/About"));
+const Shop = lazy(() => import("./Pages/Shop"));
+const Contact = lazy(() => import("./Pages/Contact"));
+const Career = lazy(() => import("./Pages/Career"));
 
-const Rsoyabean = lazy(() => import('./Pages/RefiendOil/Rsoyabean'));
-const Rpalmolein = lazy(() => import('./Pages/RefiendOil/Rpalmolein'));
-const Rsunflower = lazy(() => import('./Pages/RefiendOil/Rsunflow'));
-const Rcoconut = lazy(() => import('./Pages/RefiendOil/Rcoconut'));
+const CategoryPage = lazy(() => import("./Pages/CategoryPage"));
+const ProductDetails = lazy(() => import("./Pages/ProductDetails"));
 
-const Alsi = lazy(() => import('./Pages/AlsiOil'));
-const Pooja = lazy(() => import('./Pages/PoojaOil'));
-const Ground = lazy(() => import('./Pages/GroundnutOil'));
-const Distribution=lazy(()=>import('./Compnents/DistributionForm'))
-const Distagreement=lazy(()=>import('./Compnents/AgreementViewer'))
-const Catalog=lazy(()=>import('./Compnents/Catalog'))
-const Testmonial=lazy(()=>import('./Compnents/Testimonials'))
+const Vegitbl = lazy(() => import("./Pages/VagitableOil"));
+const Coldpress = lazy(() => import("./Pages/Coldpresed"));
+
+const Reviews = lazy(() => import("./Pages/Reviews"));
+const PreviewPage = lazy(() => import("./Pages/PreviewPage"));
+
+const PrivacyPolicy = lazy(() => import("./Pages/PrivacyPolicy"));
+const TermsConditions = lazy(() => import("./Pages/TermsConditions"));
+
+// 🔥 PRODUCT PAGES
+const IndianChoice = lazy(() => import("./Pages/indchoice"));
+const Kachighani = lazy(() => import("./Pages/Kachighani"));
+const KachighaniMustard = lazy(() => import("./Pages/KachighaniMustard"));
+
+const Rsoyabean = lazy(() => import("./Pages/RefiendOil/Rsoyabean"));
+const Rpalmolein = lazy(() => import("./Pages/RefiendOil/Rpalmolein"));
+const Rsunflower = lazy(() => import("./Pages/RefiendOil/Rsunflow"));
+const Rcoconut = lazy(() => import("./Pages/RefiendOil/Rcoconut"));
+
+const Alsi = lazy(() => import("./Pages/AlsiOil"));
+const Pooja = lazy(() => import("./Pages/PoojaOil"));
+const Ground = lazy(() => import("./Pages/GroundnutOil"));
+
+// 🔥 OPTIONAL COMPONENTS (LAZY)
+const WhatsapForm = lazy(() => import("./Compnents/WhatsappForm"));
+const Distribution = lazy(() => import("./Compnents/DistributionForm"));
+const Distagreement = lazy(() => import("./Compnents/AgreementViewer"));
+const Catalog = lazy(() => import("./Compnents/Catalog"));
+const Testmonial = lazy(() => import("./Compnents/Testimonials"));
 
 function App() {
   return (
-<HelmetProvider> 
-    <BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        {/* ✅ TOP NAV (ALWAYS LOAD FAST) */}
+        <Navbar />
 
-      <Navbar />
+        {/* 🔥 LAZY ROUTES */}
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center h-screen text-green-700 text-lg font-semibold">
+              Loading...
+            </div>
+          }
+        >
+          <Routes>
+            {/* HOME */}
+            <Route path="/" element={<HeroCarousel />} />
 
-      {/* 🔥 Suspense Loader */}
-      <Suspense
-        fallback={
-          <div className="flex items-center justify-center h-screen text-green-700 text-lg font-semibold">
-            Loading...
-          </div>
-        }
-      >
-        <Routes>
-          <Route path="/" element={<HeroCarousel />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/career" element={<Career />} />
-         <Route path="/category/:id" element={<CategoryPage />} />
-          <Route path="/form" element={<WhatsapForm />} />
+            {/* BASIC PAGES */}
+            <Route path="/about" element={<About />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/career" element={<Career />} />
 
-          <Route path="/choice" element={<IndianChoice />} />
-          <Route path="/kachighani" element={<Kachighani />} />
-          <Route path="/kachighanimustard" element={<KachighaniMustard />} />
+            {/* CATEGORY */}
+            <Route path="/category/:id" element={<CategoryPage />} />
 
-          <Route path="/soyabean" element={<Rsoyabean />} />
-          <Route path="/palmleion" element={<Rpalmolein />} />
-          <Route path="/sunflower" element={<Rsunflower />} />
-          <Route path="/coconut" element={<Rcoconut />} />
+            {/* PRODUCT DETAIL */}
+            <Route path="/product/:id" element={<ProductDetails />} />
 
-          <Route path="/vegitable" element={<Vegitbl />} />
-          <Route path="/coldpress" element={<Coldpress />} />
+            {/* PRODUCT ROUTES */}
+            <Route path="/choice" element={<IndianChoice />} />
+            <Route path="/kachighani" element={<Kachighani />} />
+            <Route path="/kachighanimustard" element={<KachighaniMustard />} />
 
-          <Route path="/alsi" element={<Alsi />} />
-          <Route path="/pooja" element={<Pooja />} />
-          <Route path="/ground" element={<Ground />} />
-          <Route path="/distributionform" element={<Distribution />} />
-          <Route path="/distagreement" element={<Distagreement />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/testmonial" element={<Testmonial />} />
-          <Route path="/review" element={<Reviews />} />
-         
-         <Route path="/product/:id" element={<ProductDetails />} />
-         <Route path="/privacy" element={<PrivacyPolicy />} />
-<Route path="/terms" element={<TermsConditions />} />
-        
-        
-          <Route path="/jobdata" element={<PreviewPage />} />
-        </Routes>
-         <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-      
-          />
-      </Suspense>
+            <Route path="/soyabean" element={<Rsoyabean />} />
+            <Route path="/palmleion" element={<Rpalmolein />} />
+            <Route path="/sunflower" element={<Rsunflower />} />
+            <Route path="/coconut" element={<Rcoconut />} />
 
-      <Footer />
-      <MobileNavbar />
+            <Route path="/vegitable" element={<Vegitbl />} />
+            <Route path="/coldpress" element={<Coldpress />} />
 
-    </BrowserRouter>
- </HelmetProvider>
-  )
+            <Route path="/alsi" element={<Alsi />} />
+            <Route path="/pooja" element={<Pooja />} />
+            <Route path="/ground" element={<Ground />} />
+
+            {/* EXTRA */}
+            <Route path="/form" element={<WhatsapForm />} />
+            <Route path="/distributionform" element={<Distribution />} />
+            <Route path="/distagreement" element={<Distagreement />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/testmonial" element={<Testmonial />} />
+
+            <Route path="/review" element={<Reviews />} />
+            <Route path="/jobdata" element={<PreviewPage />} />
+
+            {/* LEGAL */}
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsConditions />} />
+          </Routes>
+
+          {/* ✅ TOAST */}
+          <ToastContainer position="top-right" autoClose={3000} theme="light" />
+        </Suspense>
+
+        {/* ✅ FOOTER */}
+        <Footer />
+        <MobileNavbar />
+      </BrowserRouter>
+    </HelmetProvider>
+  );
 }
 
-export default App
+export default App;

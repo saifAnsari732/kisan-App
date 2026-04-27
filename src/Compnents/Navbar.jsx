@@ -259,14 +259,14 @@ const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
               className="fixed inset-0 bg-black z-40"
               onClick={() => setIsOpen(false)}
             />
-
+{/* ldgmbodmfbpomepoijbpsmb;ldfmb09eajp mgp35j t=03j0tk3pt j09jgokmerobvnfdovlkfvosknvf blkdnpogbjw68+54646494946664684978607603-063 */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3 }}
               /* FIX: w-[280px] is valid (w-70 was not a standard Tailwind class) */
-              className="fixed top-0 right-0 w-[280px] sm:w-[320px] h-screen bg-gradient-to-b from-yellow-100 to-yello-200 text-black z-50 px-5 py-4 overflow-y-auto text-sm"
+              className="fixed top-0 right-0 w-[280px] sm:w-[320px] h-screen bg-gradient-to-b from-yellow-100 to-yellow-0 text-black z-50 px-5 py-4 overflow-y-auto text-sm"
             >
               {/* Header */}
               <div className="flex justify-between items-center mb-6">

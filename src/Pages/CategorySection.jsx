@@ -11,32 +11,28 @@ export default function CategorySection() {
   ];
 
   return (
-    <div className="w-full py-4  bg-gray-100">
+    <section className="w-full py-6 bg-gray-100" aria-label="Product Categories">
 
       {/* ================= MOBILE ================= */}
-      <div className="md:hidden px-4 space-y-10">
+      <div className="md:hidden px-4 space-y-8">
         {categories.map((item, i) => {
           const isLeft = i % 2 === 0;
 
           return (
             <div
-              key={i}
+              key={item.id}
               onClick={() => navigate(`/category/${item.id}`)}
-              className={`flex ${isLeft ? "justify-start" : "justify-end"} py-2 cursor-pointer`}
+              className={`flex ${isLeft ? "justify-start" : "justify-end"} cursor-pointer`}
             >
               <div
                 className={`
-                  relative w-[88%] h-28 rounded-2xl ${item.color}
-                  shadow-lg px-4 flex items-center
+                  relative w-[90%] h-28 rounded-2xl ${item.color}
+                  shadow-md flex items-center px-5
+                  hover:shadow-xl transition
                 `}
               >
                 {/* TITLE */}
-                <h2
-                  className={`
-                    text-white font-bold text-md tracking-widest z-20
-                    ${isLeft ? "pr-28" : "pl-30"}
-                  `}
-                >
+                <h2 className="text-white font-bold text-sm tracking-wide z-20 max-w-[60%]">
                   {item.title}
                 </h2>
 
@@ -44,11 +40,11 @@ export default function CategorySection() {
                 <img
                   src={item.img}
                   alt={item.title}
+                  loading="lazy"
+                  decoding="async"
                   className={`
-                    absolute z-10
-                    ${isLeft ? "-right-14" : "-left-13"}
-                    h-48 object-contain
-                    drop-shadow-2xl
+                    absolute z-10 h-40 object-contain drop-shadow-xl
+                    ${isLeft ? "-right-10" : "-left-10"}
                   `}
                 />
               </div>
@@ -59,47 +55,41 @@ export default function CategorySection() {
 
       {/* ================= DESKTOP ================= */}
       <div className="hidden md:block">
-        <div className="max-w-7xl mx-auto relative h-[420px]">
+        <div className="max-w-7xl mx-auto grid grid-cols-4 gap-6 px-4">
 
-          {categories.map((item, i) => {
-            const positions = [
-              "left-[0%]",
-              "left-[26%]",
-              "left-[52%]",
-              "left-[78%]",
-            ];
-
-            return (
-              <div
-                key={i}
-                onClick={() => navigate(`/category/${item.id}`)}
-                className={`absolute top-0 ${positions[i]} w-[22%] cursor-pointer`}
-              >
-                {/* CARD */}
-                <div className={`relative h-72 rounded-3xl ${item.color} shadow-xl`}>
-                  <h2 className="absolute inset-0 flex items-center justify-start text-white font-[800] py-2 mt-4 tracking-widest rotate-90 text-lg">
-                    {item.title}
-                  </h2>
-                </div>
-
-                {/* IMAGE */}
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="
-                    absolute left-1/2 -translate-x-1/2
-                    -bottom-28
-                    h-48 object-contain
-                    drop-shadow-2xl
-                    transition duration-500 hover:scale-110
-                  "
-                />
+          {categories.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => navigate(`/category/${item.id}`)}
+              className="cursor-pointer group"
+            >
+              {/* CARD */}
+              <div className={`relative h-64 rounded-3xl ${item.color} shadow-lg flex items-center justify-center`}>
+                
+                {/* TITLE */}
+                <h2 className="text-white font-extrabold tracking-widest rotate-90 text-lg opacity-80 group-hover:opacity-100 transition">
+                  {item.title}
+                </h2>
               </div>
-            );
-          })}
+
+              {/* IMAGE */}
+              <img
+                src={item.img}
+                alt={item.title}
+                loading="lazy"
+                decoding="async"
+                className="
+                  mx-auto -mt-16 h-44 object-contain
+                  drop-shadow-2xl
+                  transition-transform duration-300
+                  group-hover:scale-105
+                "
+              />
+            </div>
+          ))}
 
         </div>
       </div>
-    </div>
+    </section>
   );
 }
