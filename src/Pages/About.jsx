@@ -10,9 +10,47 @@ import {
   Boxes,
 } from "lucide-react";
 
+import { Helmet } from "react-helmet-async";
+
 export default function About() {
   return (
     <div className="bg-gray-100">
+
+      {/* ✅ FULL SEO SETUP */}
+      <Helmet>
+        <title>About Us | KisanChoice</title>
+
+        <meta
+          name="description"
+          content="Learn about KisanChoice - trusted edible oil brand delivering purity, quality and tradition across India."
+        />
+
+        <meta
+          name="keywords"
+          content="KisanChoice, mustard oil, refined oil, edible oil India, kachi ghani oil"
+        />
+
+        {/* ✅ Open Graph (Facebook / WhatsApp preview) */}
+        <meta property="og:title" content="About KisanChoice" />
+        <meta
+          property="og:description"
+          content="Trusted edible oil brand delivering purity across India."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://kisangroups.co.in/about" />
+        <meta property="og:image" content="https://kisangroups.co.in/34.png" />
+
+        {/* ✅ Twitter SEO */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About KisanChoice" />
+        <meta
+          name="twitter:description"
+          content="Trusted edible oil brand delivering purity across India."
+        />
+
+        {/* ✅ Canonical URL */}
+        <link rel="canonical" href="https://kisangroups.co.in/about" />
+      </Helmet>
 
       {/* HERO */}
       <div className="bg-gradient-to-r from-green-700 to-green-900 text-white py-10 text-center px-4">
@@ -24,7 +62,7 @@ export default function About() {
         </p>
       </div>
 
-      {/* 🔥 VISION & MISSION (UPPER) */}
+      {/* 🔥 VISION & MISSION */}
       <div className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-8">
 
         <div className="bg-white p-6 rounded-2xl shadow flex items-start gap-4 hover:shadow-lg transition">
@@ -62,7 +100,7 @@ export default function About() {
           <div className="absolute inset-0 bg-yellow-300 blur-3xl opacity-30 rounded-full"></div>
           <img
             src={aboutImg}
-            alt="about"
+            alt="KisanChoice About"
             className="relative w-full h-[350px] object-contain drop-shadow-2xl"
           />
         </div>
@@ -88,105 +126,6 @@ export default function About() {
         </div>
       </div>
 
-      {/* PRODUCT RANGE */}
-      <div className="max-w-6xl mx-auto px-4 pb-12">
-        <h2 className="text-2xl font-bold text-center text-green-700 mb-8">
-          Our Product Range
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-6">
-
-          <div className="bg-white p-6 flex flex-col rounded-2xl shadow text-center hover:shadow-lg transition">
-            <img src="1.svg" alt="" className="h-16 items-center text-black" />
-            <h3 className="text-green-700 font-semibold">
-              Mustard Oils
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Premium Kachi Ghani oils with natural aroma.of All section
-            </p>
-          </div>
-
-          <div className="bg-white flex flex-col p-6 rounded-2xl shadow text-center hover:shadow-lg transition">
-             <img src="2.svg" alt="" className="h-16 items-center" />
-            <h3 className="text-green-700 font-semibold mb-2">
-              Refined Oils
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Soybean, sunflower, and blended oils for daily use.
-            </p>
-          </div>
-
-          <div className="bg-white flex flex-col p-6 rounded-2xl shadow text-center hover:shadow-lg transition">
-        
-              <img src="3.svg" alt="" className="h-16 items-center" />
-            <h3 className="text-green-700 font-semibold mb-2">
-              Vegitable Oils
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Coconut, groundnut, flaxseed, and sesame oils.
-            </p>
-          </div>
-
-        </div>
-      </div>
-
-      {/* WHY CHOOSE US */}
-      <div className="bg-white py-14 px-4">
-        <div className="max-w-6xl mx-auto text-center mb-10">
-          <h2 className="text-3xl font-bold text-green-700 mb-4">
-            Why Choose Us?
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-
-          <div className="bg-gray-100 p-6 rounded-2xl shadow flex gap-3">
-            <ShieldCheck className="text-green-600" />
-            <p className="text-sm text-gray-600">
-              Purity-focused manufacturing process.
-            </p>
-          </div>
-
-          <div className="bg-gray-100 p-6 rounded-2xl shadow flex gap-3">
-            <Boxes className="text-green-600" />
-            <p className="text-sm text-gray-600">
-              Wide variety of edible oils.
-            </p>
-          </div>
-
-          <div className="bg-gray-100 p-6 rounded-2xl shadow flex gap-3">
-            <Globe className="text-green-600" />
-            <p className="text-sm text-gray-600">
-              Strong PAN India distribution.
-            </p>
-          </div>
-
-          <div className="bg-gray-100 p-6 rounded-2xl shadow flex gap-3">
-            <Factory className="text-green-600" />
-            <p className="text-sm text-gray-600">
-              Third-party manufacturing support.
-            </p>
-          </div>
-
-          <div className="bg-gray-100 p-6 rounded-2xl shadow flex gap-3">
-            <BadgeCheck className="text-green-600" />
-            <p className="text-sm text-gray-600">
-              Premium quality at affordable price.
-            </p>
-          </div>
-
-          <div className="bg-gray-100 p-6 rounded-2xl shadow flex gap-3">
-            <Leaf className="text-green-600" />
-            <p className="text-sm text-gray-600">
-              Natural & healthy oil production.
-            </p>
-          </div>
-
-        </div>
-      </div>
-
-      {/* FOOTER */}
-      
     </div>
   );
 }

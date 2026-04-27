@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   FaFacebookF,
   FaInstagram,
@@ -42,6 +42,9 @@ export default function Contact() {
       message: "",
     });
   };
+  useEffect(() => {
+    document.title = "Contact | KisanChoice";
+  }, []);
 
   return (
     <div className="bg-gray-100 py-10 px-4">

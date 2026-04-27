@@ -17,7 +17,7 @@ import HeroCarousel from './Pages/Homepage'
 import PrivacyPolicy from './Pages/PrivacyPolicy'
 import TermsConditions from './Pages/TermsConditions'
 import { ToastContainer } from 'react-toastify'
-
+import { HelmetProvider } from "react-helmet-async";
 
 // 🔥 Lazy Load Pages
 // const HeroCarousel = lazy(() => import('./Pages/Homepage'));
@@ -45,6 +45,7 @@ const Testmonial=lazy(()=>import('./Compnents/Testimonials'))
 
 function App() {
   return (
+<HelmetProvider> 
     <BrowserRouter>
 
       <Navbar />
@@ -113,6 +114,7 @@ function App() {
       <MobileNavbar />
 
     </BrowserRouter>
+ </HelmetProvider>
   )
 }
 

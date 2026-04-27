@@ -50,7 +50,6 @@ const reviews = [
 export default function Reviews() {
   return (
     <div className="bg-gray-100 py-12 px-4">
-
       {/* Heading */}
       <h2 className="text-center text-4xl font-bold text-green-700 mb-10">
         Happy Clients
@@ -69,45 +68,33 @@ export default function Reviews() {
           1024: { slidesPerView: 3 },
         }}
       >
+        {reviews.map((review, index) => (
+          <SwiperSlide key={index}>
+            <div className="bg-white text-black p-6 rounded-xl shadow-lg text-center h-full flex flex-col justify-between">
+              {/* Quote */}
+              <div className="text-5xl mb-3">❝</div>
 
+              {/* Text */}
+              <p className="text-sm leading-relaxed mb-4">{review.text}</p>
 
+              {/* ⭐ Stars (FIXED CENTER) */}
+              <div className="text-yellow-400 text-lg mb-4 flex justify-center items-center gap-1">
+                <FaStar size={20} />
+                <FaStar size={20} />
+                <FaStar size={20} />
+                <FaStar size={20} />
+                <FaStar size={20} />
+              </div>
 
- {reviews.map((review, index) => (
-  <SwiperSlide key={index}>
-    <div className="bg-white text-black p-6 rounded-xl shadow-lg text-center h-full flex flex-col justify-between">
-
-      {/* Quote */}
-      <div className="text-5xl mb-3">❝</div>
-
-      {/* Text */}
-      <p className="text-sm leading-relaxed mb-4">
-        {review.text}
-      </p>
-
-      {/* ⭐ Stars (FIXED CENTER) */}
-      <div className="text-yellow-400 text-lg mb-4 flex justify-center items-center gap-1">
-        <FaStar size={20}/>
-        <FaStar size={20}/>
-        <FaStar size={20}/>
-        <FaStar size={20}/>
-        <FaStar size={20}/>
-      </div>
-
-      {/* Name */}
-      <div className="mt-auto">
-        <h4 className="font-semibold">
-          {review.name}
-        </h4>
-        <p className="text-sm text-gray-500">
-          {review.location}
-        </p>
-      </div>
-
-    </div>
-  </SwiperSlide>
-))}
+              {/* Name */}
+              <div className="mt-auto">
+                <h4 className="font-semibold">{review.name}</h4>
+                <p className="text-sm text-gray-500">{review.location}</p>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
-
     </div>
   );
 }

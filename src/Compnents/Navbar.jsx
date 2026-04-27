@@ -66,7 +66,7 @@ const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
     }
   };
 
-  const phoneNumber = "9905234866";
+  const phoneNumber = "6390059995";
   const handleCallClick = () => {
     window.location.href = `tel:${phoneNumber}`;
   };
@@ -93,8 +93,8 @@ const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
               >
                 <Phone size={13} />
                 {/* FIX: Show shorter number on very small screens */}
-                <span className="hidden xs:inline">6390059995</span>
-                <span className="xs:hidden">6390059995</span>
+                <span onClick={handleCallClick} className="">6390059995</span>
+                {/* <span className="xs:hidden">6390059995</span> */}
               </div>
               <div className="hidden sm:flex items-center gap-1">
                 <Mail size={13} />

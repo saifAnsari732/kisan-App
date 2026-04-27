@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import FetureProduct from "./FetureProduct";
 
 export default function Shop() {
@@ -6,6 +6,9 @@ export default function Shop() {
   const [viewAll, setViewAll] = useState(false);
 
   const filters = ["All", "Mustard Oil", "Refined Oil", "Vegetable Oil", "Cold Pressed"];
+  useEffect(() => {
+    document.title = "Products | KisanChoice";
+  }, []);
 
   return (
     <div className="bg-gray-100 min-h-screen">
