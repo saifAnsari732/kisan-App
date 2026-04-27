@@ -128,7 +128,7 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
               {filteredData.map((item) => (
                 <div
                   key={item.id}
-                  className="min-w-[250px] 
+                  className="min-w-[280px] 
                   bg-gradient-to-br from-yellow-100 via-yellow-50 to-yellow-200 
                   rounded-2xl shadow-lg p-4 flex-shrink-0"
                 >
@@ -136,12 +136,12 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
                     onClick={() => navigate(`/product/${item.id}`)}
                     className="cursor-pointer"
                   >
-                    <div className="h-44 flex items-center justify-center">
+                    <div className="h-60 flex items-center justify-center">
                       <img
                         src={item.img}
                         alt={item.title}
                         loading="lazy"
-                        className="h-44 object-contain"
+                        className="h-60 object-contain"
                       />
                     </div>
 

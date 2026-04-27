@@ -89,10 +89,10 @@ export default function Reviews() {
             key={index}
             className="min-w-[280px] md:min-w-[320px] 
             bg-white rounded-xl shadow-md p-6 flex-shrink-0 
-            flex flex-col flex-3 justify-between hover:shadow-xl transition"
+            flex flex-col flex-3 h-[280px] justify-between hover:shadow-xl transition"
           >
             {/* Quote */}
-            <div className="text-4xl mb-3 text-gray-400">❝</div>
+            <div className="text-4xl mb-1 text-yellow-400">❝</div>
 
             {/* Text */}
             <p className="text-sm text-center text-gray-700 leading-relaxed mb-4">
@@ -100,7 +100,7 @@ export default function Reviews() {
             </p>
 
             {/* Stars */}
-            <div className="text-yellow-400 flex justify-center gap-1 mb-4">
+            <div className="text-yellow-400 flex justify-center gap-1 mb-3">
               {[...Array(5)].map((_, i) => (
                 <FaStar key={i} size={18} />
               ))}
