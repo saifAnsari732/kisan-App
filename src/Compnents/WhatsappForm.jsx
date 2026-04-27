@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
-import logo from "../../public/35.png";
+import logo from "../../public/35.webp";
 
 export default function WhatsapForm() {
     const [name, setName] = useState("");

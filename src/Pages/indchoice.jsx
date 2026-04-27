@@ -13,7 +13,7 @@ export default function IndianChoice() {
 
                 {/* BACKGROUND IMAGE */}
                 <img
-                    src="/web banner bk.png"
+                    src="/web banner bk.webp"
                     alt="banner"
                     className="w-full h-full object-cover  md:absolute md:inset-0"
                 />
@@ -48,7 +48,7 @@ export default function IndianChoice() {
                               rounded-full blur-2xl opacity-40"></div>
 
                             <img
-                                src="/indchoice.png"
+                                src="/indchoice.webp"
                                 alt="product"
                                 className="relative w-80 md:w-96 mt-10 object-contain drop-shadow-2xl"
                             />
@@ -66,7 +66,7 @@ export default function IndianChoice() {
                     {/* IMAGE */}
                     <div className="flex justify-center order-1 md:order-none">
                         <img
-                            src="/web1.png"
+                            src="/web1.webp"
                             alt="kisan oil"
                             className="w-full max-w-m object-contain"
                         />

@@ -128,7 +128,7 @@ const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
             <div className="flex-shrink-0">
               <img
                 onClick={() => navigate("/")}
-                src="Logo.png"
+                src="Logo.webp"
                 alt="Logo"
                 /* FIX: Consistent sizing across breakpoints */
                 className="h-10 sm:h-12 lg:h-14 w-auto object-contain cursor-pointer"
@@ -270,7 +270,7 @@ const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
             >
               {/* Header */}
               <div className="flex justify-between items-center mb-6">
-                <img src="Logo.png" alt="Logo" className="h-10 w-auto object-contain" />
+                <img src="Logo.webp" alt="Logo" className="h-10 w-auto object-contain" />
                 <button onClick={() => setIsOpen(false)} aria-label="Close menu">
                   <X size={28} />
                 </button>

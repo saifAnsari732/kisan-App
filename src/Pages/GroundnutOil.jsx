@@ -12,7 +12,7 @@ export default function Ground() {
 
         {/* BACKGROUND */}
         <img
-          src="/bannerKachi.png"
+          src="/bannerKachi.webp"
           alt="banner"
           className="w-full h-full object-cover md:absolute md:inset-0"
         />
@@ -46,7 +46,7 @@ export default function Ground() {
               rounded-full blur-2xl opacity-40"></div>
 
               <img
-                src="/11.png" // 👈 groundnut oil image
+                src="/11.webp" // 👈 groundnut oil image
                 alt="Groundnut Oil"
                 className="rounded-3xl relative w-80 md:w-96 mt-10 object-contain drop-shadow-2xl"
               />
@@ -63,7 +63,7 @@ export default function Ground() {
           {/* IMAGE */}
           <div className="flex justify-center order-1 md:order-none">
             <img
-              src="/groundnutoil.png"
+              src="/groundnutoil.webp"
               alt="groundnut oil"
               className="w-ful max-w-md object-contain h-[450px]"
             />

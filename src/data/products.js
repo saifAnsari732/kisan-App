@@ -2,17 +2,17 @@ export const products = [
   {
     id: 1,
     title: "INDIAN CHOICE MUSTARD OILS",
-    img: "/34.png",
-     images: [
-      "/3.png",        // default
-      "/112.png",  // 500ml
-      "/34.png",  // 500ml
+    img: "/34.webp",
+    images: [
+      "/3.webp",
+      "/112.webp",
+      "/34.webp",
     ],
     category: "Mustard Oil",
     description:
       "Premium quality mustard oil with strong natural aroma, perfect for traditional Indian cooking and pickles.",
     about:
-      "Mustard oil is widely used in Indian households for its bold flavor and numerous health benefits. It contains omega-3 and omega-6 fatty acids that help maintain heart health. Its antibacterial and antifungal properties make it ideal for cooking, massage, and even skincare. This oil enhances the taste of food while supporting digestion and immunity.",
+      "Mustard oil is widely used in Indian households for its bold flavor and numerous health benefits.",
     benefits: [
       "Improves heart health",
       "Boosts immunity",
@@ -20,21 +20,21 @@ export const products = [
       "Good for skin and hair"
     ]
   },
+
   {
     id: 2,
-    title:  "SUNFLOWER REFINED OILS",
-    img: "/36.png",
+    title: "SUNFLOWER REFINED OILS",
+    img: "/36.webp",
     images: [
-      "/6.png",        // default
-      "/12.png",  // 500ml
-      "/36.png", // 1L
-     
+      "/6.webp",
+      "/12.webp",
+      "/36.webp",
     ],
     category: "Refined Oil",
     description:
-      "Light, odorless refined oil ideal for everyday cooking with a high smoke point.",
+      "Light, odorless refined oil ideal for everyday cooking.",
     about:
-      "Refined oils are processed to remove impurities, ensuring a clean and neutral taste. They are perfect for deep frying, sautéing, and baking. With a high smoke point, they maintain stability at high temperatures and help prepare healthier meals without altering the natural taste of food.",
+      "Refined oils are processed to remove impurities, ensuring a clean taste.",
     benefits: [
       "High smoke point",
       "Light and non-sticky",
@@ -42,43 +42,43 @@ export const products = [
       "Long shelf life"
     ]
   },
+
   {
     id: 3,
     title: "KISAN CHOICE KACHI GHANI OILS",
-    img: "/35.png",
+    img: "/35.webp",
     images: [
-      "/35.png",        // default
-      "/113.png",  // 500ml
-      "/2.png", // 1L
-     
+      "/35.webp",
+      "/113.webp",
+      "/2.webp",
     ],
     category: "Vegetable Oil",
     description:
-      "Versatile vegetable oil suitable for all types of cooking needs.",
+      "Versatile vegetable oil suitable for all types of cooking.",
     about:
-      "Vegetable oils are derived from various plant sources and are widely used for daily cooking. They provide essential nutrients and are suitable for frying, baking, and grilling. Their balanced composition makes them a staple in every kitchen.",
+      "Vegetable oils provide essential nutrients for daily cooking.",
     benefits: [
       "Multi-purpose usage",
-      "Affordable and accessible",
+      "Affordable",
       "Balanced nutrition",
-      "Good for daily cooking"
+      "Daily use"
     ]
   },
+
   {
     id: 4,
     title: "KISAN CHOICE REFINED SOYABEAN OIL",
-    img: "/37.png",
+    img: "/37.webp",
     images: [
-      "/37.png",        // default
-      "/114.png",  // 500ml
-      "/1.png", // 1L
-     
+      "/37.webp",
+      "/114.webp",
+      "/1.webp",
     ],
     category: "Cold Pressed",
     description:
-      "100% natural cold pressed oil retaining maximum nutrients and flavor.",
+      "Natural oil retaining maximum nutrients and flavor.",
     about:
-      "Cold pressed oils are extracted using traditional methods without heat, preserving essential nutrients, antioxidants, and natural aroma. These oils are considered healthier alternatives and are ideal for people who prefer organic and chemical-free products.",
+      "Cold pressed oils preserve nutrients and aroma.",
     benefits: [
       "Rich in nutrients",
       "Chemical-free",
@@ -86,47 +86,50 @@ export const products = [
       "Natural taste"
     ]
   },
+
   {
     id: 5,
     title: "SOYABEAN REFINED OILS",
-    img: "/1.png",
+    img: "/1.webp",
     category: "Vegetable Oil",
     description:
-      "Healthy soybean oil packed with essential fatty acids and vitamins.",
+      "Healthy soybean oil with essential fatty acids.",
     about:
-      "Soybean oil is one of the most widely used cooking oils. It is light, healthy, and contains omega-3 fatty acids that support heart health. Ideal for frying and cooking, it blends well with all types of cuisines.",
+      "Soybean oil is widely used cooking oil.",
     benefits: [
       "Heart-friendly",
       "Light texture",
-      "Rich in nutrients",
-      "Affordable option"
+      "Rich nutrients",
+      "Affordable"
     ]
   },
+
   {
     id: 6,
     title: "KACHIGHANI MUSTARD OILS",
-    img: "/2.png",
+    img: "/2.webp",
     category: "Mustard Oil",
     description:
-      "Traditional kachighani oil made using age-old extraction methods.",
+      "Traditional oil made using age-old extraction methods.",
     about:
-      "Kachighani oil is extracted through a slow, traditional process that preserves its natural flavor and nutrients. It is known for its strong aroma and is widely used in Indian cooking, especially in pickles and curries.",
+      "Kachighani oil preserves natural flavor and nutrients.",
     benefits: [
       "Authentic taste",
       "Rich aroma",
       "Traditional process",
-      "High nutritional value"
+      "High nutrition"
     ]
   },
+
   {
     id: 7,
     title: "KACHIGHANI MUSTARD",
-    img: "/3.png",
+    img: "/3.webp",
     category: "Mustard Oil",
     description:
-      "Premium quality mustard oil with strong flavor and purity.",
+      "Premium quality mustard oil with strong flavor.",
     about:
-      "This oil is specially crafted for those who prefer strong flavor and purity in their cooking. It enhances the taste of dishes and is ideal for traditional recipes.",
+      "Perfect for traditional recipes.",
     benefits: [
       "Strong flavor",
       "Pure quality",
@@ -134,125 +137,131 @@ export const products = [
       "Healthy cooking"
     ]
   },
+
   {
     id: 8,
     title: "KISAN CHOICE KACHIGHANI",
-    img: "/4.png",
+    img: "/4.webp",
     category: "Mustard Oil",
     description:
-      "Farm-quality mustard oil made with natural processes.",
+      "Farm-quality mustard oil.",
     about:
-      "Kisan Kachighani oil is produced using traditional farming and extraction techniques, ensuring purity and authenticity. It is rich in nutrients and ideal for daily cooking.",
+      "Made using traditional methods.",
     benefits: [
-      "Farm fresh quality",
+      "Farm fresh",
       "Natural extraction",
       "Rich nutrients",
       "Authentic taste"
     ]
   },
+
   {
     id: 9,
     title: "CUSTOMER CHOICE OIL",
-    img: "/5.png",
-    images:[
-        "/ricebran.png",
-        "/5.png"
+    img: "/5.webp",
+    images: [
+      "/ricebran.webp",
+      "/5.webp"
     ],
     category: "Refined Oil",
     description:
-      "Popular refined oil trusted by customers for daily cooking.",
+      "Popular refined oil for daily cooking.",
     about:
-      "CustomerChoice oil offers consistent quality and performance. It is widely used in households for its reliability and balanced cooking properties.",
+      "Reliable and consistent oil.",
     benefits: [
       "Trusted brand",
       "Consistent quality",
-      "Light cooking oil",
+      "Light cooking",
       "Affordable"
     ]
   },
- {
+
+  {
     id: 10,
     title: "SUNFLOWER REFINED OIL",
-    img: "/6.png", // default main image
+    img: "/6.webp",
     images: [
-      "/6.png",        // default
-      "/12.png",  // 500ml
-      "/suncard.png", // 1L
-     
+      "/6.webp",
+      "/12.webp",
+      "/suncard.webp",
     ],
     category: "Refined Oil",
-    description: "Healthy sunflower oil rich in Vitamin E and antioxidants.",
+    description: "Healthy sunflower oil rich in Vitamin E.",
     about:
-      "Sunflower oil is known for its light texture and health benefits.",
+      "Light and healthy oil.",
     benefits: [
-      "Rich in Vitamin E",
+      "Vitamin E",
       "Heart-friendly",
       "Light cooking",
-      "Healthy lifestyle"
+      "Healthy"
     ]
   },
+
   {
     id: 11,
     title: "ALSI OIL",
-    img: "/9.png",
+    img: "/9.webp",
     category: "Cold Pressed",
     description:
-      "Flaxseed oil loaded with omega-3 fatty acids.",
+      "Flaxseed oil with omega-3.",
     about:
-      "Alsi oil is widely known for its medicinal properties. It supports heart health, improves digestion, and is often used in diets focused on wellness.",
+      "Supports heart health.",
     benefits: [
       "Omega-3 rich",
-      "Supports heart health",
-      "Improves digestion",
-      "Good for skin"
+      "Heart health",
+      "Better digestion",
+      "Skin benefits"
     ]
   },
+
   {
     id: 12,
     title: "POOJA OIL",
-    img: "/10.png",
+    img: "/10.webp",
     category: "Special Oil",
     description:
-      "Pure oil specially designed for religious rituals and lamps.",
+      "Oil for religious use.",
     about:
-      "Pooja oil is used in temples and homes for lighting diyas. It ensures long-lasting burning and purity, making it ideal for spiritual use.",
+      "Used for diya and rituals.",
     benefits: [
-      "Long burning time",
-      "Pure quality",
-      "Ideal for rituals",
-      "Safe usage"
+      "Long burning",
+      "Pure",
+      "Spiritual use",
+      "Safe"
     ]
   },
+
   {
     id: 13,
     title: "GROUNDNUT OIL",
-    img: "/11.png",
+    img: "/11.webp",
     category: "Vegetable Oil",
     description:
-      "Nutritious groundnut oil with rich taste and high smoke point.",
+      "Nutritious oil with rich taste.",
     about:
-      "Groundnut oil is widely used for frying due to its high smoke point. It is rich in healthy fats and adds a unique flavor to food.",
+      "Perfect for frying.",
     benefits: [
       "High smoke point",
       "Rich taste",
       "Healthy fats",
-      "Perfect for frying"
+      "Cooking"
     ]
   },
+
   {
     id: 14,
     title: "KISAN CHOICE COCONUT OIL",
-    img: "/coconut.png",
+    img: "/coconut.webp",
     category: "Vegetable Oil",
     description:
-      "Nutritious groundnut oil with rich taste and high smoke point.",
+      "Healthy coconut oil.",
     about:
-      "Groundnut oil is widely used for frying due to its high smoke point. It is rich in healthy fats and adds a unique flavor to food.",
+      "Good for cooking and hair.",
     benefits: [
-      "High smoke point",
-      "Rich taste",
+      "Natural",
       "Healthy fats",
-      "Perfect for frying"
+      "Multi-use",
+      "Skin & hair"
     ]
   }
 ];

@@ -14,7 +14,7 @@ export default function Kachighani() {
 
                 {/* BACKGROUND IMAGE */}
                 <img
-                    src="/bannerKachi.png"
+                    src="/bannerKachi.webp"
                     alt="banner"
                     className="w-full h-full object-cover  md:absolute md:inset-0"
                 />
@@ -44,7 +44,7 @@ export default function Kachighani() {
                               rounded-full blur-2xl opacity-40"></div>
 
                             <img
-                                src="/kachighani.png"
+                                src="/kachighani.webp"
                                 alt="product"
                                 className="relative w-80 md:w-96 mt-10 object-contain drop-shadow-2xl"
                             />
@@ -62,7 +62,7 @@ export default function Kachighani() {
                     {/* IMAGE */}
                     <div className="flex justify-center order-1 md:order-none">
                         <img
-                            src="/kachicatlok.png"
+                            src="/kachicatlok.webp"
                             alt="kisan oil"
                             className="w-full max-w-m object-contain"
                         />

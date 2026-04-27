@@ -12,7 +12,7 @@ export default function Coconut() {
 
         {/* BACKGROUND IMAGE */}
         <img
-          src="/bannerKachi.png"
+          src="/bannerKachi.webp"
           alt="banner"
           className="w-full h-full object-cover md:absolute md:inset-0"
         />
@@ -45,7 +45,7 @@ export default function Coconut() {
               <div className="absolute w-40 h-40 md:w-56 md:h-56 bg-yellow-400 rounded-full blur-2xl opacity-40"></div>
 
               <img
-                src="/coconut.png"
+                src="/coconut.webp"
                 alt="Coconut Oil"
                 className="relative w-72 md:w-96 mt-10 object-contain drop-shadow-2xl"
               />
@@ -62,7 +62,7 @@ export default function Coconut() {
           {/* IMAGE */}
           <div className="flex justify-center order-1 md:order-none">
             <img
-              src="/coconut1.png"
+              src="/coconut1.webp"
               alt="coconut oil"
               className="w-full max-w-md object-contain"
             />

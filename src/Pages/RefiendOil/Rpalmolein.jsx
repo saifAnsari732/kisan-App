@@ -12,7 +12,7 @@ export default function Palmolein() {
 
                 {/* BACKGROUND IMAGE */}
                 <img
-                    src="/bannerKachi.png"
+                    src="/bannerKachi.webp"
                     alt="banner"
                     className="w-full h-full object-cover md:absolute md:inset-0"
                 />
@@ -45,7 +45,7 @@ export default function Palmolein() {
                               rounded-full blur-2xl opacity-40"></div>
 
                             <img
-                                src="/110.png"
+                                src="/110.webp"
                                 alt="Palmolein Oil"
                                 className="relative w-80 md:w-96 mt-10 object-contain drop-shadow-2xl"
                             />
@@ -62,7 +62,7 @@ export default function Palmolein() {
                     {/* IMAGE */}
                     <div className="flex justify-center order-1 md:order-none">
                         <img
-                            src="/gpalmolein.png"
+                            src="/gpalmolein.webp"
                             alt="Palmolein Oil"
                             className="w-ful object-contain"
                         />

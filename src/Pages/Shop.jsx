@@ -3,7 +3,7 @@ import FetureProduct from "./FetureProduct";
 
 export default function Shop() {
   const [selected, setSelected] = useState("All");
-  const [viewAll, setViewAll] = useState(false);
+  const [viewAll, setViewAll] = useState(true);
 
   const filters = ["All", "Mustard Oil", "Refined Oil", "Vegetable Oil", "Cold Pressed"];
   useEffect(() => {
@@ -11,7 +11,7 @@ export default function Shop() {
   }, []);
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-200 min-h-screen">
 
       {/* HERO */}
       <div className="bg-linear-to-r from-green-700 to-green-900 text-white py-5 text-center">
@@ -59,7 +59,7 @@ export default function Shop() {
               onClick={() => setViewAll(!viewAll)}
               className="text-lg border rounded-lg py-2 px-4 text-green-600 hover:underline"
             >
-              {viewAll ? "Show Slider" : "View All"}
+              {viewAll ? "View less":"View All"}
             </button>
           </div>
 

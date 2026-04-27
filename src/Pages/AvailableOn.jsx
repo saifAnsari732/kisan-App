@@ -2,9 +2,9 @@ import React from "react";
 
 export default function AvailableOn() {
   const platforms = [
-    { name: "Trade India", img: "/TradeIndia.png" },
-    { name: "Amazon", img: "/amazon.png" },
-    { name: "IndiaMart", img: "/indiamrt.png" },
+    { name: "Trade India", img: "/TradeIndia.webp" },
+    { name: "Amazon", img: "/amazon.webp" },
+    { name: "IndiaMart", img: "/indiamrt.webp" },
   ];
 
   return (

@@ -23,7 +23,7 @@ export default function Footer() {
         <div>
           <img
             onClick={() => navigate("/")}
-            src="Logo.png"
+            src="Logo.webp"
             alt="Logo"
             className="h-12 mb-4 cursor-pointer"
           />

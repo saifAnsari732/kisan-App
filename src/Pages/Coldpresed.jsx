@@ -12,7 +12,7 @@ export default function Coldpress() {
 
         {/* BACKGROUND IMAGE */}
         <img
-          src="/bannerMustard.png"
+          src="/bannerMustard.webp"
           alt="Mustard Oil Banner"
           className="w-full h-full object-cover md:absolute md:inset-0"
         />
@@ -45,7 +45,7 @@ export default function Coldpress() {
               <div className="absolute w-40 h-40 md:w-56 md:h-56 bg-yellow-400 rounded-full blur-2xl opacity-40"></div>
 
               <img
-                src="/113.png"
+                src="/113.webp"
                 alt="Mustard Oil"
                 className="relative w-72 md:w-96 mt-10 object-contain drop-shadow-2xl"
               />
@@ -62,7 +62,7 @@ export default function Coldpress() {
           {/* IMAGE */}
           <div className="flex justify-center order-1 md:order-none">
             <img
-              src="/gmustard.png"
+              src="/gmustard.webp"
               alt="Mustard Oil"
               className="w-full max-w-md object-contain"
             />

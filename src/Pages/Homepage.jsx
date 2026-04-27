@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import SocialSidebar from "../Compnents/SocialmediaIcon";
 import CategorySection from "./CategorySection";
-import mapimg from "../../public/map.png";
+import mapimg from "../../public/map.webp";
 import FetureProduct from "./FetureProduct";
 import Testimonials from "../Compnents/Testimonials";
 import FAQ from "./FreQuestion";
@@ -11,12 +11,12 @@ import Reviews from "./Reviews";
 import "../Styles/Home.css";
 
 const desktopSlides = [
-  { id: 1, img: "/img1.png" },
-  { id: 2, img: "/img2.png" },
-  { id: 3, img: "/img3.png" },
+  { id: 1, img: "/img1.webp" },
+  { id: 2, img: "/img2.webp" },
+  { id: 3, img: "/img3.webp" },
 ];
 
-const mobileSlides = [{ id: 1, img: "/pimg2.png" }];
+const mobileSlides = [{ id: 1, img: "/pimg2.webp" }];
 
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
@@ -119,7 +119,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* CATEGORY */}
-      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-12 font-semibold">
+      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-8 font-semibold">
         OUR CATEGORY
       </h1>
 

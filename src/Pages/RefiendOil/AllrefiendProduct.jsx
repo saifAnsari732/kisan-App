@@ -7,10 +7,10 @@ const AllrefiendProduct = () => {
    const [selected, setSelected] = useState("All");
   
   const categories = [
-    { title: "RICE BRAN", img: "/ricebran.png" },
-    { title: "SOYABEAN OIL", img: "/coconut.png" },
-    { title: "PALMOLIEN OILS", img: "/pamcard.png" },
-    { title: "SUNFLOWER PRESSED", img: "/suncard.png" },
+    { title: "RICE BRAN", img: "/ricebran.webp" },
+    { title: "SOYABEAN OIL", img: "/coconut.webp" },
+    { title: "PALMOLIEN OILS", img: "/pamcard.webp" },
+    { title: "SUNFLOWER PRESSED", img: "/suncard.webp" },
   ];
 
   return (

@@ -11,7 +11,7 @@ export default function Pooja() {
       <div className="relative w-full md:h-[420px]">
 
         <img
-          src="/bannerKachi.png"
+          src="/bannerKachi.webp"
           alt="banner"
           className="w-full h-full object-cover md:absolute md:inset-0"
         />
@@ -43,7 +43,7 @@ export default function Pooja() {
               <div className="absolute w-40 h-40 md:w-56 md:h-56 bg-yellow-400 rounded-full blur-3xl opacity-30"></div>
 
               <img
-                src="/10.png"
+                src="/10.webp"
                 alt="Pooja Oil"
                 className="relative w-72 md:w-96 object-contain drop-shadow-2xl"
               />
@@ -60,7 +60,7 @@ export default function Pooja() {
           {/* IMAGE */}
           <div className="flex justify-center order-1 md:order-none">
             <img
-              src="/poojaoii.png"
+              src="/poojaoii.webp"
               alt="pooja oil"
               className="w-full sm:h-[350px] h-[400px] max-w-m object-cover"
             />

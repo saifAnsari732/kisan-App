@@ -4,10 +4,10 @@ export default function CategorySection() {
   const navigate = useNavigate();
 
   const categories = [
-    { id: "refined", title: "REFINED OILS", color: "bg-lime-600", img: "/37.png" },
-    { id: "mustard", title: "MUSTARD OILS", color: "bg-red-800", img: "/35.png" },
-    { id: "vegetable", title: "VEGETABLE OIL", color: "bg-yellow-600", img: "/38.png" },
-    { id: "cold", title: "COLD PRESSED", color: "bg-red-500", img: "/39.png" },
+    { id: "refined", title: "REFINED OILS", color: "bg-lime-600", img: "/37.webp" },
+    { id: "mustard", title: "MUSTARD OILS", color: "bg-red-800", img: "/35.webp" },
+    { id: "vegetable", title: "VEGETABLE OIL", color: "bg-yellow-600", img: "/38.webp" },
+    { id: "cold", title: "COLD PRESSED", color: "bg-red-500", img: "/39.webp" },
   ];
 
   return (

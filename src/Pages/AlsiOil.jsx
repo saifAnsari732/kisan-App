@@ -11,7 +11,7 @@ export default function Alsi() {
       <div className="relative w-full md:h-[420px]">
 
         <img
-          src="/bannerKachi.png"
+          src="/bannerKachi.webp"
           alt="banner"
           className="w-full h-full object-cover md:absolute md:inset-0"
         />
@@ -44,7 +44,7 @@ export default function Alsi() {
               <div className="absolute w-40 h-40 md:w-56 md:h-56 bg-yellow-400 rounded-full blur-3xl opacity-30"></div>
 
               <img
-                src="/9.png"
+                src="/9.webp"
                 alt="Alsi Oil"
                 className="relative w-72 md:w-96 object-contain drop-shadow-2xl"
               />
@@ -61,7 +61,7 @@ export default function Alsi() {
           {/* IMAGE */}
           <div className="flex justify-center order-1 md:order-none">
             <img
-              src="/alsioil.png"
+              src="/alsioil.webp"
               alt="groundnut oil"
               className="w-full max-w-sm object-contai"
             />
