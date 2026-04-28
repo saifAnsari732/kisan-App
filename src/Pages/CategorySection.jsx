@@ -32,9 +32,14 @@ export default function CategorySection() {
                 `}
               >
                 {/* TITLE */}
-                <h2 className="text-white font-bold text-sm tracking-wide z-20 max-w-[60%]">
-                  {item.title}
-                </h2>
+               <h2
+  className={`
+    text-white font-bold text-sm tracking-wide z-20
+    ${isLeft ? "pr-34 text-left" : "pl-34 text-right"}
+  `}
+>
+  {item.title}
+</h2>
 
                 {/* IMAGE */}
                 <img
@@ -43,8 +48,8 @@ export default function CategorySection() {
                   loading="lazy"
                   decoding="async"
                   className={`
-                    absolute z-10 h-40 object-contain drop-shadow-xl
-                    ${isLeft ? "-right-10" : "-left-10"}
+                    absolute z-10 h-45 object-contain drop-shadow-xl
+                    ${isLeft ? "-right-14" : "-left-13"}
                   `}
                 />
               </div>
@@ -64,10 +69,10 @@ export default function CategorySection() {
               className="cursor-pointer group"
             >
               {/* CARD */}
-              <div className={`relative h-64 rounded-3xl ${item.color} shadow-lg flex items-center justify-center`}>
+              <div className={`relative h-79 rounded-3xl ${item.color} shadow-lg flex items-start  justify-center`}>
                 
                 {/* TITLE */}
-                <h2 className="text-white font-extrabold tracking-widest rotate-90 text-lg opacity-80 group-hover:opacity-100 transition">
+                <h2 className="text-white font-extrabold tracking-widest rotate-90 text-lg opacity-80 mt-25 group-hover:opacity-100 transition">
                   {item.title}
                 </h2>
               </div>
@@ -79,7 +84,7 @@ export default function CategorySection() {
                 loading="lazy"
                 decoding="async"
                 className="
-                  mx-auto -mt-16 h-44 object-contain
+                  mx-auto -mt-22 h-65 object-contain
                   drop-shadow-2xl
                   transition-transform duration-300
                   group-hover:scale-105

@@ -80,7 +80,7 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
                       src={item.img}
                       alt={item.title}
                       loading="lazy"
-                      className="h-44 object-contain"
+                      className="h-54 object-contain"
                     />
                   </div>
 

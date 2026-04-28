@@ -1,46 +1,107 @@
-import { useParams,Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import categories from "../data/categories";
-
+import { FaLeaf, FaHeart, FaCheckCircle } from "react-icons/fa";
+import { FaBottleWater } from "react-icons/fa6";
 export default function Categorypage() {
   const { id } = useParams();
   const category = categories.find((c) => c.id === id);
 
- console.log("first",category)
-
   if (!category) {
-    return <h1 className="text-center mt-20">Category Not Found</h1>;
+    return (
+      <h1 className="text-center mt-20 text-xl font-semibold">
+        Category Not Found
+      </h1>
+    );
   }
 
   return (
-<div className="bg-gray-100">
-  <div className="bg-gradient-to-r from-yellow-100 to-yellow-200">
-    <div className="max-w-6xl mx-auto py-10 px-4 text-center">
+    <div className="bg-[#f4f6f8] min-h-screen">
 
-      <h2 className="text-2xl font-bold mb-12">OUR {category.title} VARIETY</h2>
+      {/* 🔥 HERO SECTION */}
+      <div className="bg-gradient-to-r from-green-700 to-green-500 text-white py-12 px-4 text-center rounded-b-3xl shadow-lg">
+        <h2 className="text-3xl md:text-4xl font-bold tracking-wide">
+          {category.title}
+        </h2>
 
-      {/* ✅ FLEX GRID (AUTO CENTER) */}
-      <div className="flex flex-wrap justify-center gap-8">
-
-        {category.products.map((item, i) => (
-          <Link to={item.path} key={i}>
-            <div className="w-[220px] bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-xl transition hover:scale-105 cursor-pointer">
-
-              <img
-                src={item.img}
-                className="h-44 mx-auto object-contain mb-4"
-              />
-
-              <h3 className="font-semibold text-gray-700 text-sm">
-                {item.name}
-              </h3>
-
-            </div>
-          </Link>
-        ))}
-
+        <p className="mt-3 max-w-xl mx-auto text-sm opacity-90">
+          Pure, healthy and high-quality {category.title.toLowerCase()} 
+          crafted for your everyday cooking needs.
+        </p>
       </div>
+
+      {/* 🔥 FEATURE ICON ROW */}
+      <div className="max-w-6xl mx-auto px-4 -mt-10 mb-10">
+        <div className="bg-white rounded-2xl shadow-md p-4 flex justify-around text-center">
+
+          <div>
+            <FaLeaf className="mx-auto text-green-600 text-xl" />
+            <p className="text-xs mt-1 text-gray-600">100% Pure</p>
+          </div>
+
+          <div>
+            <FaHeart className="mx-auto text-red-500 text-xl" />
+            <p className="text-xs mt-1 text-gray-600">Healthy Choice</p>
+          </div>
+
+          <div>
+            <FaCheckCircle className="mx-auto text-blue-500 text-xl" />
+            <p className="text-xs mt-1 text-gray-600">Quality Assured</p>
+          </div>
+
+        </div>
+      </div>
+
+      {/* 🔥 PRODUCT GRID */}
+      <div className="max-w-7xl mx-auto px-4 pb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          {category.products.map((item, i) => (
+            <Link to={item.path} key={i}>
+
+              <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+
+                {/* IMAGE AREA */}
+                <div className="bg-gradient-to-b from-yellow-50 to-yellow-100 h-44 flex items-center justify-center">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    loading="lazy"
+                    className="h-50 object-contain"
+                  />
+                </div>
+
+                {/* CONTENT */}
+                <div className="p-4 text-center">
+
+                  <h3 className="font-semibold text-gray-800 text-sm">
+                    {item.name}
+                  </h3>
+
+                  {/* 🔥 CATEGORY TEXT WITH ICON */}
+                  <div className="flex items-center  justify-center gap-1 mt-2 text-xs text-gray-500">
+                    <FaBottleWater className="text-gray-500" />
+                    <span>
+                      Premium {category.title.toLowerCase()} for daily cooking
+                    </span>
+                  </div>
+
+                  {/* CTA */}
+                  <div className="mt-3">
+                    <span className="text-xs bg-green-600 text-white px-3 py-2 rounded-full">
+                      View Product
+                    </span>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </Link>
+          ))}
+
+        </div>
+      </div>
+
     </div>
-  </div>
-</div>
   );
 }

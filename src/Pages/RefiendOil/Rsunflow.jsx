@@ -5,7 +5,7 @@ import AllrefiendProduct from "./AllrefiendProduct";
 
 export default function Sunflower() {
   return (
-    <div className="w-full bg-gray-50">
+    <div className="w-full bg-gray-100">
 
       {/* 🔶 SECTION 1 */}
       <div className="relative w-full md:h-[420px]">
@@ -55,7 +55,7 @@ export default function Sunflower() {
       </div>
 
       {/* 🔶 SECTION 2 */}
-      <div className="bg-gray-100 py-8 md:py-12">
+      <div className="bg-gray-50 py-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:grid md:grid-cols-2 gap-10 items-center">
 
           {/* IMAGE */}

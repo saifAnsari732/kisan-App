@@ -9,7 +9,7 @@ import Navbar from "./Compnents/Navbar";
 import Footer from "./Compnents/Footer";
 import MobileNavbar from "./Compnents/Btmnavbar";
 import HeroCarousel from "./Pages/Homepage";
-
+import ScrollToTop from "./Compnents/ScrollToTop";
 // 🔥 LAZY LOAD ALL PAGES
 const About = lazy(() => import("./Pages/About"));
 const Shop = lazy(() => import("./Pages/Shop"));
@@ -53,6 +53,7 @@ function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop /> 
         {/* ✅ TOP NAV (ALWAYS LOAD FAST) */}
         <Navbar />
 

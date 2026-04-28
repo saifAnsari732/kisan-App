@@ -89,7 +89,7 @@ export default function Reviews() {
             key={index}
             className="min-w-[280px] md:min-w-[320px] 
             bg-white rounded-xl shadow-md p-6 flex-shrink-0 
-            flex flex-col flex-3 h-[280px] justify-between hover:shadow-xl transition"
+            flex flex-col flex-3 h-[230px] justify-between hover:shadow-xl transition"
           >
             {/* Quote */}
             <div className="text-4xl mb-1 text-yellow-400">❝</div>
