@@ -171,8 +171,9 @@ export default function HeroCarousel() {
               Our Presence Across India
             </h2>
             <p className="text-gray-600">
-              We deliver high-quality edible oils across India with strong
-              distribution.
+             We deliver high-quality edible oils across multiple states in India. From mustard oil to refined oils, we maintain top quality standards Our strong distribution network ensures purity and trust.
+
+From mustard oil to refined oils, we maintain top quality standards..
             </p>
           </div>
 

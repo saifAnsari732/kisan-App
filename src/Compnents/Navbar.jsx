@@ -1,414 +1,390 @@
 import { useState, useEffect, useRef } from "react";
-import { Phone, Mail, Menu, X } from "lucide-react";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
-  FaLinkedin,
-  FaYoutube,
-} from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, Phone, Mail, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [mobileOpenCategory, setMobileOpenCategory] = useState(null);
   const [activeCategory, setActiveCategory] = useState("Mustard Oil");
-const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
-  const dropdownRef = useRef();
-  const navigate = useNavigate();
+  const [mobileRangeOpen, setMobileRangeOpen] = useState(false);
+  const [mobileSubOpen, setMobileSubOpen] = useState(null);
 
-  // ✅ OUTSIDE CLICK CLOSE
+  const navigate = useNavigate();
+  const dropdownRef = useRef();
+
+  // ✅ SCROLL TOP FIX
+  const goTo = (path) => {
+    setIsOpen(false);
+    setShowDropdown(false);
+
+    navigate(path);
+
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 50);
+  };
+
+  // ✅ CLICK OUTSIDE CLOSE
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClick = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowDropdown(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // ✅ FIX: Close dropdown + mobile menu, then navigate
-  const closeAllAndNavigate = (path) => {
-    setShowDropdown(false);
-    setIsOpen(false);
-    navigate(path);
-  };
-
-  const goToAlsi   = () => closeAllAndNavigate("/alsi");
-  const goToPooja  = () => closeAllAndNavigate("/pooja");
-  const goToGround = () => closeAllAndNavigate("/ground");
-
+  // ✅ DATA
   const categories = {
     "Mustard Oil": [
-      { label: "Indian Choice Kachi Ghani Mustard Oil",                        to: "/choice" },
-      { label: "Kachi Ghani Wooden & Cold Pressed Mustard Oil Premium",        to: "/kachighani" },
-      { label: "Kachi Ghani Mustard Oil",                                      to: "/kachighanimustard" },
+      { label: "Indian Choice Kachi Ghani Mustard Oil", to: "/choice" },
+      { label: "Kachi Ghani Premium", to: "/kachighani" },
+      { label: "Kachi Ghani Mustard Oil", to: "/kachighanimustard" },
     ],
     "Refined Oil": [
-      { label: "Refined Soyabean Oil",   to: "/soyabean" },
-      { label: "Refined Coconut Oil",    to: "/coconut" },
-      { label: "Refined Sunflower Oil",  to: "/sunflower" },
-      { label: "Refined Palmlein Oil",   to: "/palmleion" },
+      { label: "Soyabean Oil", to: "/soyabean" },
+      { label: "Coconut Oil", to: "/coconut" },
+      { label: "Sunflower Oil", to: "/sunflower" },
+      { label: "Palmlein Oil", to: "/palmleion" },
     ],
-  };
-
-  // ✅ FIX: typo was `navigation.navigate` — corrected to `navigate`
-  const conform = "saif";
-  const hr = () => {
-    const value = window.prompt("Enter Role (HR)");
-    if (value === conform) {
-      navigate("/jobdata");
-    } else {
-      alert("Invalid Role");
-    }
-  };
-
-  const phoneNumber = "6390059995";
-  const handleCallClick = () => {
-    window.location.href = `tel:${phoneNumber}`;
+    "Alsi Oil": [{ label: "Alsi Oil", to: "/alsi" }],
+    "Pooja Oil": [{ label: "Pooja Oil", to: "/pooja" }],
+    "Groundnut Oil": [{ label: "Groundnut Oil", to: "/ground" }],
   };
 
   return (
     <>
-      {/* ✅ FIXED HEADER */}
-      {/* FIX: Added shadow for visual separation on all screen sizes */}
-      <div className="fixed top-0 left-0 w-full z-50 font-sans bg-gray-100 shadow-md">
+      {/* ================= HEADER ================= */}
+      <div className="fixed w-full top-0 z-50 bg-white shadow-md">
 
-        {/* 🔹 TOP BAR */}
-        <div className="bg-green-700 text-white text-xs h-8 flex items-center px-3 md:px-6">
-          <div className="w-full max-w-7xl mx-auto flex justify-between items-center">
-
-            {/* Left: phone + email */}
-            <div className="flex items-center gap-2 md:gap-4 flex-wrap">
-              <div className="flex items-center gap-1">
-                <Phone size={13} />
-                <span>1800 8890 860</span>
-              </div>
-              <div
-                onClick={handleCallClick}
-                className="flex items-center gap-1 cursor-pointer"
-              >
-                <Phone size={13} />
-                {/* FIX: Show shorter number on very small screens */}
-                <span onClick={handleCallClick} className="">6390059995</span>
-                {/* <span className="xs:hidden">6390059995</span> */}
-              </div>
-              <div className="hidden sm:flex items-center gap-1">
-                <Mail size={13} />
-                <span>info@kisangroups.in</span>
-              </div>
-            </div>
-
-            {/* Right: socials + HR button — hidden on mobile (shown in mobile menu) */}
-            <div className="hidden md:flex items-center gap-3 text-sm">
-              <Link to="https://www.facebook.com/ecokisanchoice/"    target="_blank"><FaFacebook /></Link>
-              <Link to="https://www.instagram.com/kisan.choice"      target="_blank"><FaInstagram /></Link>
-              <Link to="https://x.com/ecokisanchoice"                target="_blank"><FaTwitter /></Link>
-              <Link to="https://www.youtube.com/@ecokisanchoice"     target="_blank"><FaYoutube /></Link>
-              <Link to="https://www.linkedin.com/company/ecokisanchoice" target="_blank"><FaLinkedin /></Link>
-              <button
-                onClick={hr}
-                className="bg-green-600 hover:bg-green-500 rounded-xl px-3 py-0.5 text-xs"
-              >
-                Admin / HR
-              </button>
-            </div>
+        {/* TOP BAR */}
+        <div className="bg-[#16a34a] text-white text-sm py-2 px-6 flex justify-between items-center">
+          <div className="flex gap-6 items-center">
+            <span className="flex items-center gap-2">
+              <Phone size={14}/>
+              1800 8890 860
+            </span>
+            <span className="flex items-center gap-2">
+              <Phone size={14}/>
+              6390059995
+            </span>
+            <span className="hidden md:flex items-center gap-2">
+              <Mail size={14}/> 
+              info@kisangroups.in
+            </span>
+          </div>
+          <div className="hidden lg:flex items-center gap-4">
+            <span className="text-sm cursor-pointer hover:opacity-80">Admin / HR</span>
           </div>
         </div>
 
-        {/* 🔹 MAIN NAVBAR */}
-        {/* FIX: Added px-4 md:px-6 so content never touches screen edges */}
-        <div className="h-16 flex items-center px-4 md:px-6">
-          <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+        {/* MAIN NAV */}
+        <div className="bg-white border-b border-gray-100">
+          <div className="max-w-8xl px-8 flex items-center justify-between h-15">
 
             {/* LOGO */}
-            <div className="flex-shrink-0">
-              <img
-                onClick={() => navigate("/")}
-                src="Logo.webp"
-                alt="Logo"
-                /* FIX: Consistent sizing across breakpoints */
-                className="h-10 sm:h-12 lg:h-14 w-auto object-contain cursor-pointer"
-              />
-            </div>
+            <img
+              src="/Logo.webp"
+              alt="Kisan Logo"
+              className="h-14 cursor-pointer object-contain"
+              onClick={() => goTo("/")}
+            />
 
-            {/* DESKTOP MENU — hidden below lg to give room for buttons */}
-            {/* FIX: Changed from md: to lg: so it doesn't squish on tablets */}
-            <div className="hidden lg:flex items-center gap-4 xl:gap-6 text-gray-700 font-medium text-sm xl:text-base">
-              <Link to="/"        className="hover:text-green-600 whitespace-nowrap">HOME</Link>
-              <Link to="/about"   className="hover:text-green-600 whitespace-nowrap">ABOUT US</Link>
-              <Link to="/shop"    className="hover:text-green-600 whitespace-nowrap">PRODUCT</Link>
+            {/* DESKTOP MENU */}
+            <div className="hidden lg:flex items-center gap-3 text-sm font-semibold">
 
-              {/* ✅ CLICK DROPDOWN */}
-              <div className="relative" ref={dropdownRef}>
-                <button
+              <span 
+                onClick={() => goTo("/")}
+                className="text-gray-800  cursor-pointer hover:text-[#16a34a] transition-colors "
+              >
+                HOME
+              </span>
+
+              <span 
+                onClick={() => goTo("/about")}
+                className="text-gray-800  cursor-pointer hover:text-[#16a34a] transition-colors "
+              >
+                ABOUT US
+              </span>
+
+              <span 
+                onClick={() => goTo("/shop")}
+                className="text-gray-800  cursor-pointer hover:text-[#16a34a] transition-colors "
+              >
+                PRODUCT
+              </span>
+
+              {/* DROPDOWN */}
+              <div ref={dropdownRef} className="relative">
+
+                <button 
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="flex items-center gap-1 hover:text-green-600 whitespace-nowrap"
+                  className="text-gray-800 e cursor-pointer hover:text-[#16a34a] transition-colors uppercase flex items-center gap-1"
                 >
                   OUR RANGE
-                  <span
-                    className={`transition-transform duration-300 ${
-                      showDropdown ? "rotate-90" : ""
-                    }`}
-                  >
-                    ›
-                  </span>
+                  <ChevronRight size={16} className={`transition-transform ${showDropdown ? 'rotate-90' : ''}`}/>
                 </button>
 
-                <AnimatePresence>
-                  {showDropdown && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                      animate={{ opacity: 1, y:  0, scale: 1   }}
-                      exit={  { opacity: 0, y: 20, scale: 0.95 }}
-                      transition={{ duration: 0.15 }}
-                      /* FIX: Removed fixed w-[650px] — now fluid with max-w so it
-                         won't overflow on tablets/small desktops */
-                      className="absolute left-0 top-12 w-[min(650px,90vw)] bg-white shadow-2xl rounded-xl flex overflow-hidden z-50"
-                    >
-                      {/* LEFT — Categories */}
-                      <div className="w-1/2 bg-gray-100 p-4 space-y-2">
-                        {Object.keys(categories).map((cat) => (
+                {showDropdown && (
+                  <div
+                    className="absolute top-12 left-0 bg-white shadow-2xl rounded-lg overflow-hidden flex w-[500px] border border-gray-100 animate-fadeIn"
+                  >
+
+                    {/* LEFT - Categories */}
+                    <div className="w-2/5 bg-gray-50 border-r border-gray-100">
+                      {Object.keys(categories).map((cat) => {
+                        const isSingleItem = categories[cat].length === 1;
+                        return (
                           <div
                             key={cat}
-                            onClick={() => setActiveCategory(cat)}
-                            className={`flex justify-between items-center px-3 py-2 rounded-lg cursor-pointer transition ${
-                              activeCategory === cat
-                                ? "bg-white text-orange-500 font-semibold shadow"
-                                : "hover:bg-white"
+                            onClick={() => {
+                              if (isSingleItem) {
+                                goTo(categories[cat][0].to);
+                              } else {
+                                setActiveCategory(cat);
+                              }
+                            }}
+                            className={`px-4 py-3 cursor-pointer text-sm font-medium transition-all ${
+                              activeCategory === cat && !isSingleItem
+                                ? "bg-white text-[#f97316] border-r-4 border-[#f97316]"
+                                : "text-gray-700 hover:bg-white hover:text-gray-900"
                             }`}
                           >
                             {cat}
                           </div>
-                        ))}
+                        );
+                      })}
+                    </div>
 
-                        <div className="ml-3.5 space-y-2 pt-1">
-                          <p onClick={goToAlsi}   className="cursor-pointer hover:text-orange-500 transition">Alsi Oil</p>
-                          <p onClick={goToPooja}  className="cursor-pointer hover:text-orange-500 transition">Pooja Oil</p>
-                          <p onClick={goToGround} className="cursor-pointer hover:text-orange-500 transition">Groundnut Oil</p>
+                    {/* RIGHT - Subcategories (only show if active category has multiple items) */}
+                    {categories[activeCategory].length > 1 && (
+                      <div className="w-3/5 p-4">
+                        <div className="space-y-1">
+                          {categories[activeCategory].map((item, i) => (
+                            <div
+                              key={i}
+                              onClick={() => goTo(item.to)}
+                              className="px-3 py-2 cursor-pointer text-sm text-gray-700 hover:text-[#16a34a] hover:bg-gray-50 rounded transition-all"
+                            >
+                              {item.label}
+                            </div>
+                          ))}
                         </div>
                       </div>
+                    )}
 
-                      {/* RIGHT — Sub items */}
-                      <div className="w-1/2 p-4 space-y-2">
-                        {categories[activeCategory].map((item, i) => (
-                          <Link
-                            key={i}
-                            to={item.to}
-                            onClick={() => setShowDropdown(false)}
-                            className="block text-gray-700 hover:text-orange-500 cursor-pointer transition text-sm"
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  </div>
+                )}
               </div>
 
-              <Link to="/contact" className="hover:text-green-600 whitespace-nowrap">CONTACT</Link>
-              <Link to="/career"  className="hover:text-green-600 whitespace-nowrap">CAREER</Link>
+              <span 
+                onClick={() => goTo("/contact")}
+                className="text-gray-800 cursor-pointer hover:text-[#16a34a] transition-colors uppercase"
+              >
+                CONTACT
+              </span>
+
+              <span 
+                onClick={() => goTo("/career")}
+                className="text-gray-800 cursor-pointer hover:text-[#16a34a] transition-colors "
+              >
+                CAREER
+              </span>
+
             </div>
 
             {/* DESKTOP BUTTONS */}
-            {/* FIX: hidden below lg, text-xs so they fit on 1024px screens */}
-            <div className="hidden lg:flex items-center gap-2">
-              <button
-                onClick={() => navigate("/distributionform")}
-                className="bg-yellow-500 hover:bg-yellow-600 text-white px-2 xl:px-3 py-2 text-xs xl:text-sm rounded-lg shadow whitespace-nowrap"
+            <div className="hidden lg:flex items-center gap-3">
+              <button 
+                onClick={() => goTo("/distributionform")}
+                className=" py-2.5 px-5 bg-[#fbbf24] hover:bg-[#f59e0b] text-gray-900  text-sm rounded-md transition-all shadow-sm hover:shadow-md"
               >
                 Distribution Form
               </button>
-              <button
-                onClick={() => navigate("/distagreement")}
-                className="bg-red-400 hover:bg-red-500 text-white px-2 xl:px-3 py-2 text-xs xl:text-sm rounded-lg shadow whitespace-nowrap"
+
+              <button 
+                onClick={() => goTo("/distagreement")}
+                className="px-5 py-2.5 bg-[#ff4d6d] hover:bg-[#e63946] text-white font-semibol text-sm rounded-md transition-all shadow-sm hover:shadow-md"
               >
                 Distribution Agreement
               </button>
-              <button
-                onClick={() => navigate("/catalog")}
-                className="bg-green-700 hover:bg-green-900 text-white px-2 xl:px-3 py-2 text-xs xl:text-sm rounded-lg shadow whitespace-nowrap"
+
+              <button 
+                onClick={() => goTo("/catalog")}
+                className="px-5 py-2.5 bg-[#16a34a] hover:bg-[#15803d] text-white font-semibol text-sm rounded-md transition-all shadow-sm hover:shadow-md"
               >
                 Catalog
               </button>
             </div>
 
-            {/* MOBILE / TABLET HAMBURGER — visible below lg */}
+            {/* MOBILE MENU BTN */}
             <div className="lg:hidden">
-              <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
-                {isOpen ? <X size={28} /> : <Menu size={28} />}
+              <button 
+                onClick={() => setIsOpen(true)}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <Menu size={28} className="text-gray-700"/>
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ✅ MOBILE / TABLET MENU */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* FIX: Dark overlay behind the drawer */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.4 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black z-40"
-              onClick={() => setIsOpen(false)}
-            />
-{/* ldgmbodmfbpomepoijbpsmb;ldfmb09eajp mgp35j t=03j0tk3pt j09jgokmerobvnfdovlkfvosknvf blkdnpogbjw68+54646494946664684978607603-063 */}
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.3 }}
-              /* FIX: w-[280px] is valid (w-70 was not a standard Tailwind class) */
-              className="fixed top-0 right-0 w-[280px] sm:w-[320px] h-screen bg-gradient-to-b from-yellow-100 to-yellow-0 text-black z-50 px-5 py-4 overflow-y-auto text-sm"
-            >
+      {/* ================= MOBILE MENU ================= */}
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/40 z-40 lg:hidden animate-fadeIn"
+            onClick={() => setIsOpen(false)}
+          />
+
+          {/* Menu Panel */}
+          <div
+            className="fixed right-0 top-0 w-[340px] h-full bg-white z-50 shadow-2xl overflow-y-auto animate-slideInRight"
+          >
+
               {/* Header */}
-              <div className="flex justify-between items-center mb-6">
-                <img src="Logo.webp" alt="Logo" className="h-10 w-auto object-contain" />
-                <button onClick={() => setIsOpen(false)} aria-label="Close menu">
-                  <X size={28} />
+              <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+                <img src="/Logo.webp" alt="Kisan Logo" className="h-12 object-contain"/>
+                <button 
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <X size={24} className="text-gray-700"/>
                 </button>
               </div>
 
-              {/* Nav Links */}
-              <div className="space-y-2">
-                <Link onClick={() => setIsOpen(false)} to="/"       className="block px-4 py-3 rounded-xl bg-white font-medium">Home</Link>
-                <Link onClick={() => setIsOpen(false)} to="/about"  className="block px-4 py-3 rounded-xl bg-white font-medium">About</Link>
-                <Link onClick={() => setIsOpen(false)} to="/shop"   className="block px-4 py-3 rounded-xl bg-white font-medium">Product</Link>
+              {/* Menu Items */}
+              <div className="px-6 py-6 space-y-1">
 
-                {/* MOBILE DROPDOWN */}
-                <div className="bg-white rounded-xl overflow-hidden">
-                  <button
-                   onClick={(e) => {
-                    e.stopPropagation();
-                     setMobileDropdownOpen(!mobileDropdownOpen);
-                           }}
-                    className="w-full flex justify-between items-center px-4 py-3 font-medium"
-                  >
-                    OUR RANGE
-                    <span className={`transition-transform duration-200 ${showDropdown ? "rotate-90" : ""}`}>›</span>
-                  </button>
-
-                  <AnimatePresence>
-                    {mobileDropdownOpen  && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="bg-white text-black overflow-hidden"
-                      >
-                        {/* chngesss */}
-            {Object.keys(categories).map((cat, i) => (
-  <div key={i} className="border-t">
-
-    {/* CATEGORY CLICK */}
-    <div
-     onClick={(e) => {
-  e.stopPropagation();
-  setMobileOpenCategory(
-    mobileOpenCategory === cat ? null : cat
-  );
-}}
-      className="px-4 py-3 font-medium flex justify-between cursor-pointer hover:bg-gray-100"
-    >
-      {cat}
-      <span
-        className={`transition-transform ${
-          mobileOpenCategory === cat ? "rotate-90" : ""
-        }`}
-      >
-        ›
-      </span>
-    </div>
-
-    {/* SUB ITEMS */}
-    {mobileOpenCategory === cat && (
-      <div className="bg-gray-50">
-        {categories[cat].map((item, idx) => (
-          <Link
-            key={idx}
-            to={item.to}
-            onClick={() => {
-              setIsOpen(false);
-              setMobileOpenCategory(null);
-            }}
-            className="block px-6 py-2 text-sm text-gray-600 hover:text-orange-500"
-          >
-            {item.label}
-          </Link>
-        ))}
-      </div>
-    )}
-  </div>
-))}
-
-                        {/* Standalone items */}
-                        <div className="border-t px-5 py-3 space-y-2 bg-gray-50">
-                          <p onClick={goToAlsi}   className="cursor-pointer hover:text-orange-500 py-1">Alsi Oil</p>
-                          <p onClick={goToPooja}  className="cursor-pointer hover:text-orange-500 py-1">Pooja Oil</p>
-                          <p onClick={goToGround} className="cursor-pointer hover:text-orange-500 py-1">Groundnut Oil</p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                <div 
+                  onClick={() => goTo("/")}
+                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  Home
                 </div>
 
-                <Link onClick={() => setIsOpen(false)} to="/contact" className="block px-4 py-3 rounded-xl bg-white font-medium">Contact</Link>
-                <Link onClick={() => setIsOpen(false)} to="/career"  className="block px-4 py-3 rounded-xl bg-white font-medium">Career</Link>
+                <div 
+                  onClick={() => goTo("/about")}
+                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  About
+                </div>
+
+                <div 
+                  onClick={() => goTo("/shop")}
+                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  Product
+                </div>
+
+                {/* OUR RANGE ACCORDION */}
+                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div
+                    onClick={() => setMobileRangeOpen(!mobileRangeOpen)}
+                    className="px-4 py-3 bg-gray-50 text-gray-800 font-medium cursor-pointer flex justify-between items-center hover:bg-gray-100 transition-colors"
+                  >
+                    <span>OUR RANGE</span>
+                    <ChevronRight size={18} className={`transition-transform ${mobileRangeOpen ? 'rotate-90' : ''}`}/>
+                  </div>
+
+                  {mobileRangeOpen && (
+                    <div className="overflow-hidden">
+                      <div className="bg-white px-2 py-2 space-y-1">
+
+                        {Object.keys(categories).map((cat) => {
+                          const isSingleItem = categories[cat].length === 1;
+                          return (
+                            <div key={cat} className="border-b border-gray-100 last:border-0">
+                              <div
+                                onClick={() => {
+                                  if (isSingleItem) {
+                                    goTo(categories[cat][0].to);
+                                  } else {
+                                    setMobileSubOpen(mobileSubOpen === cat ? null : cat);
+                                  }
+                                }}
+                                className="px-3 py-2.5 font-medium text-gray-700 cursor-pointer hover:text-[#16a34a] flex justify-between items-center"
+                              >
+                                <span>{cat}</span>
+                                {!isSingleItem && (
+                                  <ChevronRight size={16} className={`transition-transform ${mobileSubOpen === cat ? 'rotate-90' : ''}`}/>
+                                )}
+                              </div>
+
+                              {!isSingleItem && mobileSubOpen === cat && (
+                                <div className="overflow-hidden">
+                                  <div className="pl-6 pr-3 pb-2 space-y-1">
+                                    {categories[cat].map((item, i) => (
+                                      <div
+                                        key={i}
+                                        onClick={() => goTo(item.to)}
+                                        className="py-2 text-sm text-gray-600 cursor-pointer hover:text-[#16a34a] transition-colors"
+                                      >
+                                        {item.label}
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div 
+                  onClick={() => goTo("/contact")}
+                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  Contact
+                </div>
+
+                <div 
+                  onClick={() => goTo("/career")}
+                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  Career
+                </div>
+
               </div>
 
-              {/* Action Buttons */}
-              {/* FIX: Added navigate() calls that were missing in original */}
-              <div className="mt-6 space-y-3">
-                <button
-                  onClick={() => closeAllAndNavigate("/distributionform")}
-                  className="w-full py-3 rounded-xl bg-yellow-200 text-black font-medium"
+              {/* MOBILE BUTTONS */}
+              <div className="px-6 pb-6 space-y-3 border-t border-gray-200 pt-6">
+                <button 
+                  onClick={() => goTo("/distributionform")} 
+                  className="w-full bg-[#fbbf24] hover:bg-[#f59e0b] text-gray-900 font-semibold py-3 rounded-lg transition-all shadow-sm"
                 >
                   Distribution Form
                 </button>
+
                 <button 
-                  onClick={() => closeAllAndNavigate("/distagreement")}
-                  className="w-full py-3 rounded-xl bg-sky-800 text-white font-medium"
+                  onClick={() => goTo("/distagreement")} 
+                  className="w-full bg-[#ff4d6d] hover:bg-[#e63946] text-white font-semibold py-3 rounded-lg transition-all shadow-sm"
                 >
                   Distribution Agreement
                 </button>
-                <button
-                  onClick={() => closeAllAndNavigate("/catalog")}
-                  className="w-full py-3 rounded-xl bg-green-800 text-white font-medium"
+
+                <button 
+                  onClick={() => goTo("/catalog")} 
+                  className="w-full bg-[#16a34a] hover:bg-[#15803d] text-white font-semibold py-3 rounded-lg transition-all shadow-sm"
                 >
                   Catalog
                 </button>
-                <button
-                  onClick={hr}
-                  className="w-full py-3 rounded-xl bg-green-900 text-white font-medium"
-                >
-                  Admin / HR
-                </button>
               </div>
 
-              {/* FIX: Social icons visible in mobile menu (were completely hidden on mobile before) */}
-              <div className="mt-6 flex justify-center gap-4 text-gray-700 text-lg">
-                <Link to="https://www.facebook.com/ecokisanchoice/"        target="_blank"><FaFacebook /></Link>
-                <Link to="https://www.instagram.com/kisan.choice"          target="_blank"><FaInstagram /></Link>
-                <Link to="https://x.com/ecokisanchoice"                    target="_blank"><FaTwitter /></Link>
-                <Link to="https://www.youtube.com/@ecokisanchoice"         target="_blank"><FaYoutube /></Link>
-                <Link to="https://www.linkedin.com/company/ecokisanchoice" target="_blank"><FaLinkedin /></Link>
-              </div>
-            </motion.div>
+            </div>
           </>
-        )}
-      </AnimatePresence>
+        )
+      }
 
-      {/* ✅ PAGE CONTENT SPACER */}
-      {/* FIX: 96px = top bar (32px) + main nav (64px). Responsive for all screens. */}
-      <div className="h-24" />
+      {/* SPACER - Adjust based on navbar height */}
+      <div className="h-[104px]"></div>
     </>
   );
 }

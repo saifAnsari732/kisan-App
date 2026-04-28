@@ -52,55 +52,68 @@ export default function Categorypage() {
       </div>
 
       {/* 🔥 PRODUCT GRID */}
-      <div className="max-w-7xl mx-auto px-4 pb-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+   {/* 🔥 PRODUCT GRID */}
+<div className="max-w-7xl mx-auto px-4 pb-16">
+  <div
+    className={`
+      grid gap-6
+      grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4
+      ${category.products.length === 1 ? "place-items-center" : ""}
+      ${category.products.length === 2 ? "justify-center" : ""}
+    `}
+  >
 
-          {category.products.map((item, i) => (
-            <Link to={item.path} key={i}>
+    {category.products.map((item, i) => (
+      <Link to={item.path} key={i}>
 
-              <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+        <div
+          className={`
+            bg-white rounded-2xl shadow-md overflow-hidden w-full
+            ${category.products.length === 1 ? "max-w-sm" : ""}
+          `}
+        >
 
-                {/* IMAGE AREA */}
-                <div className="bg-gradient-to-b from-yellow-50 to-yellow-100 h-44 flex items-center justify-center">
-                  <img
-                    src={item.img}
-                    alt={item.name}
-                    loading="lazy"
-                    className="h-50 object-contain"
-                  />
-                </div>
+          {/* IMAGE AREA */}
+          <div className="bg-gradient-to-b from-yellow-50 to-yellow-100 h-44 flex items-center justify-center">
+            <img
+              src={item.img}
+              alt={item.name}
+              loading="lazy"
+              className="h-40 object-contain"
+            />
+          </div>
 
-                {/* CONTENT */}
-                <div className="p-4 text-center">
+          {/* CONTENT */}
+          <div className="p-4 text-center">
 
-                  <h3 className="font-semibold text-gray-800 text-sm">
-                    {item.name}
-                  </h3>
+            <h3 className="font-semibold text-gray-800 text-sm">
+              {item.name}
+            </h3>
 
-                  {/* 🔥 CATEGORY TEXT WITH ICON */}
-                  <div className="flex items-center  justify-center gap-1 mt-2 text-xs text-gray-500">
-                    <FaBottleWater className="text-gray-500" />
-                    <span>
-                      Premium {category.title.toLowerCase()} for daily cooking
-                    </span>
-                  </div>
+            {/* 🔥 CATEGORY TEXT WITH ICON */}
+            <div className="flex items-center justify-center gap-1 mt-2 text-xs text-gray-500">
+              <FaBottleWater />
+              <span>
+                Premium {category.title.toLowerCase()} for daily cooking
+              </span>
+            </div>
 
-                  {/* CTA */}
-                  <div className="mt-3">
-                    <span className="text-xs bg-green-600 text-white px-3 py-2 rounded-full">
-                      View Product
-                    </span>
-                  </div>
+            {/* CTA */}
+            <div className="mt-3">
+              <span className="text-xs bg-green-600 text-white px-3 py-2 rounded-full">
+                View Product
+              </span>
+            </div>
 
-                </div>
-
-              </div>
-
-            </Link>
-          ))}
+          </div>
 
         </div>
-      </div>
+
+      </Link>
+    ))}
+
+  </div>
+</div> 
 
     </div>
   );

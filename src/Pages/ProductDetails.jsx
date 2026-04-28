@@ -9,17 +9,20 @@ const ProductDetails = () => {
   const product = products.find(p => p.id === Number(id));
   if (!product) return <div className="p-10">Product not found</div>;
 
-  // ✅ MAIN IMAGE STATE
+  // ✅ FIXED (GLOBAL FOR ALL PRODUCTS)
+  const PACKS = "200 ml, 500 ml, 1 Ltr, 2 Ltr, 5 Ltr, 15 Ltr (kg)";
+  const BULK = "208 Ltr (190kg) Drum, 25, 35, 42 Ton Tanker";
+
+  // IMAGE STATE
   const [mainImg, setMainImg] = useState(product.img);
   const [zoomStyle, setZoomStyle] = useState({});
 
-  // ✅ FIX: product change hone par image update
   useEffect(() => {
     setMainImg(product.img);
-    window.scrollTo(0, 0); // UX improvement
+    window.scrollTo(0, 0);
   }, [product]);
 
-  // ✅ SUGGESTIONS
+  // SUGGESTIONS
   const suggestions = products
     .filter(item => item.id !== product.id)
     .slice(0, 5);
@@ -50,7 +53,7 @@ const ProductDetails = () => {
         {/* LEFT SIDE */}
         <div>
 
-          {/* 🔍 MAIN IMAGE */}
+          {/* IMAGE ZOOM */}
           <div
             className="relative rounded-2xl overflow-hidden bg-gray-100"
             onMouseMove={(e) => {
@@ -80,7 +83,7 @@ const ProductDetails = () => {
             />
           </div>
 
-          {/* 🔥 THUMBNAILS */}
+          {/* THUMBNAILS */}
           <div className="flex gap-3 mt-4 justify-center flex-wrap">
             {(product.images || [product.img]).map((img, index) => (
               <img
@@ -89,7 +92,7 @@ const ProductDetails = () => {
                 alt="variant"
                 onClick={() => setMainImg(img)}
                 className={`w-20 h-20 object-contain border rounded-lg cursor-pointer p-1 transition 
-                  ${mainImg === img ? "border-green-600 scale-105" : "border-gray-300 hover:scale-105"}`}
+                  ${mainImg === img ? "border-green-600 scale-105" : "border-gray-300"}`}
               />
             ))}
           </div>
@@ -123,7 +126,39 @@ const ProductDetails = () => {
               {product.about}
             </p>
 
-            {/* ✅ BENEFITS */}
+            {/* ✅ PACKING DETAILS (FIXED) */}
+            <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 p-5 rounded-2xl mb-6 shadow-sm">
+
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                 Packaging Details
+              </h3>
+
+              <div className="space-y-3 text-sm text-gray-700">
+
+                <div className="flex gap-2 items-start">
+                  {/* <span className="text-green-600 text-lg">✔</span> */}
+                  <p>
+                    <span className="font-semibold text-gray-800">
+                      Available Packs:
+                    </span>{" "}
+                    {PACKS}
+                  </p>
+                </div>
+
+                <div className="flex gap-2 items-start">
+                  {/* <span className="text-blue-600 text-lg"></span> */}
+                  <p>
+                    <span className="font-semibold text-gray-800">
+                      Bulk Availability:
+                    </span>{" "}
+                    {BULK}
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+            {/* BENEFITS */}
             {product.benefits && (
               <div className="bg-gray-100 p-4 rounded-xl mb-6">
                 <h3 className="font-semibold mb-2">Health Benefits</h3>
@@ -136,7 +171,7 @@ const ProductDetails = () => {
             )}
           </div>
 
-          {/* ✅ CTA */}
+          {/* CTA */}
           <div className="flex gap-3">
             <button
               onClick={handleCallClick}
@@ -155,7 +190,7 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {/* 🔥 SUGGESTIONS */}
+      {/* SUGGESTIONS */}
       <div className="max-w-7xl mx-auto mt-14">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           You may also like
@@ -166,18 +201,18 @@ const ProductDetails = () => {
             <div
               key={item.id}
               onClick={() => navigate(`/product/${item.id}`)}
-              className="bg-white rounded-2xl shadow hover:shadow-xl transition cursor-pointer group"
+              className="bg-white rounded-2xl shadow cursor-pointer group"
             >
               <div className="bg-gray-100 rounded-t-2xl p-4 flex justify-center">
                 <img
                   src={item.img}
                   alt={item.title}
-                  className="h-32 object-contain group-hover:scale-105 transition"
+                  className="h-32 object-contain"
                 />
               </div>
 
               <div className="p-3">
-                <h3 className="text-sm font-medium text-gray-700 group-hover:text-green-600 line-clamp-2">
+                <h3 className="text-sm font-medium text-gray-700 line-clamp-2">
                   {item.title}
                 </h3>
 

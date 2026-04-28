@@ -3,7 +3,7 @@ import React from "react";
 export default function AvailableOn() {
   const platforms = [
     { name: "Trade India", img: "/TradeIndia.webp" },
-    { name: "Amazon", img: "/amazon.webp" },
+    { name: "Amazon", img: "/Amazon.webp" },
     { name: "IndiaMart", img: "/indiamrt.webp" },
   ];
 
