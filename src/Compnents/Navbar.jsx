@@ -74,9 +74,6 @@ export default function Navbar() {
               info@kisangroups.in
             </span>
           </div>
-          <div className="hidden lg:flex items-center gap-4">
-            <span className="text-sm cursor-pointer hover:opacity-80">Admin / HR</span>
-          </div>
         </div>
 
         {/* MAIN NAV */}
