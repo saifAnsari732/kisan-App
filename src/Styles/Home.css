@@ -36,10 +36,10 @@
 /* ============================= */
 @media (max-width: 450px) {
   .slider-container {
-    height: 70vh;
-    min-height: 500px;
-    max-height: 700px;
-  
+    aspect-ratio: 3/4;
+    height: auto;
+    min-height: auto;
+    max-height: auto;
   }
 
   .img {
@@ -49,10 +49,10 @@
 }
 @media (max-width: 450px) and (max-width: 550px) {
   .slider-container {
-    height: 70vh;
-    min-height: 500px;
-    max-height: 700px;
-  
+    aspect-ratio: 3/4;
+    height: auto;
+    min-height: auto;
+    max-height: auto;
   }
 
   .img {

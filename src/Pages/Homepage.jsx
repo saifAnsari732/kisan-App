@@ -161,7 +161,7 @@ export default function HeroCarousel() {
       </AnimatePresence>
 
       {/* 🔥 HERO */}
-      <div className="w-full flex justify-center bg-gray-100">
+      <div className="w-full flex justify-center bg-gray-100 pt-0 md:pt-4">
         <div
           className="slider-container relative"
           onTouchStart={onTouchStart}
@@ -172,8 +172,8 @@ export default function HeroCarousel() {
             src={slides[current].img}
             alt="banner"
             loading="eager"
-            fetchpriority="high"
-            className="w-full h-auto object-contain rounded-2xl"
+            fetchPriority="high"
+            className="w-full h-full object-contain rounded-2xl"
           />
 
           <SocialSidebar />
@@ -211,11 +211,12 @@ export default function HeroCarousel() {
       </div>
 
       {/* CATEGORY */}
-      <h1 className="text-3xl md:text-2xl text-center bg-gray-100 py-8 font-semibold">
+      <h1 className="text-2xl md:text-4xl text-center bg-gray-100 pt-10 font-semibold">
         OUR CATEGORY
       </h1>
 
       <Suspense fallback={<div>Loading Categories...</div>}>
+
         <CategorySection />
       </Suspense>
 

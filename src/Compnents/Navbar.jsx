@@ -8,6 +8,9 @@ export default function Navbar() {
   const [activeCategory, setActiveCategory] = useState("Mustard Oil");
   const [mobileRangeOpen, setMobileRangeOpen] = useState(false);
   const [mobileSubOpen, setMobileSubOpen] = useState(null);
+  
+  // ✅ पॉपअप (Modal) को ओपन/क्लोज़ करने के लिए State
+  const [isJoinPopupOpen, setIsJoinPopupOpen] = useState(false);
 
   const navigate = useNavigate();
   const dropdownRef = useRef();
@@ -16,6 +19,7 @@ export default function Navbar() {
   const goTo = (path) => {
     setIsOpen(false);
     setShowDropdown(false);
+    setIsJoinPopupOpen(false);
 
     navigate(path);
 
@@ -44,13 +48,26 @@ export default function Navbar() {
     ],
     "Refined Oil": [
       { label: "Soyabean Oil", to: "/soyabean" },
-      { label: "Coconut Oil", to: "/coconut" },
+      { label: "Rice Bran Oil", to: "/coconut" },
       { label: "Sunflower Oil", to: "/sunflower" },
       { label: "Palmlein Oil", to: "/palmleion" },
     ],
-    "Alsi Oil": [{ label: "Alsi Oil", to: "/alsi" }],
+    "Speciality Oil": [{ label: "Ground Oil", to: "/ground" }],
     "Pooja Oil": [{ label: "Pooja Oil", to: "/pooja" }],
-    "Groundnut Oil": [{ label: "Groundnut Oil", to: "/ground" }],
+    // "Groundnut Oil": [{ label: "Groundnut Oil", to: "/ground" }],
+  };
+
+  // ✅ पॉपअप सबमिट और रीडायरेक्ट फंक्शन
+  const handleJoinSubmit = (e) => {
+    e.preventDefault();
+    // यहाँ आप डेटाबेस में डेटा भेजने का कोड लिख सकते हैं (अगर फॉर्म है तो)
+    
+    setIsJoinPopupOpen(false); // पॉपअप बंद करें
+    
+    // 👇 यहाँ अपना Redirect URL डालें जहाँ आप यूज़र को भेजना चाहते हैं
+    goTo("/distributionform"); 
+    // अगर आप किसी बाहरी वेबसाइट (जैसे Google) पर भेजना चाहते हैं तो इसे इस्तेमाल करें: 
+    // window.location.href = "https://yourwebsite.com";
   };
 
   return (
@@ -59,20 +76,37 @@ export default function Navbar() {
       <div className="fixed w-full top-0 z-50 bg-white shadow-md">
 
         {/* TOP BAR */}
-        <div className="bg-[#16a34a] text-white text-sm py-2 px-6 flex justify-between items-center">
-          <div className="flex gap-6 items-center">
-            <span className="flex items-center gap-2">
-              <Phone size={14}/>
+        <div className="bg-[#16a34a] text-white text-[11px] sm:text-xs md:text-sm py-1.5 md:py-2 px-3 md:px-6 flex justify-between items-center">
+          <div className="flex lg:gap-6 gap-2.5 md:gap-4 items-center">
+            <span className="flex items-center gap-1 md:gap-2 font-medium tracking-tight md:tracking-normal">
+              <Phone size={12} className="md:w-[14px] md:h-[14px]" />
               1800 8890 860
             </span>
-            <span className="flex items-center gap-2">
-              <Phone size={14}/>
+            <span className="flex items-center gap-1 md:gap-2 font-medium tracking-tight md:tracking-normal">
+              <Phone size={12} className="md:w-[14px] md:h-[14px]" />
               6390059995
             </span>
-            <span className="hidden md:flex items-center gap-2">
+            <span className="hidden md:flex items-center gap-2 font-medium">
               <Mail size={14}/> 
               info@kisangroups.in
             </span>
+          </div>
+            
+          {/* ROTATING BORDER BUTTON */}
+          <div className="relative group flex items-center justify-center overflow-hidden rounded-md p-[2px] md:p-[4px] shadow-lg shrink-0 ml-1">
+            
+            {/* डिफ़ॉल्ट बॉर्डर का रंग (हल्का लाल/ऑरेंज) */}
+            <div className="absolute inset-0 bg-white"></div>
+
+            {/* घूमता हुआ (Rotating) गहरा लाल इफ़ेक्ट */}
+            <div className="absolute w-[200%] h-[200%] animate-spin bg-[conic-gradient(from_0deg,transparent_0_280deg,#dc2626_360deg)] duration-1000"></div>
+            
+            <button 
+              onClick={() => setIsJoinPopupOpen(true)} 
+              className="relative flex w-full h-full items-center justify-center text-black font-extrabold text-[11px] sm:text-xs md:text-base gap-1 md:gap-2 px-2.5 md:px-3 py-1.5 md:py-2 bg-amber-300 hover:bg-amber-500 rounded-sm transition-colors whitespace-nowrap"
+            >
+             अभी जुड़ें
+            </button>
           </div>
         </div>
 
@@ -154,7 +188,7 @@ export default function Navbar() {
                       })}
                     </div>
 
-                    {/* RIGHT - Subcategories (only show if active category has multiple items) */}
+                    {/* RIGHT - Subcategories */}
                     {categories[activeCategory].length > 1 && (
                       <div className="w-3/5 p-4">
                         <div className="space-y-1">
@@ -231,18 +265,14 @@ export default function Navbar() {
       {/* ================= MOBILE MENU ================= */}
       {isOpen && (
         <>
-          {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/40 z-40 lg:hidden animate-fadeIn"
             onClick={() => setIsOpen(false)}
           />
 
-          {/* Menu Panel */}
           <div
             className="fixed right-0 top-0 w-[340px] h-full bg-white z-50 shadow-2xl overflow-y-auto animate-slideInRight"
           >
-
-              {/* Header */}
               <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
                 <img src="/Logo.webp" alt="Kisan Logo" className="h-12 object-contain"/>
                 <button 
@@ -253,31 +283,11 @@ export default function Navbar() {
                 </button>
               </div>
 
-              {/* Menu Items */}
               <div className="px-6 py-6 space-y-1">
+                <div onClick={() => goTo("/")} className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors">Home</div>
+                <div onClick={() => goTo("/about")} className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors">About</div>
+                <div onClick={() => goTo("/shop")} className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors">Product</div>
 
-                <div 
-                  onClick={() => goTo("/")}
-                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  Home
-                </div>
-
-                <div 
-                  onClick={() => goTo("/about")}
-                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  About
-                </div>
-
-                <div 
-                  onClick={() => goTo("/shop")}
-                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  Product
-                </div>
-
-                {/* OUR RANGE ACCORDION */}
                 <div className="border border-gray-200 rounded-lg overflow-hidden">
                   <div
                     onClick={() => setMobileRangeOpen(!mobileRangeOpen)}
@@ -290,7 +300,6 @@ export default function Navbar() {
                   {mobileRangeOpen && (
                     <div className="overflow-hidden">
                       <div className="bg-white px-2 py-2 space-y-1">
-
                         {Object.keys(categories).map((cat) => {
                           const isSingleItem = categories[cat].length === 1;
                           return (
@@ -310,7 +319,6 @@ export default function Navbar() {
                                   <ChevronRight size={16} className={`transition-transform ${mobileSubOpen === cat ? 'rotate-90' : ''}`}/>
                                 )}
                               </div>
-
                               {!isSingleItem && mobileSubOpen === cat && (
                                 <div className="overflow-hidden">
                                   <div className="pl-6 pr-3 pb-2 space-y-1">
@@ -329,59 +337,89 @@ export default function Navbar() {
                             </div>
                           );
                         })}
-
                       </div>
                     </div>
                   )}
                 </div>
 
-                <div 
-                  onClick={() => goTo("/contact")}
-                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  Contact
-                </div>
-
-                <div 
-                  onClick={() => goTo("/career")}
-                  className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  Career
-                </div>
-
+                <div onClick={() => goTo("/contact")} className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors">Contact</div>
+                <div onClick={() => goTo("/career")} className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors">Career</div>
               </div>
 
-              {/* MOBILE BUTTONS */}
               <div className="px-6 pb-6 space-y-3 border-t border-gray-200 pt-6">
-                <button 
-                  onClick={() => goTo("/distributionform")} 
-                  className="w-full bg-[#fbbf24] hover:bg-[#f59e0b] text-gray-900 font-semibold py-3 rounded-lg transition-all shadow-sm"
-                >
+                <button onClick={() => goTo("/distributionform")} className="w-full bg-[#fbbf24] hover:bg-[#f59e0b] text-gray-900 font-semibold py-3 rounded-lg transition-all shadow-sm">
                   Distribution Form
                 </button>
-
-                <button 
-                  onClick={() => goTo("/distagreement")} 
-                  className="w-full bg-[#ff4d6d] hover:bg-[#e63946] text-white font-semibold py-3 rounded-lg transition-all shadow-sm"
-                >
+                <button onClick={() => goTo("/distagreement")} className="w-full bg-[#ff4d6d] hover:bg-[#e63946] text-white font-semibold py-3 rounded-lg transition-all shadow-sm">
                   Distribution Agreement
                 </button>
-
-                <button 
-                  onClick={() => goTo("/catalog")} 
-                  className="w-full bg-[#16a34a] hover:bg-[#15803d] text-white font-semibold py-3 rounded-lg transition-all shadow-sm"
-                >
+                <button onClick={() => goTo("/catalog")} className="w-full bg-[#16a34a] hover:bg-[#15803d] text-white font-semibold py-3 rounded-lg transition-all shadow-sm">
                   Catalog
                 </button>
               </div>
 
             </div>
-          </>
-        )
-      }
+        </>
+      )}
 
+      {/* ================= JOIN NOW POPUP (MODAL) ================= */}
+           {/* ================= JOIN NOW POPUP (MODAL) ================= */}
+      {isJoinPopupOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+          
+          {/* Overlay Background */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setIsJoinPopupOpen(false)}
+          ></div>
+
+          {/* Popup Content */}
+          <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-sm p-8 animate-fadeIn text-center">
+            
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsJoinPopupOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors"
+            >
+              <X size={24} />
+            </button>
+
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              Stockist, Distributor & Trader बनने के लिए संपर्क करे
+            </h2>
+            <p className="text-sm text-gray-500 mb-6">
+              कृपया नीचे दिए गए विकल्पों में से किसी एक को चुनें:
+            </p>
+
+            {/* 3 Buttons List */}
+            <div className="flex flex-col gap-4">
+              <button 
+                onClick={() => goTo("/distributionform")}
+                className="w-full py-3 px-5 bg-[#fbbf24] hover:bg-[#f59e0b] text-gray-900 font-bold text-sm rounded-lg transition-all shadow-sm hover:shadow-md"
+              >
+                Distribution Form
+              </button>
+
+              <button 
+                onClick={() => goTo("/distagreement")}
+                className="w-full px-5 py-3 bg-[#ff4d6d] hover:bg-[#e63946] text-white font-bold text-sm rounded-lg transition-all shadow-sm hover:shadow-md"
+              >
+                Distribution Agreement
+              </button>
+
+              <button 
+                onClick={() => goTo("/catalog")}
+                className="w-full px-5 py-3 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold text-sm rounded-lg transition-all shadow-sm hover:shadow-md"
+              >
+                Catalog
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
       {/* SPACER - Adjust based on navbar height */}
-      <div className="h-[104px]"></div>
+      <div className="h-[90px] md:h-[104px]"></div>
     </>
   );
 }
