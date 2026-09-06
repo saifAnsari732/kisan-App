@@ -110,6 +110,16 @@ export default function Navbar() {
           </div>
         </div>
 
+        {/* MARQUEE */}
+        <div className="bg-orange-100 border-b border-orange-200 py-1.5 overflow-hidden flex items-center relative z-40">
+          <div className="whitespace-nowrap animate-marquee flex items-center text-orange-800 text-xs md:text-sm font-semibold tracking-wide">
+            <span className="mx-4">🌿 हमसे जुड़ने के लिए और हमारे बारे में जानने के लिए संपर्क करें | Connect with us to join and know more about us.</span>
+            <span className="mx-4">🌿 हमसे जुड़ने के लिए और हमारे बारे में जानने के लिए संपर्क करें | Connect with us to join and know more about us.</span>
+            <span className="mx-4">🌿 हमसे जुड़ने के लिए और हमारे बारे में जानने के लिए संपर्क करें | Connect with us to join and know more about us.</span>
+            <span className="mx-4">🌿 हमसे जुड़ने के लिए और हमारे बारे में जानने के लिए संपर्क करें | Connect with us to join and know more about us.</span>
+          </div>
+        </div>
+
         {/* MAIN NAV */}
         <div className="bg-white border-b border-gray-100">
           <div className="max-w-8xl px-8 flex items-center justify-between h-15">
@@ -419,7 +429,7 @@ export default function Navbar() {
         </div>
       )}
       {/* SPACER - Adjust based on navbar height */}
-      <div className="h-[90px] md:h-[104px]"></div>
+      <div className="h-[120px] md:h-[135px]"></div>
     </>
   );
 }

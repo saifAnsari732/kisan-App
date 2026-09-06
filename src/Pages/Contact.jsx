@@ -13,6 +13,7 @@ export default function Contact() {
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
     message: "",
   });
 
@@ -39,6 +40,7 @@ export default function Contact() {
       firstName: "",
       lastName: "",
       email: "",
+      phone: "",
       message: "",
     });
   };
@@ -126,10 +128,14 @@ export default function Contact() {
             <h2 className="text-xl font-semibold text-center text-green-900 mb-4">
               Our Location
             </h2>
+            
+            <p className="text-sm text-gray-700 mb-4 text-center font-medium">
+              4th Floor, Emperor Square, J.B, Kanpur Rd, near Apollo Hospital, Sector B, Bargawan, LDA Colony
+            </p>
 
-            <div className="w-full h-[300px] md:h-[350px] rounded-xl overflow-hidden shadow-lg">
+            <div className="w-full h-[300px] md:h-[280px] rounded-xl overflow-hidden shadow-lg">
               <iframe
-                src="https://www.google.com/maps?q=Lucknow,Uttar%20Pradesh,India&output=embed"
+                src="https://www.google.com/maps?q=Emperor%20Square,Kanpur%20Rd,Lucknow&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -169,9 +175,19 @@ export default function Contact() {
 
             <input
               name="email"
+              type="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="Email Address"
+              className="border p-2 rounded-md w-full"
+            />
+
+            <input
+              name="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Phone Number"
               className="border p-2 rounded-md w-full"
             />
 
@@ -179,7 +195,7 @@ export default function Contact() {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              rows="10"
+              rows="6"
               placeholder="Your Message"
               className="border p-2 rounded-md w-full"
             />

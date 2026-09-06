@@ -5,7 +5,7 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 const categories = [
   { 
     id: "refined", 
-    title: "REFINED OILS", 
+    title: "REFINED ", 
     color: "bg-gradient-to-br from-lime-500 to-green-700",
     shadow: "shadow-green-600/50",
     glow: "bg-lime-400",
@@ -13,7 +13,7 @@ const categories = [
   },
   { 
     id: "mustard", 
-    title: "MUSTARD OILS", 
+    title: "MUSTARD ", 
     color: "bg-gradient-to-br from-red-700 to-red-900",
     shadow: "shadow-red-800/50",
     glow: "bg-red-500",
@@ -21,19 +21,11 @@ const categories = [
   },
   { 
     id: "vegetable", 
-    title: "VEGETABLE OIL", 
+    title: "VEGETABLE ", 
     color: "bg-gradient-to-br from-yellow-500 to-amber-600",
     shadow: "shadow-amber-600/50",
     glow: "bg-yellow-400",
     img: "/38.webp" 
-  },
-  { 
-    id: "cold", 
-    title: "COLD PRESSED", 
-    color: "bg-gradient-to-br from-rose-500 to-red-700",
-    shadow: "shadow-rose-600/50",
-    glow: "bg-rose-400",
-    img: "/39.webp" 
   },
 ];
 
@@ -76,7 +68,7 @@ const DesktopCard = ({ item, index }) => {
     >
       {/* CARD BODY */}
       <motion.div 
-        className={`w-full relative h-[320px] rounded-[24px] ${item.color} 
+        className={`w-full relative h-[380px] rounded-[24px] ${item.color} 
           backdrop-blur-xl border border-white/20
           flex items-start justify-center overflow-hidden
           shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_10px_30px_rgba(0,0,0,0.1)]
@@ -113,8 +105,9 @@ const DesktopCard = ({ item, index }) => {
         />
 
         {/* TITLE */}
-        <h2 className="text-white font-semibold tracking-widest rotate-90 text-xl opacity-80 mt-23 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none select-none drop-shadow-md whitespace-nowrap">
+        <h2 className="text-white font-semibold tracking-widest  text-3xl opacity-80 mt-23 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none select-none drop-shadow-md flex-col flex-wrap">
           {item.title}
+      <span className="text-xl text-center opacity-500 block mt-1">OILS</span>
         </h2>
       </motion.div>
 
@@ -187,7 +180,7 @@ const MobileCard = ({ item, index, isLeft }) => {
       <div className="relative w-[85%]">
         <div
           className={`
-            w-full h-32 rounded-[24px] ${item.color}
+            w-full h-40 rounded-[24px] ${item.color}
             backdrop-blur-xl border border-white/20
             shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_10px_20px_rgba(0,0,0,0.15)]
             flex items-center overflow-hidden relative
@@ -254,7 +247,7 @@ export default function CategorySection() {
 
       {/* ================= DESKTOP ================= */}
       <div className="hidden md:block">
-        <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 px-6 pb-20 pt-20">
+        <div className="max-w-7xl mx-auto grid grid-cols-3 gap-8 px-6 pb-20 pt-20">
           {categories.map((item, i) => (
             <DesktopCard key={item.id} item={item} index={i} />
           ))}

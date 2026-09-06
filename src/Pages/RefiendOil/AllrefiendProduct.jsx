@@ -12,6 +12,12 @@ const AllrefiendProduct = () => {
     { title: "PALMOLIEN OILS", img: "/pamcard.webp" },
     { title: "SUNFLOWER PRESSED", img: "/suncard.webp" },
   ];
+  const groundnut = [
+    { title: "RICE BRAN", img: "/11.webp" },
+    { title: "SOYABEAN OIL", img: "/9.webp" },
+    { title: "PALMOLIEN OILS", img: "/coco.webp" },
+    // { title: "SUNFLOWER PRESSED", img: "/suncard.webp" },
+  ];
 
   return (
     <>

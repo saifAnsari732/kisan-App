@@ -9,6 +9,11 @@ import { toast } from "react-toastify";
 // Falls back to VITE_GEMINI_API_KEY from your .env file if this is left empty.
 // =====================================================================
 const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
+const CHAT_API_URL =
+  import.meta.env.VITE_CHAT_API_URL ||
+  (import.meta.env.DEV
+    ? "http://127.0.0.1:5000/api/chat"
+    : "https://kisanapp-chatvoice-hlyx.onrender.com/api/chat");
 
 const GREETING_TEXT =
   "Namaste! Main Kisan Choice se baat kar rahi hoon. Main aapki kaise madad kar sakti hoon?";
@@ -20,7 +25,7 @@ const GREETING_TEXT =
 // ("asterisk asterisk..."). This strips common markdown before we ever
 // display or speak the reply, as a safety net on top of the prompt rule.
 function sanitizeReply(text) {
-  return text
+  return String(text || "")
     .replace(/\|/g, " ")                 // table pipes
     .replace(/^-{3,}$/gm, "")            // markdown horizontal rules
     .replace(/^#{1,6}\s*/gm, "")         // headings
@@ -47,6 +52,11 @@ export default function FloatingActions() {
 
   const [showModeSelector, setShowModeSelector] = useState(false);
   const [chatMode, setChatMode] = useState("chat"); // "voice" or "chat"
+  const chatModeRef = useRef("chat"); // Ref to avoid stale closure in async
+  const updateChatMode = (mode) => {
+    chatModeRef.current = mode;
+    setChatMode(mode);
+  };
 
   const [messages, setMessages] = useState([
     { sender: "bot", text: "Namaste! Main Kisan Choice se baat kar rahi hoon. Main aapki kaise madad kar sakti hoon?", isGreeting: true }
@@ -60,55 +70,60 @@ export default function FloatingActions() {
   const recognitionRef = useRef(null);
   const synthRef = useRef(typeof window !== "undefined" ? window.speechSynthesis : null);
   const voicesRef = useRef([]);
+  const handleUserMessageRef = useRef(null);
   const audioRef = useRef(null);
+
   useEffect(() => {
     // Initialize Web Speech API (speech-to-text)
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.lang = "hi-IN"; // Hindi India
-      recognitionRef.current.interimResults = false;
+    try {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        recognitionRef.current = new SpeechRecognition();
+        recognitionRef.current.continuous = false;
+        recognitionRef.current.lang = "hi-IN";
+        recognitionRef.current.interimResults = false;
 
-      recognitionRef.current.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        handleUserMessage(transcript);
-        isListeningRef.current = false;
-        setIsListening(false);
-      };
-
-      recognitionRef.current.onerror = (event) => {
-        console.error("Speech recognition error", event.error);
-        if (event.error !== "no-speech") {
+        recognitionRef.current.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          // Use ref so we always call the latest version (no stale closure)
+          if (handleUserMessageRef.current) {
+            handleUserMessageRef.current(transcript);
+          }
           isListeningRef.current = false;
           setIsListening(false);
-          toast.error("Microphone error: " + event.error);
+        };
+
+        recognitionRef.current.onerror = (event) => {
+          console.error("Speech recognition error", event.error);
+          if (event.error !== "no-speech") {
+            isListeningRef.current = false;
+            setIsListening(false);
+          }
+        };
+
+        recognitionRef.current.onend = () => {
+          isListeningRef.current = false;
+          setIsListening(false);
+        };
+      }
+
+      // Warm voice cache
+      const loadVoices = () => {
+        if (synthRef.current) {
+          voicesRef.current = synthRef.current.getVoices();
         }
       };
-
-      recognitionRef.current.onend = () => {
-        isListeningRef.current = false;
-        setIsListening(false);
-      };
-    } else {
-      console.warn("Speech Recognition API not supported in this browser.");
-    }
-
-    // FIX: getVoices() often returns an empty array on first call because
-    // voices load asynchronously. Warm the cache now, and again on change.
-    const loadVoices = () => {
+      loadVoices();
       if (synthRef.current) {
-        voicesRef.current = synthRef.current.getVoices();
+        synthRef.current.onvoiceschanged = loadVoices;
       }
-    };
-    loadVoices();
-    if (synthRef.current) {
-      synthRef.current.onvoiceschanged = loadVoices;
+    } catch (err) {
+      console.warn("Speech API init error:", err);
     }
 
     return () => {
-      recognitionRef.current?.abort();
-      synthRef.current?.cancel();
+      try { recognitionRef.current?.abort(); } catch(e) {}
+      try { synthRef.current?.cancel(); } catch(e) {}
     };
   }, []);
 
@@ -145,6 +160,8 @@ export default function FloatingActions() {
     setMessages((prev) => [...prev, { sender: "user", text }]);
     generateBotResponse(text);
   };
+  // Keep ref updated so useEffect's onresult always calls latest version
+  handleUserMessageRef.current = handleUserMessage;
 
   const handleSendText = () => {
     if (!inputText.trim()) return;
@@ -159,47 +176,80 @@ export default function FloatingActions() {
     handleUserMessage(text);
   };
 
-  const generateBotResponse = async (userText, currentMessages) => {
+  const generateBotResponse = async (userText) => {
     setIsThinking(true);
 
     try {
-      const response = await fetch("https://kisanapp-chatvoice.onrender.com/api/chat", {
+      const response = await fetch(CHAT_API_URL, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
           "bypass-tunnel-reminder": "true"
         },
-        body: JSON.stringify({ text: userText, skip_audio: chatMode === "chat" })
+        body: JSON.stringify({ text: userText, skip_audio: chatModeRef.current === "chat" })
       });
 
       if (!response.ok) {
         const errText = await response.text();
+        if (response.status === 429) {
+          throw new Error("AI service quota is exhausted");
+        }
         throw new Error(`Backend Error: ${response.status} ${errText}`);
       }
 
       const data = await response.json();
-      const botText = data.reply;
+      const botText = sanitizeReply(data.reply);
       const audioBase64 = data.audio_base64;
 
-      setMessages((prev) => [...prev, { sender: "bot", text: botText }]);
+      const cleanBotText = botText || "Maaf kijiye, mujhe abhi jawab nahi mil paaya.";
+      setMessages((prev) => [...prev, { sender: "bot", text: cleanBotText }]);
       setIsThinking(false);
 
-      if (audioBase64) {
-        playBackendAudio(audioBase64);
+      if (chatModeRef.current === "voice") {
+        if (audioBase64) {
+          // Try backend audio first
+          playBackendAudio(audioBase64, cleanBotText);
+        } else {
+          // Fallback: browser TTS
+          speakWithBrowser(cleanBotText);
+        }
       }
     } catch (error) {
       console.error("AI API Error:", error);
       setIsThinking(false);
-      const fallbackReply = `Technical Issue: ${error.message}. Please connect via WhatsApp.`;
+      const fallbackReply = error.message === "AI service quota is exhausted"
+        ? "Error: AI service quota is exhausted. AI service abhi temporarily unavailable hai. Kripya WhatsApp par humse connect karein."
+        : `Technical Issue: ${error.message}. Please connect via WhatsApp.`;
       setMessages((prev) => [...prev, { sender: "bot", text: fallbackReply }]);
     }
   };
 
-  const speakResponse = (text) => {
-    // Basic fallback if needed, but primarily we will play backend audio
+  // Browser TTS fallback (used when backend audio is null)
+  const speakWithBrowser = (text) => {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "hi-IN";
+    utter.rate = 0.9;
+    utter.pitch = 1.3; // Higher pitch = more feminine
+
+    // Try to pick a female Hindi voice
+    const voices = window.speechSynthesis.getVoices();
+    const femaleHindi = voices.find(v =>
+      v.lang === "hi-IN" && /female|swara|kalpana|heera/i.test(v.name)
+    ) || voices.find(v => v.lang === "hi-IN");
+    if (femaleHindi) utter.voice = femaleHindi;
+
+    utter.onstart = () => setBotSpeaking(true);
+    utter.onend = () => {
+      setBotSpeaking(false);
+      if (chatOpenRef.current) safeStartRecognition();
+    };
+    utter.onerror = () => setBotSpeaking(false);
+    window.speechSynthesis.speak(utter);
   };
 
-  const playBackendAudio = (base64Audio) => {
+  const playBackendAudio = (base64Audio, fallbackText) => {
     if (audioRef.current) {
       audioRef.current.pause();
     }
@@ -217,11 +267,15 @@ export default function FloatingActions() {
     audio.onerror = (e) => {
       console.error("Audio playback error:", e);
       setBotSpeaking(false);
+      // Fallback to browser TTS if backend audio fails
+      if (fallbackText) speakWithBrowser(fallbackText);
     };
     
     audio.play().catch(e => {
       console.error("Autoplay prevented:", e);
       setBotSpeaking(false);
+      // Fallback to browser TTS
+      if (fallbackText) speakWithBrowser(fallbackText);
     });
   };
 
@@ -249,7 +303,7 @@ export default function FloatingActions() {
   };
 
   const startBotInMode = (mode) => {
-    setChatMode(mode);
+    updateChatMode(mode);
     setShowModeSelector(false);
     
     if (recognitionRef.current) {
@@ -369,24 +423,26 @@ export default function FloatingActions() {
 
             {/* Input Area */}
             <div className="p-3 bg-white/80 backdrop-blur-md border-t border-gray-100 flex items-center gap-2">
-              <button
-                onClick={() => {
-                  if (isListening) safeStopRecognition();
-                  else {
-                    if (audioRef.current) audioRef.current.pause();
-                    setBotSpeaking(false);
-                    safeStartRecognition();
-                  }
-                }}
-                className={`p-3 rounded-2xl text-white shadow-md transition-all duration-300 ${
-                  isListening 
-                  ? "bg-rose-500 hover:bg-rose-600 shadow-rose-500/30 scale-105" 
-                  : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200 shadow-none hover:scale-105"
-                }`}
-                title={isListening ? "Stop Listening" : "Tap to Speak"}
-              >
-                {isListening ? <MicOff size={20} strokeWidth={2} /> : <Mic size={20} strokeWidth={2.5} />}
-              </button>
+              {chatMode === "voice" && (
+                <button
+                  onClick={() => {
+                    if (isListening) safeStopRecognition();
+                    else {
+                      if (audioRef.current) audioRef.current.pause();
+                      setBotSpeaking(false);
+                      safeStartRecognition();
+                    }
+                  }}
+                  className={`p-3 rounded-2xl text-white shadow-md transition-all duration-300 ${
+                    isListening 
+                    ? "bg-rose-500 hover:bg-rose-600 shadow-rose-500/30 scale-105" 
+                    : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200 shadow-none hover:scale-105"
+                  }`}
+                  title={isListening ? "Stop Listening" : "Tap to Speak"}
+                >
+                  {isListening ? <MicOff size={20} strokeWidth={2} /> : <Mic size={20} strokeWidth={2.5} />}
+                </button>
+              )}
               
               <div className="flex-1 relative">
                 <input
@@ -468,6 +524,7 @@ export default function FloatingActions() {
           title="Chat on WhatsApp"
         >
           <FaWhatsapp className="w-[26px] h-[26px] md:w-[32px] md:h-[32px]" />
+          <span className="sr-only">WhatsApp</span>
         </button>
       </div>
     </div>

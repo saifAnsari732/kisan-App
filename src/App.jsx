@@ -10,6 +10,8 @@ import Footer from "./Compnents/Footer";
 import MobileNavbar from "./Compnents/Btmnavbar";
 import HeroCarousel from "./Pages/Homepage";
 import ScrollToTop from "./Compnents/ScrollToTop";
+import FloatingActions from "./Compnents/FloatingActions";
+
 // 🔥 LAZY LOAD ALL PAGES
 const About = lazy(() => import("./Pages/About"));
 const Shop = lazy(() => import("./Pages/Shop"));
@@ -120,6 +122,7 @@ function App() {
         {/* ✅ FOOTER */}
         <Footer />
         <MobileNavbar />
+        <FloatingActions />
       </BrowserRouter>
     </HelmetProvider>
   );

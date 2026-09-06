@@ -22,20 +22,21 @@ const FetureProduct = ({ selectedCategory, viewAll }) => {
 
   // ✅ DATA
   const categories = [
-    { id: 1, title: "INDIAN CHOICE OILS", img: "/34.webp", category: "Mustard Oil" },
+    { id: 1, title: "INDIAN CHOICE OILS", img: "/34.webp", category: "Mustard Oil jry" },
     { id: 2, title: "KISAN CHOICE REFINED", img: "/36.webp", category: "Refined Oil" },
     { id: 3, title: "KISAN CHOICE MUSTARD", img: "/35.webp", category: "Vegetable Oil" },
     { id: 4, title: "KISAN CHOICE REFINED", img: "/37.webp", category: "Cold Pressed" },
-    { id: 5, title: "SOYABEAN OILS", img: "/1.webp", category: "Vegetable Oil" },
+    { id: 5, title: "SOYABEAN OILS", img: "/1.webp", category: "Refined Oil" },
     { id: 6, title: "KACHIGHANI MUSTARD OILS", img: "/2.webp", category: "Mustard Oil" },
     { id: 7, title: "INDIAN CHOICE KACHIGHANI", img: "/3.webp", category: "Mustard Oil" },
     { id: 8, title: "KISAN CHOICE KACHIGHANI", img: "/4.webp", category: "Mustard Oil" },
-    { id: 9, title: "CUSTOMER CHOICE OIL", img: "/5.webp", category: "Refined Oil" },
-    { id: 10, title: "SUNFLOWER OIL", img: "/6.webp", category: "Refined Oil" },
-    { id: 11, title: "ALSI OIL", img: "/9.webp", category: "Cold Pressed" },
-    { id: 12, title: "POOJA OIL", img: "/10.webp", category: "Special Oil" },
-    { id: 13, title: "GROUNDNUT OIL", img: "/11.webp", category: "Vegetable Oil" },
-    { id: 14, title: "COCONUT OIL", img: "/coconut.webp", category: "Vegetable Oil" },
+    { id: 9, title: "PALMOLEIN OIL", img: "/110.webp", category: "Refined Oil" },
+    // { id: 10, title: "SUNFLOWER OIL", img: "/6.webp", category: "Refined Oil" },
+    { id: 10, title: "RICE BRAN OIL", img: "/38.webp", category: "Refined Oil" },
+    { id: 11, title: "ALSI OIL", img: "/9.webp", category: "SPECIALITY OILS" },
+    { id: 12, title: "POOJA OIL", img: "/10.webp", category: "POOJA OIL" },
+    { id: 13, title: "GROUNDNUT OIL", img: "/11.webp", category: "SPECIALITY OILS" },
+    { id: 14, title: "COCONUT OIL", img: "/coconut.webp", category: "SPECIALITY OILS" },
   ];
 
   const filteredData =

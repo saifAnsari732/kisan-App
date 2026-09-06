@@ -5,7 +5,7 @@ export default function Shop() {
   const [selected, setSelected] = useState("All");
   const [viewAll, setViewAll] = useState(true);
 
-  const filters = ["All", "Mustard Oil", "Refined Oil", "Vegetable Oil", "Cold Pressed"];
+  const filters = ["All", "Mustard Oil", "Refined Oil", "SPECIALITY OILS", "POOJA OIL"];
   useEffect(() => {
     document.title = "Products | KisanChoice";
   }, []);

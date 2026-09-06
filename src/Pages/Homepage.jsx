@@ -12,6 +12,7 @@ const FetureProduct = lazy(() => import("./FetureProduct"));
 const Testimonials = lazy(() => import("../Compnents/Testimonials"));
 const Reviews = lazy(() => import("./Reviews"));
 const FAQ = lazy(() => import("./FreQuestion"));
+const StatsAndProcess = lazy(() => import("./StatsAndProcess"));
 
 // ✅ Images
 const desktopSlides = [
@@ -216,8 +217,12 @@ export default function HeroCarousel() {
       </h1>
 
       <Suspense fallback={<div>Loading Categories...</div>}>
-
         <CategorySection />
+      </Suspense>
+
+      {/* STATS & PROCESS */}
+      <Suspense fallback={<div>Loading Stats...</div>}>
+        <StatsAndProcess />
       </Suspense>
 
       {/* MAP */}
