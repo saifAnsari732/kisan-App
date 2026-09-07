@@ -63,7 +63,7 @@ export default function StatsAndProcess() {
       icon: <Leaf size={28} className="text-white" strokeWidth={2} />,
       gradient: "bg-gradient-to-br from-emerald-400 to-emerald-600",
       shadow: "shadow-emerald-500/30",
-      img: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=80" // Agriculture/Farmer
+      img: "/process1.jpg"
     },
     {
       id: 2,
@@ -72,7 +72,7 @@ export default function StatsAndProcess() {
       icon: <Droplets size={28} className="text-white" strokeWidth={2} />,
       gradient: "bg-gradient-to-br from-amber-400 to-amber-600",
       shadow: "shadow-amber-500/30",
-      img: "https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=800&auto=format&fit=crop&q=80" // Yellow Mustard Field
+      img: "/process2.jpg"
     },
     {
       id: 3,
@@ -81,7 +81,7 @@ export default function StatsAndProcess() {
       icon: <ShieldCheck size={28} className="text-white" strokeWidth={2} />,
       gradient: "bg-gradient-to-br from-orange-400 to-rose-500",
       shadow: "shadow-orange-500/30",
-      img: "https://images.unsplash.com/photo-1474978528675-4a50a4508dc3?w=800&auto=format&fit=crop&q=80" // Pure Golden Essence
+      img: "/process3.jpg"
     }
   ];
 
@@ -163,53 +163,57 @@ export default function StatsAndProcess() {
           </motion.p>
         </div>
 
-        <div className="relative">
-          {/* Subtle Connecting Dashed Line (Desktop Only) */}
-          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[2px] border-t-2 border-dashed border-gray-300 -translate-y-1/2 z-0 opacity-60"></div>
+        <div className="relative mt-16 max-w-6xl mx-auto">
+          
+          {/* Subtle Vertical Connecting Line (Desktop Only) */}
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-100 via-amber-100 to-orange-100 -translate-x-1/2 z-0"></div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 relative z-10">
-            {processSteps.map((step, index) => (
-              <motion.div 
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                key={step.id} 
-                className="relative group h-full"
-              >
-                <div className="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] border border-gray-100 transition-all duration-500 overflow-hidden h-full z-10 relative flex flex-col group-hover:-translate-y-2">
+          <div className="flex flex-col gap-24 relative z-10">
+            {processSteps.map((step, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <motion.div 
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8 }}
+                  key={step.id} 
+                  className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}
+                >
                   
-                  {/* Image Header */}
-                  <div className="relative h-48 w-full overflow-hidden">
-                    <img src={step.img} alt={step.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent"></div>
+                  {/* Image Side (Smaller) */}
+                  <div className="w-full sm:w-4/5 md:w-2/3 lg:w-5/12 xl:w-1/3 relative group mx-auto">
+                    <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3] transform transition-transform duration-700 hover:shadow-2xl group-hover:-translate-y-2">
+                      <img 
+                        src={step.img} 
+                        alt={step.title} 
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                    </div>
                     
                     {/* Floating Step Number */}
-                    <div className="absolute top-4 right-4 text-white/90 text-sm font-bold bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-                      Step 0{step.id}
+                    <div className={`absolute -bottom-5 ${isEven ? '-right-5' : '-left-5'} w-20 h-20 rounded-full ${step.gradient} text-white flex items-center justify-center font-black text-3xl shadow-xl ring-8 ring-white z-20`}>
+                      0{step.id}
                     </div>
-                    
-                    {/* Floating Icon */}
-                    <div className={`absolute -bottom-6 left-8 w-14 h-14 rounded-2xl ${step.gradient} flex items-center justify-center text-white shadow-lg ring-4 ring-white z-20 group-hover:rotate-12 transition-transform duration-300`}>
-                      {step.icon}
-                    </div>
-                  </div>
-                  
-                  {/* Content Area */}
-                  <div className="pt-10 pb-8 px-8 flex-1 flex flex-col relative bg-white">
-                    <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-3">{step.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{step.desc}</p>
                   </div>
 
-                  {/* Arrow Indicator (Desktop) */}
-                  {index !== processSteps.length - 1 && (
-                    <div className="hidden lg:flex absolute top-1/2 -right-8 w-12 h-12 bg-white rounded-full items-center justify-center shadow-lg border border-gray-100 z-30 transform -translate-y-1/2 group-hover:scale-110 transition-transform">
-                      <ArrowRight className="text-gray-400 group-hover:text-green-500 transition-colors" size={20} />
+                  {/* Content Side */}
+                  <div className={`w-full lg:w-7/12 xl:w-2/3 space-y-5 ${isEven ? 'lg:pl-12' : 'lg:pr-12'} text-center lg:text-left`}>
+                    <div className={`inline-flex items-center justify-center p-3.5 rounded-2xl ${step.gradient} text-white shadow-lg mb-2`}>
+                      {step.icon}
                     </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                    <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight tracking-tight">
+                      {step.title}
+                    </h3>
+                    <p className="text-lg text-gray-600 leading-relaxed font-medium">
+                      {step.desc}
+                    </p>
+                  </div>
+
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 

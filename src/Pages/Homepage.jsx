@@ -119,6 +119,10 @@ export default function HeroCarousel() {
           name="description"
           content="Kisan Choice delivers premium mustard oil, refined oil, and edible oils across India."
         />
+        <meta
+          name="keywords"
+          content="kisan choice, kisanchoice, kisangroups, kisan groups, kisan choice oil, mustard oil, edible oil, pure oil"
+        />
         <link rel="preload" as="image" href="/img1.webp" />
       </Helmet>
 
