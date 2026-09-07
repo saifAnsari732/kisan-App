@@ -4,10 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 
 const galleryImages = [
-  "/clientimg/WhatsApp Image 2026-06-06 at 6.13.22 PM (1).webp",
-  "/clientimg/WhatsApp Image 2026-06-06 at 6.13.22 PM.webp",
-  "/clientimg/WhatsApp Image 2026-06-06 at 6.13.33 PM (1).webp",
-  "/clientimg/WhatsApp Image 2026-06-06 at 6.13.33 PM.webp",
   "/clientimg/1.jpg",
   "/clientimg/2.jpg",
   "/clientimg/3.jpg",
@@ -21,6 +17,10 @@ const galleryImages = [
   "/clientimg/11.jpg",
   "/clientimg/12.jpg",
   "/clientimg/13.jpg",
+  "/clientimg/14.jpg",
+  "/clientimg/15.jpg",
+  "/clientimg/16.jpg",
+  "/clientimg/17.jpg",
 ];
 
 export default function Gallery() {
