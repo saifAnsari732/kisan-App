@@ -17,6 +17,7 @@ const About = lazy(() => import("./Pages/About"));
 const Shop = lazy(() => import("./Pages/Shop"));
 const Contact = lazy(() => import("./Pages/Contact"));
 const Career = lazy(() => import("./Pages/Career"));
+const Gallery = lazy(() => import("./Pages/Gallery"));
 
 const CategoryPage = lazy(() => import("./Pages/CategoryPage"));
 const ProductDetails = lazy(() => import("./Pages/ProductDetails"));
@@ -74,6 +75,7 @@ function App() {
             {/* BASIC PAGES */}
             <Route path="/about" element={<About />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/career" element={<Career />} />
 

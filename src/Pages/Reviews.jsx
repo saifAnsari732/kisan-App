@@ -9,9 +9,22 @@ const clientImages = [
   "/clientimg/WhatsApp Image 2026-06-06 at 6.13.22 PM.webp",
   "/clientimg/WhatsApp Image 2026-06-06 at 6.13.33 PM (1).webp",
   "/clientimg/WhatsApp Image 2026-06-06 at 6.13.33 PM.webp",
+  "/clientimg/1.jpg",
+  "/clientimg/2.jpg",
+  "/clientimg/3.jpg",
+  "/clientimg/4.jpg",
+  "/clientimg/5.jpg",
+  "/clientimg/6.jpg",
+  "/clientimg/7.jpg",
+  "/clientimg/8.jpg",
+  "/clientimg/9.jpg",
+  "/clientimg/10.jpg",
+  "/clientimg/11.jpg",
+  "/clientimg/12.jpg",
+  "/clientimg/13.jpg",
 ];
 
-const marqueeItems = [...clientImages, ...clientImages, ...clientImages, ...clientImages, ...clientImages, ...clientImages];
+const marqueeItems = [...clientImages, ...clientImages, ...clientImages];
 const marqueeItemsReverse = [...marqueeItems].reverse();
 
 const reviews = [

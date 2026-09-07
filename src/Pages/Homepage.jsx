@@ -228,15 +228,43 @@ export default function HeroCarousel() {
       {/* MAP */}
       <div className="w-full bg-gray-100 pt-10 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
-          <div className="w-full md:w-1/2 space-y-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-              Our Presence Across India
+          <div className="w-full md:w-1/2 space-y-6 py-8">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
+              Our Presence <span className="text-green-600">Across India</span>
             </h2>
-            <p className="text-gray-600">
-             We deliver high-quality edible oils across multiple states in India. From mustard oil to refined oils, we maintain top quality standards Our strong distribution network ensures purity and trust.
-
-From mustard oil to refined oils, we maintain top quality standards..
+            <p className="text-gray-600 text-lg leading-relaxed">
+              Kisan Choice is rapidly expanding its footprint, delivering 100% pure, natural, and unadulterated edible oils to households across the nation. Our robust supply chain ensures purity and trust in every drop.
             </p>
+            
+            <ul className="space-y-5 mt-6">
+              <li className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-1 shadow-sm border border-green-200">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-800 text-lg">Extensive Distribution Network</h4>
+                  <p className="text-gray-500 text-sm mt-1">Seamlessly connecting 7,000+ distributors and 35 Lakh+ retailers daily.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-1 shadow-sm border border-green-200">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-800 text-lg">Nationwide Reach</h4>
+                  <p className="text-gray-500 text-sm mt-1">Present in multiple key states, ensuring timely delivery and constant availability.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-1 shadow-sm border border-green-200">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-800 text-lg">Uncompromised Quality</h4>
+                  <p className="text-gray-500 text-sm mt-1">From farm to table, we maintain the highest purity levels with zero adulteration.</p>
+                </div>
+              </li>
+            </ul>
           </div>
 
           <div className="w-full md:w-1/2">

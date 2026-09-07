@@ -146,6 +146,13 @@ export default function Navbar() {
                 PRODUCT
               </span>
 
+              <span 
+                onClick={() => goTo("/gallery")}
+                className="text-gray-800  cursor-pointer hover:text-[#16a34a] transition-colors uppercase"
+              >
+                GALLERY
+              </span>
+
               {/* DROPDOWN */}
               <div ref={dropdownRef} className="relative">
 
@@ -287,6 +294,7 @@ export default function Navbar() {
                 <div onClick={() => goTo("/")} className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors">Home</div>
                 <div onClick={() => goTo("/about")} className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors">About</div>
                 <div onClick={() => goTo("/shop")} className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors">Product</div>
+                <div onClick={() => goTo("/gallery")} className="px-4 py-3 text-gray-800 font-medium cursor-pointer hover:bg-gray-50 rounded-lg transition-colors">Gallery</div>
 
                 <div className="border border-gray-200 rounded-lg overflow-hidden">
                   <div
