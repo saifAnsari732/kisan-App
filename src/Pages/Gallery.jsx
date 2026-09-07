@@ -44,7 +44,7 @@ export default function Gallery() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-extrabold text-green-800 mb-4"
           >
-          T  Our Gallery
+            Our Gallery
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
