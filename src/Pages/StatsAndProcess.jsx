@@ -60,25 +60,28 @@ export default function StatsAndProcess() {
       id: 1,
       title: "Direct from Farmers",
       desc: "We connect directly with trusted local farmers to source the finest mustard seeds, ensuring fair trade and premium quality.",
-      icon: <Leaf size={40} className="text-white" strokeWidth={1.5} />,
+      icon: <Leaf size={28} className="text-white" strokeWidth={2} />,
       gradient: "bg-gradient-to-br from-emerald-400 to-emerald-600",
-      shadow: "shadow-emerald-500/30"
+      shadow: "shadow-emerald-500/30",
+      img: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=80" // Agriculture/Farmer
     },
     {
       id: 2,
       title: "Pure Cold-Press",
       desc: "Our Kachi Ghani process extracts oil at low temperatures, retaining natural aroma, essential nutrients, and authentic taste.",
-      icon: <Droplets size={40} className="text-white" strokeWidth={1.5} />,
+      icon: <Droplets size={28} className="text-white" strokeWidth={2} />,
       gradient: "bg-gradient-to-br from-amber-400 to-amber-600",
-      shadow: "shadow-amber-500/30"
+      shadow: "shadow-amber-500/30",
+      img: "https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=800&auto=format&fit=crop&q=80" // Yellow Mustard Field
     },
     {
       id: 3,
       title: "100% Purer Than Rest",
       desc: "Unlike other brands, we use zero chemicals or preservatives. Just double-filtered, raw purity delivered straight to you.",
-      icon: <ShieldCheck size={40} className="text-white" strokeWidth={1.5} />,
+      icon: <ShieldCheck size={28} className="text-white" strokeWidth={2} />,
       gradient: "bg-gradient-to-br from-orange-400 to-rose-500",
-      shadow: "shadow-orange-500/30"
+      shadow: "shadow-orange-500/30",
+      img: "https://images.unsplash.com/photo-1474978528675-4a50a4508dc3?w=800&auto=format&fit=crop&q=80" // Pure Golden Essence
     }
   ];
 
@@ -172,32 +175,36 @@ export default function StatsAndProcess() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 key={step.id} 
-                className="relative group"
+                className="relative group h-full"
               >
-                <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] border border-gray-100 transition-all duration-500 overflow-hidden h-full z-10 relative group-hover:-translate-y-2">
+                <div className="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] border border-gray-100 transition-all duration-500 overflow-hidden h-full z-10 relative flex flex-col group-hover:-translate-y-2">
                   
-                  {/* Top Gradient Border */}
-                  <div className={`absolute top-0 left-0 w-full h-2 ${step.gradient} opacity-80`}></div>
-                  
-                  {/* Faded Background Number */}
-                  <div className="absolute -top-6 -right-4 text-[150px] font-black text-gray-50 opacity-50 group-hover:text-gray-100 transition-colors duration-500 pointer-events-none select-none leading-none">
-                    {step.id}
+                  {/* Image Header */}
+                  <div className="relative h-48 w-full overflow-hidden">
+                    <img src={step.img} alt={step.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent"></div>
+                    
+                    {/* Floating Step Number */}
+                    <div className="absolute top-4 right-4 text-white/90 text-sm font-bold bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+                      Step 0{step.id}
+                    </div>
+                    
+                    {/* Floating Icon */}
+                    <div className={`absolute -bottom-6 left-8 w-14 h-14 rounded-2xl ${step.gradient} flex items-center justify-center text-white shadow-lg ring-4 ring-white z-20 group-hover:rotate-12 transition-transform duration-300`}>
+                      {step.icon}
+                    </div>
                   </div>
-
-                  {/* Icon Container */}
-                  <div className={`w-20 h-20 rounded-3xl ${step.gradient} flex items-center justify-center text-white mb-8 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-xl ${step.shadow} relative z-20`}>
-                    {step.icon}
-                  </div>
                   
-                  <div className="relative z-20">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
-                    <p className="text-gray-600 leading-relaxed text-lg">{step.desc}</p>
+                  {/* Content Area */}
+                  <div className="pt-10 pb-8 px-8 flex-1 flex flex-col relative bg-white">
+                    <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-3">{step.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{step.desc}</p>
                   </div>
 
                   {/* Arrow Indicator (Desktop) */}
                   {index !== processSteps.length - 1 && (
-                    <div className="hidden lg:flex absolute top-1/2 -right-8 w-16 h-16 bg-white rounded-full items-center justify-center shadow-lg border border-gray-100 z-30 transform -translate-y-1/2">
-                      <ArrowRight className="text-gray-400 group-hover:text-gray-800 transition-colors" size={24} />
+                    <div className="hidden lg:flex absolute top-1/2 -right-8 w-12 h-12 bg-white rounded-full items-center justify-center shadow-lg border border-gray-100 z-30 transform -translate-y-1/2 group-hover:scale-110 transition-transform">
+                      <ArrowRight className="text-gray-400 group-hover:text-green-500 transition-colors" size={20} />
                     </div>
                   )}
                 </div>
