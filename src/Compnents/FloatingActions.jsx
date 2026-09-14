@@ -11,9 +11,7 @@ import { toast } from "react-toastify";
 const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
 const CHAT_API_URL =
   import.meta.env.VITE_CHAT_API_URL ||
-  (import.meta.env.DEV
-    ? "http://127.0.0.1:5000/api/chat"
-    : "https://kisanapp-chatvoice-hlyx.onrender.com/api/chat");
+  "https://kisanapp-chatvoice-hlyx.onrender.com/api/chat";
 
 const GREETING_TEXT =
   "Namaste! Main Kisan Choice se baat kar rahi hoon. Main aapki kaise madad kar sakti hoon?";

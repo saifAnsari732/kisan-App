@@ -152,7 +152,7 @@ export default function HeroCarousel() {
                   <X size={20} />
                 </button>
                 <img 
-                  src="/clientimg/WhatsApp Image 2026-06-06 at 6.13.22 PM.webp" 
+                  src="/clientimg/14.jpg" 
                   alt="Trusted Partner" 
                   className="w-full h-auto max-h-[40vh] md:max-h-[60vh] object-cover bg-gray-100"
                 />
