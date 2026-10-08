@@ -53,6 +53,16 @@ const slides = [
   },
 ];
 
+const loadingSlides = [
+  { id: "load-1", src: "/BrandEmbesterIMG/lodingIMG/bd1.webp", alt: "Kisan Choice Loading 1" },
+  { id: "load-2", src: "/BrandEmbesterIMG/lodingIMG/bd2.webp", alt: "Kisan Choice Loading 2" },
+  { id: "load-3", src: "/BrandEmbesterIMG/lodingIMG/bd3.webp", alt: "Kisan Choice Loading 3" },
+  { id: "load-4", src: "/BrandEmbesterIMG/lodingIMG/bd4.webp", alt: "Kisan Choice Loading 4" },
+  { id: "load-5", src: "/BrandEmbesterIMG/lodingIMG/bd5.webp", alt: "Kisan Choice Loading 5" },
+  { id: "load-6", src: "/BrandEmbesterIMG/lodingIMG/bd6.webp", alt: "Kisan Choice Loading 6" },
+  { id: "load-7", src: "/BrandEmbesterIMG/lodingIMG/bd7.webp", alt: "Kisan Choice Loading 7" },
+];
+
 const autoplayDelay = 1400;
 
 // Directional slide variants for full image lightbox preview modal
@@ -470,10 +480,10 @@ export default function HomePopupSlider() {
                   {/* Dashed Golden Orbit Track */}
                   <div className="kc-popup-loader-dashed-orbit" aria-hidden="true" />
 
-                  {/* Rotating Orbit Wheel with all 5 Circular Photo Avatars */}
+                  {/* Rotating Orbit Wheel with Circular Photo Avatars from /BrandEmbesterIMG/lodingIMG */}
                   <div className="kc-popup-loader-orbit-wheel">
-                    {slides.map((slide, idx) => {
-                      const angleDeg = (idx * 360) / slides.length - 90;
+                    {loadingSlides.map((slide, idx) => {
+                      const angleDeg = (idx * 360) / loadingSlides.length - 90;
                       const radius = isMobile ? 110 : (viewportWidth >= 1200 ? 250 : 220);
                       const angleRad = (angleDeg * Math.PI) / 180;
                       const posX = Math.round(radius * Math.cos(angleRad));
