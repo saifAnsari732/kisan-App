@@ -1,0 +1,364 @@
+/* CONTAINER & SECTION BASE */
+.kc-amb-showcase-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #fffbeb;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  padding: 60px 24px;
+}
+
+/* LEFT EDGE PROGRESS BAR */
+.kc-amb-progress-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: rgba(11, 31, 107, 0.06);
+  z-index: 20;
+}
+
+.kc-amb-progress-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #f5b301, #16a34a);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+
+/* MARQUEE OUTLINED TEXT */
+.kc-amb-marquee-container {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.kc-amb-marquee-track {
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(80px, 12vw, 150px);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(11, 31, 107, 0.08);
+  user-select: none;
+  will-change: transform;
+}
+
+/* BACKGROUND DECOR GLOWS & CURVE */
+.kc-amb-decor-glow {
+  position: absolute;
+  top: 20%;
+  right: 15%;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: #f5b301;
+  opacity: 0.25;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform, opacity;
+}
+
+.kc-amb-decor-shape-right {
+  position: absolute;
+  top: 0;
+  right: -5%;
+  width: 35%;
+  height: 100%;
+  background: radial-gradient(circle at 100% 50%, rgba(22, 163, 74, 0.12), transparent 70%);
+  border-radius: 50% 0 0 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* GRID CONTAINER */
+.kc-amb-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  gap: 40px;
+}
+
+/* LEFT COLUMN CONTENT */
+.kc-amb-content-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.kc-amb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(245, 179, 1, 0.15);
+  border: 1px solid rgba(245, 179, 1, 0.4);
+  color: #b45309;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.kc-amb-heading {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(32px, 4.5vw, 62px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.kc-amb-line {
+  display: block;
+  color: #0b1f6b;
+}
+
+.kc-amb-highlight {
+  background: linear-gradient(135deg, #16a34a 0%, #d97706 60%, #f5b301 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.kc-amb-subtitle {
+  margin: 18px 0 0;
+  color: #475569;
+  font-family: "Poppins", sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+.kc-amb-actions {
+  margin-top: 28px;
+}
+
+.kc-amb-cta-btn {
+  display: inline-flex;
+  height: 52px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 32px;
+  border-radius: 999px;
+  background: #16a34a;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
+  transition: all 0.25s ease;
+}
+
+.kc-amb-cta-btn:hover {
+  background: #15803d;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(22, 163, 74, 0.4);
+}
+
+/* COUNT UP STATS ROW */
+.kc-amb-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(11, 31, 107, 0.1);
+  width: 100%;
+}
+
+.kc-amb-stat-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.kc-amb-stat-val {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #0b1f6b;
+  line-height: 1;
+}
+
+.kc-amb-stat-suffix {
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #16a34a;
+  margin-left: 2px;
+}
+
+.kc-amb-stat-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.kc-amb-stat-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(11, 31, 107, 0.12);
+}
+
+/* RIGHT COLUMN: BRAND AMBASSADOR PHOTO */
+.kc-amb-visual-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.kc-amb-person-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  justify-content: center;
+  will-change: transform;
+}
+
+.kc-amb-person-img {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 40px rgba(11, 31, 107, 0.25));
+  will-change: transform;
+}
+
+/* SPARKLE DOTS */
+.kc-amb-sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f5b301;
+  box-shadow: 0 0 12px #f5b301;
+  animation: sparkleTwinkle 3s infinite ease-in-out;
+}
+
+.kc-amb-sparkle-1 { top: 15%; left: 20%; animation-delay: 0s; }
+.kc-amb-sparkle-2 { top: 35%; right: 15%; animation-delay: 0.8s; }
+.kc-amb-sparkle-3 { bottom: 25%; left: 15%; animation-delay: 1.5s; }
+.kc-amb-sparkle-4 { bottom: 40%; right: 22%; animation-delay: 2.2s; }
+
+@keyframes sparkleTwinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.6); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+/* FLOATING GLASS CHIPS */
+.kc-amb-chip {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 179, 1, 0.45);
+  box-shadow: 0 12px 30px rgba(11, 31, 107, 0.12);
+  color: #0b1f6b;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 10;
+  will-change: transform, opacity;
+}
+
+.kc-amb-chip-1 {
+  top: 18%;
+  left: -20px;
+  animation: floatSlow 4s infinite ease-in-out;
+}
+
+.kc-amb-chip-2 {
+  top: 48%;
+  right: -25px;
+  animation: floatSlow 4.5s infinite ease-in-out 1s;
+}
+
+.kc-amb-chip-3 {
+  bottom: 12%;
+  left: 10px;
+  animation: floatSlow 5s infinite ease-in-out 2s;
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* RESPONSIVE DESIGN (< 768px) */
+@media (max-width: 767px) {
+  .kc-amb-showcase-section {
+    min-height: auto;
+    padding: 50px 16px;
+  }
+
+  .kc-amb-container {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .kc-amb-content-left {
+    align-items: center;
+    text-align: center;
+  }
+
+  .kc-amb-heading {
+    font-size: clamp(26px, 7.5vw, 38px);
+  }
+
+  .kc-amb-subtitle {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .kc-amb-stats {
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .kc-amb-stat-val {
+    font-size: 22px;
+  }
+
+  .kc-amb-person-img {
+    max-height: 50vh;
+  }
+
+  .kc-amb-chip {
+    padding: 7px 14px;
+    font-size: 11px;
+  }
+
+  .kc-amb-chip-1 { top: 5%; left: 0; }
+  .kc-amb-chip-2 { top: 45%; right: 0; }
+  .kc-amb-chip-3 { bottom: 0; left: 5px; }
+}

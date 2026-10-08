@@ -1,0 +1,544 @@
+/* ==========================================================================
+   KISAN CHOICE - BRAND AMBASSADOR SECTION (WHITE & LIGHT PREMIUM UI)
+   ========================================================================== */
+
+.kc-ambassador-section {
+  position: relative;
+  width: 100%;
+  padding: 80px 24px;
+  background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+  color: #0F172A;
+  overflow: hidden;
+  isolation: isolate;
+  font-family: "Poppins", sans-serif;
+  border-top: 1px solid #E2E8F0;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+/* DECORATIVE AMBIENT LIGHT GLOWS */
+.kc-ambassador-bg-glow {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 179, 1, 0.12) 0%, rgba(15, 81, 50, 0.08) 50%, transparent 80%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.kc-ambassador-bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.kc-ambassador-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* SECTION HEADER */
+.kc-ambassador-header {
+  text-align: center;
+  max-width: 760px;
+  margin-bottom: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.kc-ambassador-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: #FEF3C7;
+  border: 1px solid #FCD34D;
+  color: #D97706;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(217, 119, 6, 0.12);
+}
+
+.kc-ambassador-title {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+}
+
+.kc-ambassador-highlight {
+  background: linear-gradient(135deg, #D97706 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.kc-ambassador-subtitle {
+  margin: 0;
+  font-size: clamp(14px, 1.8vw, 17px);
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* GRID OF CIRCULAR AMBASSADORS */
+.kc-ambassador-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px 24px;
+  width: 100%;
+  justify-items: center;
+}
+
+@media (min-width: 1024px) {
+  .kc-ambassador-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* INDIVIDUAL AMBASSADOR CARD */
+.kc-ambassador-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  padding: 32px 20px 28px;
+  border-radius: 28px;
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.06), 0 4px 8px -2px rgba(0, 0, 0, 0.03);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  width: 100%;
+  max-width: 290px;
+  min-height: 410px;
+}
+
+.kc-ambassador-card:hover {
+  transform: translateY(-10px);
+  background: #ffffff;
+  border-color: #F5B301;
+  box-shadow: 0 24px 50px -10px rgba(15, 23, 42, 0.15), 0 0 30px rgba(245, 179, 1, 0.3);
+}
+
+/* 🌀 CIRCULAR AVATAR WRAPPER WITH SPINNING MULTI-COLOR BORDER */
+.kc-ambassador-avatar-wrapper {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  margin-bottom: 24px;
+  transition: transform 0.4s ease;
+}
+
+/* 🌈 SPINNING MULTI-COLOR CONIC GRADIENT RING */
+.kc-ambassador-avatar-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    #F5B301 0deg,
+    #0F5132 60deg,
+    #FF5722 120deg,
+    #00E5FF 180deg,
+    #E91E63 240deg,
+    #9C27B0 300deg,
+    #F5B301 360deg
+  );
+  animation: spinMultiColorRing 5s linear infinite;
+  z-index: 1;
+}
+
+/* 🌟 SOFT MULTI-COLOR GLOW AURA BEHIND THE RING */
+.kc-ambassador-avatar-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #FF5722 0deg,
+    #F5B301 90deg,
+    #00E5FF 180deg,
+    #0F5132 270deg,
+    #FF5722 360deg
+  );
+  animation: spinMultiColorRing 5s linear infinite reverse;
+  filter: blur(14px);
+  opacity: 0.6;
+  z-index: 0;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+.kc-ambassador-card:hover .kc-ambassador-avatar-wrapper::before {
+  animation-duration: 2.5s;
+}
+
+.kc-ambassador-card:hover .kc-ambassador-avatar-wrapper::after {
+  opacity: 0.9;
+  filter: blur(18px);
+  animation-duration: 2.5s;
+}
+
+@keyframes spinMultiColorRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* CIRCULAR INNER IMAGE CONTAINER */
+.kc-ambassador-img-box {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #ffffff;
+  background: #F8FAFC;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.kc-ambassador-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 50%;
+  transition: transform 0.5s ease;
+}
+
+.kc-ambassador-card:hover .kc-ambassador-img {
+  transform: scale(1.1);
+}
+
+/* HOVER OVERLAY ICON */
+.kc-ambassador-hover-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.45);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+  z-index: 3;
+}
+
+.kc-ambassador-card:hover .kc-ambassador-hover-overlay {
+  opacity: 1;
+}
+
+/* CARD INFORMATION */
+.kc-ambassador-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.kc-ambassador-tag {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #059669;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.kc-ambassador-name {
+  margin: 4px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.kc-ambassador-tagline {
+  margin: 0;
+  font-size: 14px;
+  color: #475569;
+  font-style: italic;
+  line-height: 1.4;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kc-ambassador-trust-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #059669;
+  font-weight: 600;
+}
+
+/* FOOTER BANNER */
+.kc-ambassador-footer-banner {
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  max-width: 960px;
+  padding: 24px 32px;
+  border-radius: 24px;
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  gap: 20px;
+}
+
+.kc-ambassador-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.kc-stat-val {
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.kc-stat-lbl {
+  display: block;
+  font-size: 12px;
+  color: #64748B;
+}
+
+.kc-stat-divider {
+  width: 1px;
+  height: 40px;
+  background: #E2E8F0;
+}
+
+/* ==========================================================================
+   CENTERED FULL IMAGE MODAL LIGHTBOX (SMOOTH CENTER ZOOM ENTRANCE)
+   ========================================================================== */
+.kc-ambassador-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 36px);
+  background: rgba(10, 26, 63, 0.90);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.kc-ambassador-modal-container {
+  position: relative;
+  width: min(92vw, 840px);
+  height: min(85vh, 680px);
+  border-radius: 30px;
+  background: #0A1A3F;
+  border: 3px solid #F5B301;
+  box-shadow: 0 0 70px rgba(245, 179, 1, 0.45), 0 35px 90px rgba(0, 0, 0, 0.95);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  z-index: 2;
+}
+
+.kc-ambassador-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 30;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.kc-ambassador-modal-close:hover {
+  background: #F5B301;
+  border-color: #F5B301;
+  color: #0A1A3F;
+  transform: rotate(90deg) scale(1.08);
+}
+
+.kc-ambassador-modal-img-wrap {
+  width: 100%;
+  height: calc(100% - 64px);
+  overflow: hidden;
+  background: #050D21;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kc-ambassador-modal-full-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.kc-ambassador-modal-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  height: 64px;
+  background: rgba(10, 26, 63, 0.95);
+  border-top: 1px solid rgba(245, 179, 1, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+.kc-ambassador-modal-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kc-ambassador-modal-tag {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(245, 179, 1, 0.2);
+  border: 1px solid #F5B301;
+  color: #F5B301;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.kc-ambassador-modal-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.kc-ambassador-modal-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kc-ambassador-modal-nav-btn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kc-ambassador-modal-nav-btn:hover {
+  background: #F5B301;
+  border-color: #F5B301;
+  color: #0A1A3F;
+  transform: scale(1.08);
+}
+
+.kc-ambassador-modal-counter {
+  font-size: 14px;
+  font-weight: 800;
+  color: #F5B301;
+}
+
+/* RESPONSIVE DESIGN (< 768px) */
+@media (max-width: 767px) {
+  .kc-ambassador-section {
+    padding: 50px 16px;
+  }
+
+  .kc-ambassador-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 12px;
+  }
+
+  .kc-ambassador-card {
+    padding: 16px 12px;
+  }
+
+  .kc-ambassador-avatar-wrapper {
+    width: 130px;
+    height: 130px;
+    margin-bottom: 12px;
+  }
+
+  .kc-ambassador-name {
+    font-size: 14px;
+  }
+
+  .kc-ambassador-tagline {
+    font-size: 11px;
+    min-height: auto;
+  }
+
+  .kc-ambassador-footer-banner {
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .kc-stat-divider {
+    width: 80%;
+    height: 1px;
+  }
+
+  .kc-ambassador-modal-container {
+    width: 95vw;
+    height: 75vh;
+    border-radius: 20px;
+  }
+
+  .kc-ambassador-modal-bottom-bar {
+    padding: 10px 14px;
+  }
+
+  .kc-ambassador-modal-name {
+    font-size: 13px;
+  }
+}

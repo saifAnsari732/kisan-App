@@ -23,8 +23,32 @@ const galleryImages = [
   "/clientimg/17.jpg",
 ];
 
+const galleryModalVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? "100vw" : "-100vw",
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.65,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+  exit: (direction) => ({
+    x: direction > 0 ? "-100vw" : "100vw",
+    opacity: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  }),
+};
+
 export default function Gallery() {
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [[page, direction], setPage] = useState([0, 1]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentLoadImg, setCurrentLoadImg] = useState(0);
   const [loadProgress, setLoadProgress] = useState(0);
@@ -48,10 +72,31 @@ export default function Gallery() {
     return () => clearInterval(timer);
   }, [isLoading]);
 
-  const openLightbox = (index) => setSelectedIndex(index);
-  const closeLightbox = () => setSelectedIndex(null);
-  const goNext = (e) => { e.stopPropagation(); setSelectedIndex((prev) => (prev + 1) % galleryImages.length); };
-  const goPrev = (e) => { e.stopPropagation(); setSelectedIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length); };
+  const openLightbox = (index) => {
+    setSelectedIndex(index);
+    setPage([index, 1]);
+  };
+
+  const closeLightbox = () => {
+    setPage([selectedIndex, 1]);
+    setSelectedIndex(null);
+  };
+
+  const goNext = (e) => {
+    if (e) e.stopPropagation();
+    if (selectedIndex === null) return;
+    const nextIndex = (selectedIndex + 1) % galleryImages.length;
+    setSelectedIndex(nextIndex);
+    setPage([nextIndex, 1]);
+  };
+
+  const goPrev = (e) => {
+    if (e) e.stopPropagation();
+    if (selectedIndex === null) return;
+    const prevIndex = (selectedIndex - 1 + galleryImages.length) % galleryImages.length;
+    setSelectedIndex(prevIndex);
+    setPage([prevIndex, -1]);
+  };
 
   // ========== LOADING SCREEN ==========
   if (isLoading) {
@@ -254,13 +299,14 @@ export default function Gallery() {
 
             {/* Image */}
             <div className="relative flex justify-center items-center p-3 sm:p-8 md:p-16" onClick={(e) => e.stopPropagation()}>
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="popLayout" custom={direction}>
                 <motion.div
                   key={selectedIndex}
-                  initial={{ opacity: 0, x: "-60vw", scale: 0.5, rotate: -8 }}
-                  animate={{ opacity: 1, x: 0, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, x: "60vw", scale: 0.5, rotate: 8 }}
-                  transition={{ type: "spring", stiffness: 80, damping: 18 }}
+                  custom={direction}
+                  variants={galleryModalVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
                   className="relative"
                 >
                   <div className="absolute inset-0 bg-green-500/20 rounded-3xl blur-3xl scale-105 -z-10"></div>

@@ -3,13 +3,14 @@ import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 
+// Valid YouTube Video IDs for Kisan Choice Testimonials
 const videos = [
   { id: "ThTKnrGodBU", name: "Siobhan" },
   { id: "FWWb4bBzsyY", name: "john" },
   { id: "3GsEO3dCTLc", name: "Saif" },
   { id: "J3hOi0C0BgQ", name: "jelly" },
   { id: "IYhRr04xjkI", name: "Siobhan" },
-  { id: "rL_B8-WFaMo", name: "Katy" },
+  { id: "L_LUpnjgPso", name: "Katy" },
   { id: "dW4cWWgFqek", name: "Katy" },
   { id: "gqzWQcwNDMQ", name: "Zeeshan" },
   { id: "K4VnPcIcn4k", name: "Aleks" },
@@ -17,7 +18,9 @@ const videos = [
   { id: "-w00Kef-IMg", name: "Vikram" },
 ];
 
-// Duplicate the array to create a seamless infinite scrolling marquee
+const fallbackThumbnail = "https://img.youtube.com/vi/ThTKnrGodBU/hqdefault.jpg";
+
+// Duplicate array for seamless infinite scrolling marquee
 const marqueeVideos = [...videos, ...videos, ...videos, ...videos];
 
 export default function Testimonials() {
@@ -35,7 +38,7 @@ export default function Testimonials() {
         />
       </Helmet>
 
-      {/* Header matching the reference UI */}
+      {/* Header matching reference UI */}
       <div className="relative z-20 max-w-[1400px] mx-auto w-full px-4 md:px-8 lg:px-12 mb-16 md:mb-20">
         <div className="inline-block bg-white/15 px-3 py-1 md:px-5 md:py-2 backdrop-blur-sm mb-1 md:mb-3 shadow-sm border border-white/10">
           <h2 className="text-white font-serif text-3xl sm:text-5xl lg:text-[64px] leading-tight">
@@ -50,11 +53,9 @@ export default function Testimonials() {
 
       {/* Auto Smooth Sliding Slanted Carousel */}
       <div className="relative z-10 w-[110vw] -ml-[5vw] pt-10 pb-20 md:pb-32">
-        {/* Rotate the entire track container to create the slanted diagonal effect */}
         <div className="transform -rotate-[6deg] w-full">
-          
           <motion.div
-            animate={{ x: ["0%", "-50%"] }} // Slides exactly two full lengths of the array for a seamless loop
+            animate={{ x: ["0%", "-50%"] }}
             transition={{ ease: "linear", duration: 40, repeat: Infinity }}
             className="flex gap-4 sm:gap-6 md:gap-8 w-max px-4 hover:cursor-grab active:cursor-grabbing"
           >
@@ -70,6 +71,9 @@ export default function Testimonials() {
                   <img 
                     src={`https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`} 
                     alt={vid.name}
+                    onError={(e) => {
+                      e.currentTarget.src = fallbackThumbnail;
+                    }}
                     className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
                   />
                   
