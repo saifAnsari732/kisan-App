@@ -5,14 +5,6 @@ import "./BrandAmbassador.css";
 
 const ambassadors = [
   {
-    id: 1,
-    name: "Vishal Malhotra",
-    role: "Official Brand Ambassador",
-    tagline: "शुद्धता और स्वाद का अटूट विश्वास",
-    img: "/BrandEmbesterIMG/bd1.jpeg",
-    badge: "Mustard Oil",
-  },
-  {
     id: 2,
     name: "Vishal Malhotra",
     role: "Purity Champion",
@@ -38,7 +30,7 @@ const ambassadors = [
   },
   {
     id: 5,
-    name: "Vishal Malhotra & Gulshan Grover",
+    name: "Vishal Malhotra & Gulshan Pandey",
     role: "Brand Ambassadors",
     tagline: "स्वाद और सेहत की नई पहचान",
     img: "/BrandEmbesterIMG/both.png",
@@ -46,7 +38,7 @@ const ambassadors = [
   },
   {
     id: 6,
-    name: "Vishal Malhotra & Gulshan Grover",
+    name: "Vishal Malhotra & Gulshan Pandey",
     role: "Official Brand Icons",
     tagline: "हर घर में खुशहाली और शुद्धता",
     img: "/BrandEmbesterIMG/both2.jpeg",
@@ -54,7 +46,7 @@ const ambassadors = [
   },
   {
     id: 7,
-    name: "Gulshan Grover",
+    name: "Gulshan Pandey",
     role: "Brand Ambassador",
     tagline: "असली स्वाद, असली भरोसा",
     img: "/BrandEmbesterIMG/gul1.jpeg",
@@ -62,7 +54,7 @@ const ambassadors = [
   },
   {
     id: 8,
-    name: "Gulshan Grover",
+    name: "Gulshan Pandey",
     role: "Purity Ambassador",
     tagline: "शुद्धता में कोई समझौता नहीं",
     img: "/BrandEmbesterIMG/gul2.jpeg",
@@ -70,7 +62,7 @@ const ambassadors = [
   },
   {
     id: 9,
-    name: "Gulshan Grover",
+    name: "Gulshan Pandey",
     role: "Health & Trust Icon",
     tagline: "सेहतमंद भारत, खुशहाल भारत",
     img: "/BrandEmbesterIMG/gul3.png",
@@ -78,7 +70,7 @@ const ambassadors = [
   },
   {
     id: 10,
-    name: "Gulshan Grover",
+    name: "Gulshan Pandey",
     role: "Brand Ambassador",
     tagline: "गुणवत्ता का पक्का वादा",
     img: "/BrandEmbesterIMG/gul5.png",

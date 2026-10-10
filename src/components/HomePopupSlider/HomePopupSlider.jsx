@@ -12,11 +12,6 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const slides = [
   {
-    id: "slide-1",
-    src: "/BrandEmbesterIMG/bd1.jpeg",
-    alt: "Kisan Choice Brand Ambassador 1",
-  },
-  {
     id: "slide-2",
     src: "/BrandEmbesterIMG/bd2.jpeg",
     alt: "Kisan Choice Pure Edible Oil Showcase",
@@ -37,11 +32,6 @@ const slides = [
     alt: "Kisan Choice Brand Quality Assurance",
   },
   {
-    id: "slide-6",
-    src: "/BrandEmbesterIMG/bd6.jpeg",
-    alt: "Kisan Choice Ambassador Showcase",
-  },
-  {
     id: "slide-7",
     src: "/BrandEmbesterIMG/bd7.jpeg",
     alt: "Kisan Choice Pure Cooking Oil",
@@ -59,22 +49,22 @@ const slides = [
   {
     id: "slide-10",
     src: "/BrandEmbesterIMG/gul1.jpeg",
-    alt: "Kisan Choice Gulshan Grover 1",
+    alt: "Kisan Choice Gulshan Pandey 1",
   },
   {
     id: "slide-11",
     src: "/BrandEmbesterIMG/gul2.jpeg",
-    alt: "Kisan Choice Gulshan Grover 2",
+    alt: "Kisan Choice Gulshan Pandey 2",
   },
   {
     id: "slide-12",
     src: "/BrandEmbesterIMG/gul3.png",
-    alt: "Kisan Choice Gulshan Grover 3",
+    alt: "Kisan Choice Gulshan Pandey 3",
   },
   {
     id: "slide-13",
     src: "/BrandEmbesterIMG/gul5.png",
-    alt: "Kisan Choice Gulshan Grover 5",
+    alt: "Kisan Choice Gulshan Pandey 5",
   },
 ];
 
