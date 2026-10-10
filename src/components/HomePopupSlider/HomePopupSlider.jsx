@@ -48,8 +48,33 @@ const slides = [
   },
   {
     id: "slide-8",
-    src: "/BrandEmbesterIMG/bd8.jpeg",
-    alt: "Kisan Choice Premium Range",
+    src: "/BrandEmbesterIMG/both.png",
+    alt: "Kisan Choice Brand Ambassadors",
+  },
+  {
+    id: "slide-9",
+    src: "/BrandEmbesterIMG/both2.jpeg",
+    alt: "Kisan Choice Ambassadors Showcase",
+  },
+  {
+    id: "slide-10",
+    src: "/BrandEmbesterIMG/gul1.jpeg",
+    alt: "Kisan Choice Gulshan Grover 1",
+  },
+  {
+    id: "slide-11",
+    src: "/BrandEmbesterIMG/gul2.jpeg",
+    alt: "Kisan Choice Gulshan Grover 2",
+  },
+  {
+    id: "slide-12",
+    src: "/BrandEmbesterIMG/gul3.png",
+    alt: "Kisan Choice Gulshan Grover 3",
+  },
+  {
+    id: "slide-13",
+    src: "/BrandEmbesterIMG/gul5.png",
+    alt: "Kisan Choice Gulshan Grover 5",
   },
 ];
 
