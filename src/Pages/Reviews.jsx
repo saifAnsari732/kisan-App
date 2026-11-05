@@ -29,44 +29,117 @@ const marqueeItemsReverse = [...marqueeItems].reverse();
 
 const reviews = [
   {
-    text: "Kisan Choice's mustard oil feels truly authentic. Every meal tastes better. Great quality too.",
-    name: "Ram Shakal Singh",
-    location: "UP",
+    tag: "Authentic Purity",
+    highlight: "Truly Authentic",
+    content: (
+      <>
+        Kisan Choice's mustard oil feels{" "}
+        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+          truly authentic
+        </span>
+        . Every meal tastes better with{" "}
+        <span className="text-emerald-300 font-semibold">great natural quality</span>.
+      </>
+    ),
   },
   {
-    text: "This oil smells and tastes amazing. Even the packaging is good. Everyone loves it.",
-    name: "Prabhash Yadav",
-    location: "Bihar",
+    tag: "Aroma & Taste",
+    highlight: "Smells & Tastes Amazing",
+    content: (
+      <>
+        This oil{" "}
+        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+          smells and tastes amazing
+        </span>
+        . Even the packaging is premium and{" "}
+        <span className="text-emerald-300 font-semibold">everyone in our home loves it</span>.
+      </>
+    ),
   },
   {
-    text: "I'm a distributor and happy with their services. Supplies always come on time.",
-    name: "Surendra Yadav",
-    location: "Jharkhand",
+    tag: "Distributor Trust",
+    highlight: "On-Time Supplies",
+    content: (
+      <>
+        Extremely happy with their services as a distributor.{" "}
+        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+          Supplies always come on time
+        </span>{" "}
+        with dependable business support.
+      </>
+    ),
   },
   {
-    text: "Very pure oil. My family switched completely to this brand.",
-    name: "Amit Verma",
-    location: "Delhi",
+    tag: "Family Health",
+    highlight: "100% Pure Oil",
+    content: (
+      <>
+        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+          Very pure oil
+        </span>
+        . Our family{" "}
+        <span className="text-emerald-300 font-semibold">
+          switched completely to this brand
+        </span>{" "}
+        for healthy, everyday cooking.
+      </>
+    ),
   },
   {
-    text: "Packaging is excellent and delivery is always on time.",
-    name: "Rakesh Kumar",
-    location: "Punjab",
+    tag: "Premium Standards",
+    highlight: "Excellent Packaging",
+    content: (
+      <>
+        <span className="text-emerald-300 font-semibold">Packaging is excellent</span> and{" "}
+        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+          delivery is always on time
+        </span>{" "}
+        with factory seal intact.
+      </>
+    ),
   },
   {
-    text: "Affordable and high quality. Highly recommended.",
-    name: "Sanjay Mishra",
-    location: "MP",
+    tag: "Value & Purity",
+    highlight: "Highly Recommended",
+    content: (
+      <>
+        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+          Affordable and high quality
+        </span>
+        .{" "}
+        <span className="text-emerald-300 font-semibold">
+          Highly recommended
+        </span>{" "}
+        for every kitchen in India.
+      </>
+    ),
   },
   {
-    text: "Taste reminds me of traditional homemade oil.",
-    name: "Deepak Yadav",
-    location: "UP",
+    tag: "Traditional Heritage",
+    highlight: "Traditional Homemade Taste",
+    content: (
+      <>
+        Taste reminds me of{" "}
+        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+          traditional homemade oil
+        </span>{" "}
+        extracted with{" "}
+        <span className="text-emerald-300 font-semibold">pure kachi ghani perfection</span>.
+      </>
+    ),
   },
   {
-    text: "Business support is very good. Team is responsive.",
-    name: "Vikash Singh",
-    location: "Bihar",
+    tag: "Partner Network",
+    highlight: "Responsive Support",
+    content: (
+      <>
+        <span className="text-emerald-300 font-semibold">Business support is very good</span>. The team is{" "}
+        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+          responsive, helpful and transparent
+        </span>
+        .
+      </>
+    ),
   },
 ];
 
@@ -237,37 +310,51 @@ export default function Reviews() {
                 initial={false}
                 animate={anim}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="absolute w-[260px] md:w-[320px] h-[400px] md:h-[460px] shadow-2xl rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col cursor-pointer bg-white"
+                className="absolute w-[280px] md:w-[340px] h-[390px] md:h-[450px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col cursor-pointer bg-gradient-to-br from-[#0c4a34] via-[#083827] to-[#042419] border-2 border-amber-400/35 backdrop-blur-md"
                 onClick={() => setCurrentIndex(i)}
                 style={{ transformStyle: "preserve-3d" }}
               >
-                {/* Top Half - Dark Green with Quote */}
-                <div className="bg-[#065f46] h-[55%] px-6 relative flex items-center justify-center text-center">
-                  <span className="absolute top-4 left-4 text-7xl font-serif text-[#10b981]/20 leading-none pointer-events-none">“</span>
-                  <p className="text-white/95 text-[15px] md:text-base font-medium z-10 leading-relaxed px-1">
-                    {review.text}
-                  </p>
-                  <span className="absolute bottom-[-10px] right-4 text-7xl font-serif text-[#10b981]/20 leading-none rotate-180 pointer-events-none">“</span>
-                </div>
+                {/* Ambient Card Background Glow */}
+                <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-amber-400/10 blur-2xl pointer-events-none" />
+                <div className="absolute -bottom-12 -left-12 w-36 h-36 rounded-full bg-emerald-400/10 blur-2xl pointer-events-none" />
 
-                {/* Bottom Half - White with Name/Stars */}
-                <div className="h-[45%] flex flex-col items-center justify-end pb-8 pt-12 relative z-0">
-                  <div className="flex gap-1.5 mb-3">
-                    {[...Array(5)].map((_, idx) => <FaStar key={idx} className="text-[#10b981]" size={20} />)}
+                <div className="relative w-full h-full p-6 md:p-8 flex flex-col justify-between items-center text-center z-10">
+                  {/* Top Header: Tag Badge & Golden Stars */}
+                  <div className="flex flex-col items-center gap-2.5 w-full">
+                    <span className="px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/30 shadow-sm">
+                      {review.tag}
+                    </span>
+                    <div className="flex gap-1.5 mt-1">
+                      {[...Array(5)].map((_, idx) => (
+                        <FaStar
+                          key={idx}
+                          className="text-amber-400 drop-shadow-[0_0_8px_rgba(245,179,1,0.5)]"
+                          size={18}
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <h4 className="font-bold text-gray-800 text-lg md:text-xl">{review.name}</h4>
-                  <p className="text-gray-500 text-xs md:text-sm font-semibold uppercase tracking-wider mt-1">
-                    {review.location}
-                  </p>
-                </div>
 
-                {/* Overlapping Rounded Avatar */}
-                <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 md:w-24 md:h-24 shadow-md border-[4px] border-white bg-gray-200 rounded-full overflow-hidden z-20">
-                  <img 
-                    src={clientImages[i % 13]} 
-                    className="w-full h-full object-cover" 
-                    alt={review.name} 
-                  />
+                  {/* Center Quote Area with Highlighted Text */}
+                  <div className="my-auto py-2 px-1 relative">
+                    <span className="text-4xl text-amber-400/25 font-serif leading-none block mb-1 pointer-events-none select-none">
+                      “
+                    </span>
+                    <p className="text-white/95 text-[15px] md:text-[16px] leading-relaxed font-normal">
+                      {review.content}
+                    </p>
+                    <span className="text-4xl text-amber-400/25 font-serif leading-none block mt-1 pointer-events-none select-none">
+                      ”
+                    </span>
+                  </div>
+
+                  {/* Bottom Verified Feedback Badge */}
+                  <div className="mt-2">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-emerald-100 text-xs font-semibold backdrop-blur-sm shadow-inner">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      Verified Customer Review
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             );

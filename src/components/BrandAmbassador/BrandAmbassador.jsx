@@ -26,7 +26,7 @@ const ambassadors = [
     role: "Health & Purity Icon",
     tagline: "स्वाद भी, भरोसा भी - शुद्ध कच्ची घानी",
     img: "/BrandEmbesterIMG/bd4.jpeg",
-    badge: "Kisan Choice Kachighani",
+    badge: "Kisan Choice Kachighani Combo",
   },
   {
     id: 5,
@@ -34,7 +34,7 @@ const ambassadors = [
     role: "Brand Ambassadors",
     tagline: "कच्ची घानी स्वाद और पावन पूजा तेल",
     img: "/BrandEmbesterIMG/both.png",
-    badge: "Kachighani & Pooja Oil",
+    badge: "Kachighani Combo & Pooja Oil & Refined Oil",
   },
   {
     id: 7,
@@ -42,7 +42,7 @@ const ambassadors = [
     role: "Brand Ambassador",
     tagline: "पवित्रता और भक्ति का अनूठा प्रतीक",
     img: "/BrandEmbesterIMG/gul1.jpeg",
-    badge: "Pooja Oil",
+    badge: "Refined Soyabean Oil",
   },
   {
     id: 8,
@@ -50,7 +50,7 @@ const ambassadors = [
     role: "Purity Ambassador",
     tagline: "हर पूजा हो पवित्र, तेल भी हो शुद्ध",
     img: "/BrandEmbesterIMG/gul2.jpeg",
-    badge: "Pooja Oil",
+    badge: "Refined Sunflower Oil",
   },
   {
     id: 9,

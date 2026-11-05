@@ -365,9 +365,9 @@
 
 .kc-ambassador-modal-container {
   position: relative;
-  width: min(92vw, 840px);
-  height: min(85vh, 680px);
-  border-radius: 30px;
+  width: min(92vw, 860px);
+  height: min(88vh, 780px);
+  border-radius: 28px;
   background: #0A1A3F;
   border: 3px solid #F5B301;
   box-shadow: 0 0 70px rgba(245, 179, 1, 0.45), 0 35px 90px rgba(0, 0, 0, 0.95);
@@ -388,7 +388,7 @@
   height: 44px;
   place-items: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(10, 26, 63, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #ffffff;
   cursor: pointer;
@@ -411,13 +411,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 10px;
 }
 
 .kc-ambassador-modal-full-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 
