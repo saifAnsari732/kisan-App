@@ -3,18 +3,16 @@ import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 
-// Valid YouTube Video IDs for Kisan Choice Testimonials
+// Valid YouTube Video IDs for Kisan Choice Testimonials with authentic local thumbnails
 const videos = [
-  { id: "MLS7IKm84io" },
-  { id: "vAWK6QmOWfE" },
-  { id: "EvjYIazTzg4" },
-  { id: "2Be7YpxaHPc" },
+  { id: "MLS7IKm84io", thumb: "/testimonials/MLS7IKm84io.jpg", alt: "Pooja Oil by Brand Ambassador Gulshan Pandey" },
+  { id: "vAWK6QmOWfE", thumb: "/testimonials/vAWK6QmOWfE.jpg", alt: "Brand Ambassador Vishal Malhotra with Kisan Choice" },
+  { id: "EvjYIazTzg4", thumb: "/testimonials/EvjYIazTzg4.jpg", alt: "Pure Kachi Ghani Mustard Oil Story" },
+  { id: "2Be7YpxaHPc", thumb: "/testimonials/2Be7YpxaHPc.jpg", alt: "Kisan Choice Dealers Meeting" },
 ];
 
-const fallbackThumbnail = "https://img.youtube.com/vi/MLS7IKm84io/hqdefault.jpg";
-
-// Duplicate array for seamless infinite scrolling marquee
-const marqueeVideos = [...videos, ...videos, ...videos, ...videos, ...videos, ...videos];
+// Duplicate for smooth seamless looping
+const marqueeVideos = [...videos, ...videos, ...videos];
 
 export default function Testimonials() {
   const [activeVideo, setActiveVideo] = useState(null);
@@ -62,7 +60,7 @@ export default function Testimonials() {
                 {/* Card Thumbnail */}
                 <div className="w-[180px] sm:w-[220px] md:w-[260px] lg:w-[280px] aspect-[9/16] rounded-2xl md:rounded-[32px] overflow-hidden bg-gray-900 border border-white/20 shadow-[0_15px_40px_rgba(0,0,0,0.4)] relative group-hover:border-emerald-400/80 group-hover:shadow-[0_20px_50px_rgba(16,185,129,0.3)] transition-all duration-300">
                   <img 
-                    src={`https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`} 
+                    src={vid.thumb} 
                     alt="Kisan Choice Client Video"
                     onError={(e) => {
                       e.currentTarget.src = fallbackThumbnail;

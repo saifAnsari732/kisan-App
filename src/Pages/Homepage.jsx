@@ -17,13 +17,13 @@ const StatsAndProcess = lazy(() => import("./StatsAndProcess"));
 
 // ✅ Images
 const desktopSlides = [
-  { id: 1, img: "/img1.webp" },
+  { id: 1, img: "/hero_desktop.webp" },
   { id: 2, img: "/img2.webp" },
   { id: 3, img: "/img3.webp" },
 ];
 
 const mobileSlides = [
-  { id: 1, img: "/pimg2.webp" },
+  { id: 1, img: "/hero_mobile.webp" },
   { id: 2, img: "/pimg3.webp" },
   { id: 3, img: "/pimg1.webp" },
 ];
@@ -108,7 +108,7 @@ export default function HeroCarousel() {
           name="keywords"
           content="kisan choice, kisanchoice, kisangroups, kisan groups, kisan choice oil, mustard oil, edible oil, pure oil"
         />
-        <link rel="preload" as="image" href="/img1.webp" />
+        <link rel="preload" as="image" href="/hero_desktop.webp" />
       </Helmet>
 
       {/* 🔥 HERO */}
