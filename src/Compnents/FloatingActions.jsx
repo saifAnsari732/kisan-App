@@ -15,159 +15,265 @@ import {
   Briefcase,
   Building2,
   ChevronRight,
-  DollarSign,
-  Truck
+  Copy,
+  Check,
+  Warehouse,
+  Truck,
+  Mail,
+  FileCheck
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 
-// Initial Branch Selection
+// Initial Greeting with 4 Master Branches
 const INITIAL_GREETING = {
   sender: "bot",
-  text: "Namaste! 🙏 Kisan Choice Assistant me aapka swagat hai. Kripya batayein aapko kis vishay me sahayata chahiye?",
+  text: "Namaste! 🙏 Kisan Choice Assistant me aapka swagat hai. Kripya batayein aapko kis vishay me poori jankari chahiye?",
   step: "branch_select",
   options: [
-    { label: "🏢 Distributorship / Dealership", value: "dealership" },
-    { label: "📦 Bulk Wholesale Order", value: "wholesale" },
-    { label: "🛒 Retail / Ghar ke liye Order", value: "retail" },
-    { label: "📋 Product Catalog & Rate List", value: "catalog" }
+    { label: "🏢 Distributorship / Dealership Application", value: "dealership" },
+    { label: "📦 Bulk Wholesale & Commercial Supply", value: "wholesale" },
+    { label: "🛒 Retail & Kitchen Household Order", value: "retail" },
+    { label: "📋 Product Catalog & Trade Rate Sheet", value: "catalog" }
   ]
 };
 
-// Branch-specific flow definitions
+// Comprehensive Branch Configurations with In-depth Questions
 const BRANCH_CONFIGS = {
   dealership: {
-    categoryTitle: "Distributorship / Dealership Inquiry",
+    categoryTitle: "Distributorship & Dealership Application",
+    badge: "B2B Partner",
     steps: [
       {
-        key: "dealershipLevel",
-        botPrompt: "Aap kis level ki Dealership / Distributorship me ruchi rakhte hain?",
+        key: "tier",
+        label: "Dealership Level",
+        botPrompt: "Aap kis level ki Dealership / Agency lena chahte hain?",
         type: "options",
         options: [
           { label: "⭐ District Super Stockist (DSS)", value: "District Super Stockist (DSS)" },
           { label: "🌾 Rural Super Stockist (RSS)", value: "Rural Super Stockist (RSS)" },
           { label: "🏙️ City Retail Distributor", value: "City Retail Distributor" },
-          { label: "🚚 C&F / Wholesale Partner", value: "C&F / Wholesale Partner" }
+          { label: "🚚 C&F / Regional Partner", value: "C&F / Regional Partner" }
         ]
       },
       {
         key: "investmentBudget",
+        label: "Investment Capital",
         botPrompt: "Aapka anumaanit investment budget kitna hai?",
         type: "options",
         options: [
           { label: "💰 ₹2 Lakh - ₹5 Lakh", value: "₹2 Lakh - ₹5 Lakh" },
           { label: "💼 ₹5 Lakh - ₹10 Lakh", value: "₹5 Lakh - ₹10 Lakh" },
           { label: "🏢 ₹10 Lakh - ₹25 Lakh+", value: "₹10 Lakh - ₹25 Lakh+" },
-          { label: "📄 Pehle Scheme aur Margin samajhna hai", value: "Pehle Scheme aur Margin samajhna hai" }
+          { label: "📄 Pehle Scheme aur Margin samajhna hai", value: "Understanding ROI & Margins First" }
         ]
       },
       {
-        key: "targetProducts",
-        botPrompt: "Aap apne area me kaunse products distribute karna chahte hain?",
+        key: "godownSpace",
+        label: "Godown / Storage Capacity",
+        botPrompt: "Aapke paas storage / godown ki kitni capacity hai?",
         type: "options",
         options: [
-          { label: "🟡 Kachi Ghani Mustard Oil (Main)", value: "Kachi Ghani Mustard Oil" },
-          { label: "🪔 Pooja Oil & Refined Range", value: "Pooja Oil & Refined Range" },
-          { label: "🛍️ All Products (Complete Portfolio)", value: "All Products (Complete Portfolio)" }
+          { label: "🏬 300 - 500 sq.ft (Shop + Store)", value: "300 - 500 sq.ft" },
+          { label: "🏭 1,000 - 2,500 sq.ft (Warehouse)", value: "1,000 - 2,500 sq.ft" },
+          { label: "🏗️ 3,000+ sq.ft (Large Godown)", value: "3,000+ sq.ft" },
+          { label: "📍 Rent par lene ki planning hai", value: "Planning to Rent" }
         ]
       },
       {
-        key: "applicantName",
-        botPrompt: "Kripya apna Shubhnaam (Applicant Name) batayein:",
-        type: "input",
-        placeholder: "Enter Applicant Name..."
+        key: "deliveryVehicles",
+        label: "Delivery Logistics",
+        botPrompt: "Retailers tak delivery ke liye aapke paas kya suvidha hai?",
+        type: "options",
+        options: [
+          { label: "🚛 Own Mini-Truck / Pickup (Tata Ace / Bolero)", value: "Own Mini-Truck / Pickup" },
+          { label: "🛺 3-Wheeler Loader / Auto", value: "3-Wheeler Loader / Auto" },
+          { label: "📦 Third-Party Local Transport", value: "Third-Party Local Transport" },
+          { label: "🆕 New Vehicle lene ki yojana hai", value: "Planning to Acquire" }
+        ]
+      },
+      {
+        key: "productRange",
+        label: "Primary Products",
+        botPrompt: "Aap apne market me kaunse oil products launch karna chahte hain?",
+        type: "options",
+        options: [
+          { label: "🟡 Kachi Ghani Mustard Oil (Flagship)", value: "Kachi Ghani Mustard Oil" },
+          { label: "🪔 Pooja Oil & Refined Oil Range", value: "Pooja Oil & Refined Range" },
+          { label: "🛍️ All Products (Full FMCG Portfolio)", value: "Complete Portfolio" }
+        ]
+      },
+      {
+        key: "fmcgExperience",
+        label: "Market Experience",
+        botPrompt: "Aapka FMCG / Grocery distribution me kitna anubhav hai?",
+        type: "options",
+        options: [
+          { label: "🏆 5+ Years experienced in Edible Oils", value: "5+ Years (Edible Oils)" },
+          { label: "📈 1 - 3 Years in FMCG / Kirana Distribution", value: "1 - 3 Years (FMCG)" },
+          { label: "🌱 New Business / First-time Entrepreneur", value: "New Entrepreneur" }
+        ]
       },
       {
         key: "firmName",
-        botPrompt: "Aapki Firm ya Business ka naam kya hai? (Firm Name):",
+        label: "Firm / Enterprise Name",
+        botPrompt: "Aapki Firm, Agency ya Dukan ka naam kya hai?",
         type: "input",
-        placeholder: "Enter Firm / Business Name..."
+        placeholder: "e.g. Shree Ram Trading Co."
+      },
+      {
+        key: "gstNumber",
+        label: "GST / Udyam Number",
+        botPrompt: "Aapka GSTIN ya Udyam Registration Number (Optional):",
+        type: "input",
+        optional: true,
+        placeholder: "Enter GSTIN or type 'NA'..."
+      },
+      {
+        key: "applicantName",
+        label: "Applicant Name",
+        botPrompt: "Kripya apna Shubhnaam (Applicant Full Name) batayein:",
+        type: "input",
+        placeholder: "Enter Full Name..."
       },
       {
         key: "mobileNumber",
-        botPrompt: "Apna 10-digit WhatsApp / Calling Number enter karein:",
+        label: "WhatsApp / Calling Phone",
+        botPrompt: "Apna 10-digit WhatsApp / Mobile Number enter karein:",
         type: "input",
         inputType: "tel",
         placeholder: "Enter 10-digit Mobile Number..."
       },
       {
-        key: "targetLocation",
-        botPrompt: "Aap kis District aur State (e.g. Gorakhpur, UP) me dealership chahte hain?",
+        key: "emailAddress",
+        label: "Email Address",
+        botPrompt: "Aapka Email Address (Official communication ke liye - Optional):",
         type: "input",
-        placeholder: "Enter Target District & State..."
+        inputType: "email",
+        optional: true,
+        placeholder: "e.g. name@example.com (or type NA)..."
+      },
+      {
+        key: "targetDistrictState",
+        label: "Target District & State",
+        botPrompt: "Aap kis District, State aur Pincode me agency lena chahte hain?",
+        type: "input",
+        placeholder: "e.g. Gorakhpur, Uttar Pradesh - 273001"
       }
     ]
   },
 
   wholesale: {
-    categoryTitle: "Bulk Wholesale Order",
+    categoryTitle: "Bulk Wholesale & Commercial Supply",
+    badge: "Wholesale & HoReCa",
     steps: [
       {
         key: "businessType",
-        botPrompt: "Aap kiske liye bulk me oil kharidna chahte hain?",
+        label: "Establishment Type",
+        botPrompt: "Aap kiske liye bulk me oil purchase karna chahte hain?",
         type: "options",
         options: [
-          { label: "🍽️ Hotel / Restaurant / Catering (HoReCa)", value: "Hotel / Restaurant / Catering" },
-          { label: "🏭 Food Processing / Namkeen & Snacks Unit", value: "Food Processing / Namkeen Unit" },
+          { label: "🍽️ Hotel, Restaurant & Catering (HoReCa)", value: "Hotel / Restaurant / Catering" },
+          { label: "🏭 Food Processing / Namkeen & Snacks Unit", value: "Namkeen & Snacks Factory" },
           { label: "🏬 Wholesale Mandi Trader / Superstore", value: "Wholesale Mandi Trader" },
-          { label: "🏢 Canteen / Institution / NGO", value: "Institution / Canteen" }
+          { label: "🏢 Institutional Canteen / NGO / Trust", value: "Institutional Canteen" }
         ]
       },
       {
         key: "bulkProduct",
+        label: "Selected Oil Grade",
         botPrompt: "Aapko kaunsa oil bulk me chahiye?",
         type: "options",
         options: [
-          { label: "🟡 Kachi Ghani Mustard Oil (15L Tin / Drum)", value: "Kachi Ghani Mustard (15L Tin / Drum)" },
-          { label: "🌾 Refined Soyabean Oil (15L Tin / Cartons)", value: "Refined Soyabean (15L Tin / Cartons)" },
+          { label: "🟡 Kachi Ghani Mustard Oil (15L / Bulk)", value: "Kachi Ghani Mustard Oil" },
+          { label: "🌾 Refined Soyabean Oil (15L Tins/Cartons)", value: "Refined Soyabean Oil" },
           { label: "🌻 Refined Sunflower / Palmolein Oil", value: "Sunflower / Palmolein Oil" },
-          { label: "🔀 Mixed Multi-Product Load", value: "Mixed Multi-Product Load" }
+          { label: "🔀 Mixed Multi-Product Full Load", value: "Mixed Multi-Product Load" }
+        ]
+      },
+      {
+        key: "packFormat",
+        label: "Packaging Format",
+        botPrompt: "Aapko kis packaging me supply chahiye?",
+        type: "options",
+        options: [
+          { label: "🛢️ 15 Litre / 15 Kg Tin", value: "15L / 15Kg Tin" },
+          { label: "📦 15 Litre Jerry Can / Bag-in-Box", value: "15L Can / Jar" },
+          { label: "🛢️ 200 Litre Industrial Barrel / Drum", value: "200L Drum" },
+          { label: "🚛 Tanker / Bulk Loose Supply", value: "Tanker / Bulk Loose" }
         ]
       },
       {
         key: "monthlyVolume",
-        botPrompt: "Aapki monthly requirement lagbhag kitni rehti hai?",
+        label: "Monthly Volume Demand",
+        botPrompt: "Aapki anumaanit monthly requirement kitni rehti hai?",
         type: "options",
         options: [
           { label: "📦 50 to 100 Tins / Cartons", value: "50 - 100 Tins/Cartons" },
           { label: "🛢️ 200 to 500 Tins / Cartons", value: "200 - 500 Tins/Cartons" },
-          { label: "🚛 Full Truck Load (FTL / 10-15 Tonnes)", value: "Full Truck Load (FTL)" },
-          { label: "📄 Sample Pack / Pehle Rate Chahiye", value: "Sample Pack / Rate Sheet" }
+          { label: "🚛 Full Truck Load (FTL / 10 - 15 Tonnes)", value: "Full Truck Load (FTL)" },
+          { label: "📄 Trial Sample / Pehle Quotation Chahiye", value: "Trial Sample / Quotation" }
         ]
       },
       {
-        key: "contactName",
-        botPrompt: "Kripya Contact Person ka naam batayein:",
-        type: "input",
-        placeholder: "Enter Contact Person Name..."
+        key: "deliveryFrequency",
+        label: "Supply Schedule",
+        botPrompt: "Supply dispatch schedule kya prefer karenge?",
+        type: "options",
+        options: [
+          { label: "📅 Weekly Regular Dispatch", value: "Weekly Regular" },
+          { label: "🗓️ Bi-Weekly / Fortnightly Dispatch", value: "Bi-Weekly" },
+          { label: "📦 Monthly Scheduled Order", value: "Monthly Scheduled" },
+          { label: "⚡ Urgent One-Time Bulk Requirement", value: "Urgent One-Time" }
+        ]
       },
       {
         key: "businessName",
-        botPrompt: "Aapke Business / Restaurant / Firm ka naam:",
+        label: "Business / Hotel / Factory Name",
+        botPrompt: "Aapke Business, Restaurant ya Unit ka naam kya hai?",
         type: "input",
-        placeholder: "Enter Business Name..."
+        placeholder: "e.g. Royal Sweets & Namkeen"
+      },
+      {
+        key: "gstNumber",
+        label: "GST Number",
+        botPrompt: "Aapka Business GSTIN Number (Tax Invoice ke liye - Optional):",
+        type: "input",
+        optional: true,
+        placeholder: "Enter GSTIN or type 'NA'..."
+      },
+      {
+        key: "contactPerson",
+        label: "Contact Person & Role",
+        botPrompt: "Kripya Contact Person ka naam aur designation batayein:",
+        type: "input",
+        placeholder: "e.g. Amit Verma (Purchase Manager)"
       },
       {
         key: "mobileNumber",
-        botPrompt: "WhatsApp / Contact Number enter karein:",
+        label: "Mobile / WhatsApp Number",
+        botPrompt: "Official WhatsApp / Calling Number enter karein:",
         type: "input",
         inputType: "tel",
         placeholder: "Enter 10-digit Mobile Number..."
       },
       {
         key: "deliveryLocation",
-        botPrompt: "Delivery Location (City & Mandi / Industrial Area) batayein:",
+        label: "Unloading Mandi / Factory Address",
+        botPrompt: "Factory ya Godown ka complete Delivery Address aur City batayein:",
         type: "input",
-        placeholder: "Enter Delivery City & Area..."
+        placeholder: "e.g. Plot 12, Industrial Area, Lucknow - 226012"
       }
     ]
   },
 
   retail: {
-    categoryTitle: "Retail / Ghar ke liye Order",
+    categoryTitle: "Retail & Kitchen Household Order",
+    badge: "Household Consumer",
     steps: [
       {
         key: "retailProduct",
+        label: "Selected Cooking Oil",
         botPrompt: "Aap ghar ke liye kaunsa tel order karna chahte hain?",
         type: "options",
         options: [
@@ -175,11 +281,12 @@ const BRANCH_CONFIGS = {
           { label: "🪔 Kisan Choice Pooja Oil (पूजा व दीप के लिए)", value: "Pooja Oil" },
           { label: "🌾 Refined Soyabean Oil (हल्का व सुपाच्य)", value: "Refined Soyabean Oil" },
           { label: "🌻 Refined Sunflower Oil (Heart Friendly)", value: "Refined Sunflower Oil" },
-          { label: "🥗 Monthly Family Kitchen Combo", value: "Monthly Family Kitchen Combo" }
+          { label: "🥗 Monthly Family Kitchen Combo (Mustard + Pooja + Refined)", value: "Monthly Kitchen Combo" }
         ]
       },
       {
         key: "packSize",
+        label: "Preferred Packaging",
         botPrompt: "Aapko kaunsi pack size chahiye?",
         type: "options",
         options: [
@@ -190,77 +297,128 @@ const BRANCH_CONFIGS = {
         ]
       },
       {
+        key: "orderQuantity",
+        label: "Quantity",
+        botPrompt: "Aapko kitni bottle / tin chahiye?",
+        type: "options",
+        options: [
+          { label: "🔢 1 to 2 Units", value: "1 - 2 Units" },
+          { label: "🔢 3 to 5 Units", value: "3 - 5 Units" },
+          { label: "📦 1 Full Kitchen Carton / Tin", value: "1 Full Carton/Tin" },
+          { label: "📦 Monthly Regular Subscription", value: "Monthly Regular Subscription" }
+        ]
+      },
+      {
         key: "deliveryPreference",
+        label: "Delivery Mode",
         botPrompt: "Aap delivery kaise prefer karenge?",
         type: "options",
         options: [
-          { label: "🚚 Home Delivery (Doorstep)", value: "Home Delivery" },
-          { label: "🏪 Nearest Retail Store / Dealership se", value: "Nearest Store Pickup" }
+          { label: "🚚 Direct Doorstep Home Delivery", value: "Doorstep Home Delivery" },
+          { label: "🏪 Nearest Kisan Choice Retail Store Pickup", value: "Nearest Store Pickup" }
         ]
       },
       {
         key: "customerName",
-        botPrompt: "Kripya apna Shubhnaam (Name) batayein:",
+        label: "Customer Name",
+        botPrompt: "Kripya apna Shubhnaam (Full Name) batayein:",
         type: "input",
-        placeholder: "Enter your Full Name..."
+        placeholder: "Enter Full Name..."
       },
       {
         key: "mobileNumber",
-        botPrompt: "Apna 10-digit Mobile / WhatsApp Number enter karein:",
+        label: "Mobile / WhatsApp Number",
+        botPrompt: "Apna 10-digit WhatsApp / Calling Number batayein:",
         type: "input",
         inputType: "tel",
         placeholder: "Enter 10-digit Mobile Number..."
       },
       {
-        key: "pincodeCity",
-        botPrompt: "Delivery Area ka Pincode aur City (e.g. 226001, Lucknow):",
+        key: "houseAddress",
+        label: "House / Flat Address",
+        botPrompt: "Apna House No., Street, aur Landmark batayein:",
         type: "input",
-        placeholder: "Enter Pincode & City..."
+        placeholder: "e.g. Flat 302, Green Valley Apts, Near City Hospital"
+      },
+      {
+        key: "pincodeCity",
+        label: "City, State & Pincode",
+        botPrompt: "Aapka City, State aur Pincode:",
+        type: "input",
+        placeholder: "e.g. Lucknow, Uttar Pradesh - 226010"
       }
     ]
   },
 
   catalog: {
-    categoryTitle: "Product Catalog & Rate List",
+    categoryTitle: "Product Catalog & Trade Rate Sheet",
+    badge: "Brochure & Rates",
     steps: [
       {
         key: "catalogType",
+        label: "Catalog Variant",
         botPrompt: "Aapko kiska Catalog & Rate List chahiye?",
         type: "options",
         options: [
           { label: "🛍️ Consumer Product Catalog & Brochure", value: "Consumer Product Catalog" },
           { label: "📋 Trade & Wholesale Rate Sheet", value: "Trade & Wholesale Rate Sheet" },
           { label: "💼 Distributorship Margin & ROI Guide", value: "Distributor Margin Guide" },
-          { label: "📑 Complete Company Portfolio (PDF)", value: "Complete Company Portfolio" }
+          { label: "📑 Complete Company Portfolio (Full PDF)", value: "Complete Company Portfolio" }
+        ]
+      },
+      {
+        key: "inquirerProfile",
+        label: "Inquirer Profile",
+        botPrompt: "Aapka primary profile kya hai?",
+        type: "options",
+        options: [
+          { label: "🏪 Retail Grocery / Kirana Store Owner", value: "Retail Kirana Store Owner" },
+          { label: "🏬 Wholesaler / Semi-Wholesale Trader", value: "Wholesaler / Trader" },
+          { label: "💼 Prospective Distributor / Investor", value: "Prospective Distributor" },
+          { label: "🏡 Household Family Consumer", value: "Household Family Consumer" }
         ]
       },
       {
         key: "receiveMode",
-        botPrompt: "Aap catalog kis madhyam se paana chahte hain?",
+        label: "Delivery Medium",
+        botPrompt: "Aap catalog kis madhyam se receive karna chahte hain?",
         type: "options",
         options: [
           { label: "📱 Instant WhatsApp Delivery (PDF File)", value: "Instant WhatsApp" },
-          { label: "📥 Direct Website Download", value: "Direct Download" }
+          { label: "📧 Official Email Dispatch", value: "Official Email" },
+          { label: "📥 Direct Website Instant Download", value: "Direct Download" }
         ]
       },
       {
         key: "recipientName",
-        botPrompt: "Kripya apna Naam (Name) batayein:",
+        label: "Recipient Name",
+        botPrompt: "Kripya apna Shubhnaam (Name) batayein:",
         type: "input",
         placeholder: "Enter your Name..."
       },
       {
         key: "mobileNumber",
-        botPrompt: "Apna WhatsApp / Mobile Number batayein jaha catalog bhejna hai:",
+        label: "WhatsApp Number",
+        botPrompt: "Apna WhatsApp Number enter karein jaha PDF bhejna hai:",
         type: "input",
         inputType: "tel",
-        placeholder: "Enter WhatsApp Number..."
+        placeholder: "Enter 10-digit WhatsApp Number..."
       },
       {
-        key: "city",
-        botPrompt: "Aap kis City / State se hain?",
+        key: "emailAddress",
+        label: "Email Address",
+        botPrompt: "Aapka Email Address (Optional):",
         type: "input",
-        placeholder: "Enter your City & State..."
+        inputType: "email",
+        optional: true,
+        placeholder: "e.g. name@example.com (or Skip)..."
+      },
+      {
+        key: "cityState",
+        label: "City & State",
+        botPrompt: "Aap kis City aur State se hain?",
+        type: "input",
+        placeholder: "e.g. Kanpur, Uttar Pradesh"
       }
     ]
   }
@@ -271,33 +429,37 @@ export default function FloatingActions() {
   const [messages, setMessages] = useState([INITIAL_GREETING]);
   
   // Tracking active branch and step index
-  const [activeBranch, setActiveBranch] = useState(null); // 'dealership' | 'wholesale' | 'retail' | 'catalog'
+  const [activeBranch, setActiveBranch] = useState(null);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [collectedData, setCollectedData] = useState({});
   const [isCompleted, setIsCompleted] = useState(false);
   const [inputText, setInputText] = useState("");
   const [lastSavedRecord, setLastSavedRecord] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll
+  // Auto-scroll on new message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Save finalized inquiry to JSON (LocalStorage + optional Backend)
+  // Save finalized inquiry to JSON (LocalStorage + backend endpoint)
   const saveCompletedInquiry = async (finalData, branchKey) => {
     try {
+      const branchConfig = BRANCH_CONFIGS[branchKey];
       const record = {
-        id: `KC-${branchKey.toUpperCase().slice(0, 3)}-${Date.now().toString().slice(-6)}`,
-        category: BRANCH_CONFIGS[branchKey].categoryTitle,
+        inquiryId: `KC-${branchKey.toUpperCase().slice(0, 4)}-${Date.now().toString().slice(-6)}`,
+        category: branchConfig.categoryTitle,
         branch: branchKey,
+        badge: branchConfig.badge,
         timestamp: new Date().toISOString(),
         formattedDate: new Date().toLocaleString("en-IN", {
           dateStyle: "medium",
           timeStyle: "short"
         }),
-        data: finalData
+        status: "Verified Lead",
+        details: finalData
       };
 
       // 1. Browser LocalStorage persistence
@@ -315,7 +477,7 @@ export default function FloatingActions() {
           body: JSON.stringify(record)
         });
       } catch (err) {
-        console.log("Recorded to LocalStorage successfully");
+        console.log("Saved to LocalStorage (backend offline/static hosting)");
       }
 
       return record;
@@ -335,15 +497,25 @@ export default function FloatingActions() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `kisan_${target.branch || "inquiry"}_${target.id}.json`;
+      link.download = `kisan_full_lead_${target.inquiryId}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      toast.success("JSON file downloaded! 📁");
+      toast.success("Detailed JSON file downloaded! 📁");
     } catch (err) {
       toast.error("Download failed, please try again.");
     }
+  };
+
+  // Copy raw JSON to clipboard
+  const copyJSONToClipboard = (record = null) => {
+    const target = record || lastSavedRecord;
+    if (!target) return;
+    navigator.clipboard.writeText(JSON.stringify(target, null, 2));
+    setCopied(true);
+    toast.success("JSON copied to clipboard! 📋");
+    setTimeout(() => setCopied(false), 2000);
   };
 
   // Move to next step in the current branch
@@ -360,9 +532,9 @@ export default function FloatingActions() {
           ...prev,
           {
             sender: "bot",
-            text: `Aapki ${branchConfig.categoryTitle} ki details safaltapoorvak JSON file me darj ho gayi hain! ✅`,
+            text: `Aapki ${branchConfig.categoryTitle} ki complete profile safaltapoorvak JSON me darj ho gayi hai! ✅`,
             isSummary: true,
-            record: saved || { data: newCollectedData, category: branchConfig.categoryTitle }
+            record: saved || { details: newCollectedData, category: branchConfig.categoryTitle }
           }
         ]);
       }, 350);
@@ -381,7 +553,8 @@ export default function FloatingActions() {
           text: nextStep.botPrompt,
           stepKey: nextStep.key,
           stepType: nextStep.type,
-          options: nextStep.options || null
+          options: nextStep.options || null,
+          optional: nextStep.optional || false
         }
       ]);
     }, 300);
@@ -406,7 +579,8 @@ export default function FloatingActions() {
             text: firstStep.botPrompt,
             stepKey: firstStep.key,
             stepType: firstStep.type,
-            options: firstStep.options || null
+            options: firstStep.options || null,
+            optional: firstStep.optional || false
           }
         ]);
       }, 350);
@@ -451,6 +625,18 @@ export default function FloatingActions() {
     advanceToNextStep(updatedData, activeStepIndex + 1);
   };
 
+  // Skip optional step
+  const handleSkipStep = () => {
+    if (!activeBranch || isCompleted) return;
+    const currentStepConfig = BRANCH_CONFIGS[activeBranch].steps[activeStepIndex];
+    const updatedData = { ...collectedData, [currentStepConfig.key]: "Not Provided / NA" };
+    setCollectedData(updatedData);
+    setInputText("");
+
+    setMessages((prev) => [...prev, { sender: "user", text: "Skipped / NA" }]);
+    advanceToNextStep(updatedData, activeStepIndex + 1);
+  };
+
   // Reset entire flow
   const handleReset = () => {
     setActiveBranch(null);
@@ -464,23 +650,26 @@ export default function FloatingActions() {
   // Generate WhatsApp inquiry text
   const openWhatsAppWithInquiry = (record = null) => {
     const rec = record || lastSavedRecord;
-    const d = rec?.data || collectedData;
+    const d = rec?.details || collectedData;
     const cat = rec?.category || "Inquiry";
 
     let messageLines = [
       `*Namaste Kisan Choice Team!* 🙏`,
-      `Website se nayi *${cat}* darj hui hai:`,
-      ``
+      `Website se nayi *${cat}* submit hui hai:`,
+      `--------------------------------------`
     ];
 
     Object.entries(d).forEach(([k, v]) => {
-      // Readable format
-      const formattedKey = k.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase());
+      // Find matching human label
+      const stepConfig = activeBranch 
+        ? BRANCH_CONFIGS[activeBranch]?.steps?.find((s) => s.key === k)
+        : null;
+      const formattedKey = stepConfig?.label || k.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase());
       messageLines.push(`• *${formattedKey}:* ${v}`);
     });
 
-    messageLines.push(``);
-    messageLines.push(`Kripya mujhe jald se jald details & confirmation bhejein. Dhanyavaad!`);
+    messageLines.push(`--------------------------------------`);
+    messageLines.push(`Kripya is inquiry par follow-up karein. Dhanyavaad!`);
 
     const textEncoded = encodeURIComponent(messageLines.join("\n"));
     window.open(`https://wa.me/916390059995?text=${textEncoded}`, "_blank");
@@ -490,7 +679,7 @@ export default function FloatingActions() {
     window.open("https://wa.me/916390059995", "_blank");
   };
 
-  // Determine input placeholder based on current active step
+  // Input placeholder based on step
   const getInputPlaceholder = () => {
     if (!activeBranch) return "Please choose an option above...";
     if (isCompleted) return "Inquiry saved! Tap Reset to start new...";
@@ -505,6 +694,12 @@ export default function FloatingActions() {
     return cur?.type !== "input";
   };
 
+  const currentStep = activeBranch ? BRANCH_CONFIGS[activeBranch]?.steps[activeStepIndex] : null;
+  const totalSteps = activeBranch ? BRANCH_CONFIGS[activeBranch]?.steps?.length : 0;
+  const progressPercent = activeBranch && totalSteps > 0 
+    ? Math.round(((activeStepIndex + 1) / totalSteps) * 100) 
+    : 0;
+
   return (
     <div className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-50 flex flex-col items-end gap-3 md:gap-4 font-sans">
       
@@ -516,27 +711,27 @@ export default function FloatingActions() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 320, damping: 26 }}
-            className="w-[calc(100vw-2.5rem)] sm:w-[390px] md:w-[420px] bg-white rounded-3xl shadow-[0_25px_60px_-15px_rgba(15,81,50,0.3)] border border-emerald-100 overflow-hidden flex flex-col mb-2 relative"
+            className="w-[calc(100vw-2rem)] sm:w-[410px] md:w-[440px] bg-white rounded-3xl shadow-[0_25px_60px_-15px_rgba(15,81,50,0.35)] border border-emerald-100 overflow-hidden flex flex-col mb-2 relative"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#0B3D2E] via-emerald-800 to-[#0F5132] text-white p-5 flex justify-between items-center z-10 relative shadow-sm">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-emerald-200 border border-white/20 shadow-md">
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-emerald-200 border border-white/20 shadow-md shrink-0">
                   <Bot size={26} strokeWidth={2} />
                 </div>
-                <div className="flex flex-col">
-                  <span className="font-extrabold text-[16.5px] tracking-wide text-white flex items-center gap-2">
+                <div className="flex flex-col overflow-hidden">
+                  <span className="font-extrabold text-[16px] tracking-wide text-white truncate">
                     Kisan Choice Assistant
                   </span>
-                  <span className="text-[11px] font-semibold text-emerald-200 flex items-center gap-1.5 uppercase tracking-wider">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    {activeBranch ? BRANCH_CONFIGS[activeBranch].categoryTitle : "Interactive Data Collector"}
+                  <span className="text-[11px] font-semibold text-emerald-200 flex items-center gap-1.5 uppercase tracking-wider truncate">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+                    {activeBranch ? BRANCH_CONFIGS[activeBranch].badge : "Detailed Data Collector"}
                   </span>
                 </div>
               </div>
               <button 
                 onClick={() => setChatOpen(false)} 
-                className="hover:bg-white/20 p-2 rounded-xl transition-all duration-300 text-white hover:scale-105 active:scale-95"
+                className="hover:bg-white/20 p-2 rounded-xl transition-all duration-300 text-white hover:scale-105 active:scale-95 shrink-0"
                 title="Close chat"
                 aria-label="Close chat"
               >
@@ -544,8 +739,27 @@ export default function FloatingActions() {
               </button>
             </div>
 
+            {/* Smart Progress Bar when in an active branch */}
+            {activeBranch && !isCompleted && (
+              <div className="bg-emerald-950/20 px-5 py-2 border-b border-emerald-100 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2 text-emerald-900 font-bold">
+                  <span>Step {activeStepIndex + 1} of {totalSteps}</span>
+                  <span className="text-gray-400 font-normal">({currentStep?.label || "Input"})</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-extrabold text-emerald-700">{progressPercent}%</span>
+                  <div className="w-16 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-emerald-600 rounded-full transition-all duration-300"
+                      style={{ width: `${progressPercent}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Chat Messages Body */}
-            <div className="p-4 h-[390px] overflow-y-auto flex flex-col gap-3.5 bg-slate-50/70 scrollbar-thin scrollbar-thumb-emerald-200">
+            <div className="p-4 h-[400px] overflow-y-auto flex flex-col gap-3.5 bg-slate-50/70 scrollbar-thin scrollbar-thumb-emerald-200">
               {messages.map((msg, idx) => (
                 <motion.div
                   key={idx}
@@ -556,9 +770,9 @@ export default function FloatingActions() {
                 >
                   {/* Bubble text */}
                   <div
-                    className={`max-w-[88%] px-4 py-3 rounded-2xl text-[14px] leading-relaxed shadow-xs ${
+                    className={`max-w-[88%] px-4 py-3 rounded-2xl text-[13.5px] sm:text-[14px] leading-relaxed shadow-xs ${
                       msg.sender === "user"
-                        ? "bg-[#0B3D2E] text-white rounded-br-xs shadow-emerald-900/10"
+                        ? "bg-[#0B3D2E] text-white rounded-br-xs shadow-emerald-900/10 font-medium"
                         : "bg-white border border-emerald-100 text-slate-800 rounded-bl-xs shadow-slate-200/50"
                     }`}
                   >
@@ -581,27 +795,45 @@ export default function FloatingActions() {
                     </div>
                   )}
 
-                  {/* Tailored Summary Card when this branch completes */}
+                  {/* Optional Step Skip Button */}
+                  {msg.optional && !isCompleted && (
+                    <div className="mt-2 pl-1">
+                      <button
+                        onClick={handleSkipStep}
+                        className="text-[11px] font-bold text-slate-500 hover:text-emerald-700 bg-white hover:bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg transition-colors flex items-center gap-1"
+                      >
+                        Skip this step (Optional) →
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Comprehensive Summary Card when flow completes */}
                   {msg.isSummary && msg.record && (
                     <div className="w-full mt-3 bg-white border border-emerald-200 rounded-2xl p-4 shadow-sm text-left">
-                      <div className="flex items-center gap-2 text-emerald-800 font-extrabold text-sm mb-3 border-b border-emerald-100 pb-2">
-                        <CheckCircle2 size={18} className="text-emerald-600 shrink-0" />
-                        <span>{msg.record.category || "Inquiry Saved"} (JSON File)</span>
+                      <div className="flex items-center justify-between border-b border-emerald-100 pb-2.5 mb-3">
+                        <div className="flex items-center gap-2 text-emerald-800 font-extrabold text-sm">
+                          <CheckCircle2 size={18} className="text-emerald-600 shrink-0" />
+                          <span>{msg.record.badge} Profile (JSON Record)</span>
+                        </div>
+                        <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                          {msg.record.inquiryId}
+                        </span>
                       </div>
 
-                      {/* Display each specific field collected for this branch */}
-                      <div className="space-y-2 text-xs text-slate-700">
-                        {Object.entries(msg.record.data || {}).map(([fieldKey, val]) => {
-                          const readableLabel = fieldKey
+                      {/* Display each detailed field */}
+                      <div className="space-y-2 text-xs text-slate-700 max-h-48 overflow-y-auto pr-1">
+                        {Object.entries(msg.record.details || {}).map(([fieldKey, val]) => {
+                          const stepObj = BRANCH_CONFIGS[activeBranch]?.steps?.find((s) => s.key === fieldKey);
+                          const readableLabel = stepObj?.label || fieldKey
                             .replace(/([A-Z])/g, " $1")
                             .replace(/^./, (s) => s.toUpperCase());
                           
                           return (
-                            <div key={fieldKey} className="flex items-start gap-2">
-                              <span className="text-slate-400 font-medium shrink-0 min-w-[90px]">
+                            <div key={fieldKey} className="flex items-start gap-2 border-b border-slate-50 pb-1.5">
+                              <span className="text-slate-400 font-semibold shrink-0 min-w-[110px]">
                                 {readableLabel}:
                               </span>
-                              <span className="font-bold text-slate-900 break-words">
+                              <span className="font-bold text-slate-900 break-words flex-1">
                                 {val}
                               </span>
                             </div>
@@ -628,18 +860,28 @@ export default function FloatingActions() {
 
                       {/* Action Buttons */}
                       <div className="mt-4 pt-3 border-t border-slate-100 flex flex-col gap-2">
-                        <button
-                          onClick={() => downloadJSONFile(msg.record)}
-                          className="w-full py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#0B3D2E] font-bold text-xs flex items-center justify-center gap-2 border border-emerald-300 transition-colors"
-                        >
-                          <Download size={14} /> Download This Inquiry JSON
-                        </button>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            onClick={() => downloadJSONFile(msg.record)}
+                            className="w-full py-2 px-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#0B3D2E] font-bold text-xs flex items-center justify-center gap-1.5 border border-emerald-300 transition-colors"
+                          >
+                            <Download size={13} /> Download JSON
+                          </button>
+
+                          <button
+                            onClick={() => copyJSONToClipboard(msg.record)}
+                            className="w-full py-2 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 border border-slate-200 transition-colors"
+                          >
+                            {copied ? <Check size={13} className="text-emerald-600" /> : <Copy size={13} />}
+                            {copied ? "Copied!" : "Copy JSON"}
+                          </button>
+                        </div>
                         
                         <button
                           onClick={() => openWhatsAppWithInquiry(msg.record)}
-                          className="w-full py-2 px-3 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
+                          className="w-full py-2.5 px-3 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
                         >
-                          <FaWhatsapp size={14} /> Send Directly on WhatsApp
+                          <FaWhatsapp size={15} /> Send Full Data on WhatsApp
                         </button>
 
                         <button
@@ -663,6 +905,8 @@ export default function FloatingActions() {
                   type={
                     activeBranch && BRANCH_CONFIGS[activeBranch]?.steps[activeStepIndex]?.inputType === "tel"
                       ? "tel"
+                      : activeBranch && BRANCH_CONFIGS[activeBranch]?.steps[activeStepIndex]?.inputType === "email"
+                      ? "email"
                       : "text"
                   }
                   value={inputText}
