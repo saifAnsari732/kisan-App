@@ -42,11 +42,6 @@ const slides = [
     alt: "Kisan Choice Brand Ambassadors - Kachighani & Pooja Oil",
   },
   {
-    id: "slide-9",
-    src: "/BrandEmbesterIMG/both2.jpeg",
-    alt: "Kisan Choice Brand Icons - Vishal Malhotra & Gulshan Pandey",
-  },
-  {
     id: "slide-10",
     src: "/BrandEmbesterIMG/gul1.jpeg",
     alt: "Kisan Choice Pooja Oil - Gulshan Pandey",

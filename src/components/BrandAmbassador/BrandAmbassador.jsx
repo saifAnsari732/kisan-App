@@ -37,14 +37,6 @@ const ambassadors = [
     badge: "Kachighani & Pooja Oil",
   },
   {
-    id: 6,
-    name: "Vishal Malhotra & Gulshan Pandey",
-    role: "Official Brand Icons",
-    tagline: "हर घर में खुशहाली, स्वाद और शुद्धता",
-    img: "/BrandEmbesterIMG/both2.jpeg",
-    badge: "Brand Icons",
-  },
-  {
     id: 7,
     name: "Gulshan Pandey",
     role: "Brand Ambassador",
