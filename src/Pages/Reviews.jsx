@@ -30,123 +30,35 @@ const marqueeItemsReverse = [...marqueeItems].reverse();
 const reviews = [
   {
     tag: "Authentic Purity",
-    content: (
-      <>
-        Kisan Choice's mustard oil feels{" "}
-        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
-          truly authentic
-        </span>
-        . Every meal tastes better with{" "}
-        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
-          great natural quality
-        </span>
-        .
-      </>
-    ),
+    content: "Kisan Choice's mustard oil feels truly authentic. Every meal tastes better with great natural quality.",
   },
   {
     tag: "Aroma & Taste",
-    content: (
-      <>
-        This oil{" "}
-        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
-          smells and tastes amazing
-        </span>
-        . Even the packaging is premium and{" "}
-        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
-          everyone in our home loves it
-        </span>
-        .
-      </>
-    ),
+    content: "This oil smells and tastes amazing. Even the packaging is premium and everyone in our home loves it.",
   },
   {
     tag: "Distributor Trust",
-    content: (
-      <>
-        Extremely happy with their services as a distributor.{" "}
-        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
-          Supplies always come on time
-        </span>{" "}
-        with dependable business support.
-      </>
-    ),
+    content: "Extremely happy with their services as a distributor. Supplies always come on time with dependable business support.",
   },
   {
     tag: "Family Health",
-    content: (
-      <>
-        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
-          Very pure oil
-        </span>
-        . Our family{" "}
-        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
-          switched completely to this brand
-        </span>{" "}
-        for healthy, everyday cooking.
-      </>
-    ),
+    content: "Very pure oil. Our family switched completely to this brand for healthy, everyday cooking.",
   },
   {
     tag: "Premium Standards",
-    content: (
-      <>
-        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
-          Packaging is excellent
-        </span>{" "}
-        and{" "}
-        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
-          delivery is always on time
-        </span>{" "}
-        with factory seal intact.
-      </>
-    ),
+    content: "Packaging is excellent and delivery is always on time with factory seal intact.",
   },
   {
     tag: "Value & Purity",
-    content: (
-      <>
-        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
-          Affordable and high quality
-        </span>
-        .{" "}
-        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
-          Highly recommended
-        </span>{" "}
-        for every kitchen in India.
-      </>
-    ),
+    content: "Affordable and high quality. Highly recommended for every kitchen in India.",
   },
   {
     tag: "Traditional Heritage",
-    content: (
-      <>
-        Taste reminds me of{" "}
-        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
-          traditional homemade oil
-        </span>{" "}
-        extracted with{" "}
-        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
-          pure kachi ghani perfection
-        </span>
-        .
-      </>
-    ),
+    content: "Taste reminds me of traditional homemade oil extracted with pure kachi ghani perfection.",
   },
   {
     tag: "Partner Network",
-    content: (
-      <>
-        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
-          Business support is very good
-        </span>
-        . The team is{" "}
-        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
-          responsive, helpful and transparent
-        </span>
-        .
-      </>
-    ),
+    content: "Business support is very good. The team is responsive, helpful and transparent.",
   },
 ];
 
@@ -346,15 +258,15 @@ export default function Reviews() {
                     </div>
                   </div>
 
-                  {/* Center Quote Area with Highlighted Text */}
-                  <div className="my-auto py-2 px-1 relative">
-                    <span className="text-4xl text-emerald-600/15 font-serif leading-none block mb-1 pointer-events-none select-none">
+                  {/* Center Quote Area with Clean Text */}
+                  <div className="my-auto py-3 px-2 relative">
+                    <span className="text-4xl text-emerald-600/20 font-serif leading-none block mb-1.5 pointer-events-none select-none">
                       “
                     </span>
-                    <p className="text-slate-700 text-[15px] md:text-[16px] leading-relaxed font-normal">
+                    <p className="text-slate-700 text-[15px] md:text-[16.5px] leading-relaxed font-medium">
                       {review.content}
                     </p>
-                    <span className="text-4xl text-emerald-600/15 font-serif leading-none block mt-1 pointer-events-none select-none">
+                    <span className="text-4xl text-emerald-600/20 font-serif leading-none block mt-1.5 pointer-events-none select-none">
                       ”
                     </span>
                   </div>
