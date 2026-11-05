@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense, useMemo } from "react";
+import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import SocialSidebar from "../Compnents/SocialmediaIcon";
@@ -62,13 +63,16 @@ export default function HeroCarousel() {
     setCurrent(0);
   }, [isMobile]);
 
-  // 🔄 Smooth Auto Slide on both Phone & Desktop
+  // 🔄 Smooth Auto Slide on both Phone & Desktop with pause on user hover/interaction
+  const [isHovered, setIsHovered] = useState(false);
+
   useEffect(() => {
+    if (isHovered) return;
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 3800);
+    }, 4000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [slides.length, isHovered]);
 
   // 👉 Manual Buttons
   const nextSlide = () => {
@@ -122,48 +126,79 @@ export default function HeroCarousel() {
       {/* 🔥 HERO */}
       <div className="w-full flex justify-center bg-gray-100 pt-3 sm:pt-4 md:pt-6 pb-2 px-3 sm:px-5 md:px-8">
         <div
-          className="slider-container relative max-w-[1440px] w-full rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] overflow-hidden shadow-none border-0 ring-0 outline-none bg-transparent"
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
+          className="slider-container relative max-w-[1440px] w-full rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] overflow-hidden shadow-none border-0 ring-0 outline-none bg-transparent select-none"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          <img
-            key={current}
-            src={slides[current].img}
-            alt="Kisan Choice Edible Oils Banner"
-            loading="eager"
-            fetchPriority="high"
-            className="w-full h-full object-contain rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] border-0 outline-none block transition-opacity duration-700 ease-in-out"
-          />
+          {/* 🚀 Horizontal Swipe Track with Spring Physics and Touch/Mouse Drag */}
+          <motion.div
+            className="flex w-full h-full cursor-grab active:cursor-grabbing"
+            animate={{ x: `-${current * 100}%` }}
+            transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.8 }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.15}
+            onDragEnd={(_, { offset, velocity }) => {
+              const swipe = Math.abs(offset.x) * velocity.x;
+              if (offset.x < -40 || swipe < -150) {
+                nextSlide();
+              } else if (offset.x > 40 || swipe > 150) {
+                prevSlide();
+              }
+            }}
+          >
+            {slides.map((slide, index) => (
+              <div
+                key={slide.id || index}
+                className="w-full shrink-0 h-full flex items-center justify-center select-none"
+              >
+                <img
+                  src={slide.img}
+                  alt={`Kisan Choice Edible Oils Banner ${index + 1}`}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  className="w-full h-full object-contain rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] border-0 outline-none block pointer-events-none select-none"
+                  draggable={false}
+                />
+              </div>
+            ))}
+          </motion.div>
 
           <SocialSidebar />
 
-          {/* ⬅➡ Desktop Buttons */}
+          {/* ⬅➡ Desktop Navigation Buttons with glassmorphism */}
           {slides.length > 1 && (
             <>
               <button
                 onClick={prevSlide}
-                className="nav-btn prev hidden md:flex"
+                className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-20 p-2.5 md:p-3 bg-white/85 hover:bg-white text-gray-800 rounded-full shadow-md backdrop-blur-sm transition-all duration-200 hover:scale-105 active:scale-95 hidden md:flex items-center justify-center border border-gray-100"
+                aria-label="Previous slide"
               >
-                <ChevronLeft size={24} />
+                <ChevronLeft size={22} />
               </button>
 
               <button
                 onClick={nextSlide}
-                className="nav-btn next hidden md:flex"
+                className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-20 p-2.5 md:p-3 bg-white/85 hover:bg-white text-gray-800 rounded-full shadow-md backdrop-blur-sm transition-all duration-200 hover:scale-105 active:scale-95 hidden md:flex items-center justify-center border border-gray-100"
+                aria-label="Next slide"
               >
-                <ChevronRight size={24} />
+                <ChevronRight size={22} />
               </button>
             </>
           )}
 
-          {/* 🔘 Dots */}
-          <div className="dots">
+          {/* 🔘 Modern Smooth Animated Pill Indicators */}
+          <div className="absolute bottom-3 md:bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 md:gap-2 z-20 bg-black/25 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20">
             {slides.map((_, i) => (
-              <div
+              <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`dot ${current === i ? "active" : ""}`}
+                className={`transition-all duration-300 rounded-full ${
+                  current === i
+                    ? "w-6 md:w-7 h-2 md:h-2.5 bg-white shadow-sm"
+                    : "w-2 md:w-2.5 h-2 md:h-2.5 bg-white/50 hover:bg-white/80"
+                }`}
+                aria-label={`Slide ${i + 1}`}
               />
             ))}
           </div>
