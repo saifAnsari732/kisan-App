@@ -547,7 +547,7 @@ export default function FloatingActions() {
           },
           body: JSON.stringify({
             access_key: web3Key.trim(),
-            to_email: "kisandeveloper2@gmail.com",
+            to_email: import.meta.env.VITE_INQUIRY_RECEIVER_EMAIL || "kisandeveloper2@gmail.com",
             subject: `Kisan Choice New ${target.category} Lead [${target.inquiryId}]`,
             from_name: "Kisan Choice AI Assistant",
             Category: target.category,
@@ -597,19 +597,24 @@ export default function FloatingActions() {
   const advanceToNextStep = async (newCollectedData, nextIndex) => {
     const branchConfig = BRANCH_CONFIGS[activeBranch];
     
-    // Check if branch steps are finished
+    // Check if branch steps are finished -> IMMEDIATELY SEND EMAIL AUTOMATICALLY
     if (nextIndex >= branchConfig.steps.length) {
       setIsCompleted(true);
       const saved = await saveCompletedInquiry(newCollectedData, activeBranch);
+      const leadRecord = saved || { details: newCollectedData, category: branchConfig.categoryTitle, branch: activeBranch };
+      const receiverEmail = import.meta.env.VITE_INQUIRY_RECEIVER_EMAIL || "kisandeveloper2@gmail.com";
+
+      // 🚀 Turant automatic email send
+      sendEmailInquiry(leadRecord);
 
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
           {
             sender: "bot",
-            text: `Aapki ${branchConfig.categoryTitle} ki complete profile safaltapoorvak JSON me darj ho gayi hai! ✅`,
+            text: `Aapki ${branchConfig.categoryTitle} ki profile successfully darj ho gayi hai aur turant email (${receiverEmail}) par send kar di gayi hai! ✅`,
             isSummary: true,
-            record: saved || { details: newCollectedData, category: branchConfig.categoryTitle }
+            record: leadRecord
           }
         ]);
       }, 350);
@@ -952,7 +957,7 @@ export default function FloatingActions() {
                           </button>
                         </div>
                         
-                        {/* 📧 Send to Email Button (Web3Forms API / Email) */}
+                        {/* 📧 Email Status / Re-send Button */}
                         <button
                           onClick={() => sendEmailInquiry(msg.record)}
                           disabled={emailStatus === "sending"}
@@ -962,8 +967,8 @@ export default function FloatingActions() {
                           {emailStatus === "sending"
                             ? "Email Bheja Ja Raha Hai..."
                             : emailStatus === "success"
-                            ? "Email Bhej Diya Gaya! ✓"
-                            : "Send Full Data to Email"}
+                            ? `✓ Email Sent to ${import.meta.env.VITE_INQUIRY_RECEIVER_EMAIL || "kisandeveloper2@gmail.com"}`
+                            : `Resend to ${import.meta.env.VITE_INQUIRY_RECEIVER_EMAIL || "kisandeveloper2@gmail.com"}`}
                         </button>
 
                         <button
