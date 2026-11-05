@@ -3,16 +3,24 @@ import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 
-// Valid YouTube Video IDs for Kisan Choice Testimonials with authentic local thumbnails
+// 10 Unique Official Kisan Choice Video Testimonials & Shorts (No on-screen duplicates)
 const videos = [
-  { id: "MLS7IKm84io", thumb: "/testimonials/MLS7IKm84io.jpg", alt: "Pooja Oil by Brand Ambassador Gulshan Pandey" },
   { id: "vAWK6QmOWfE", thumb: "/testimonials/vAWK6QmOWfE.jpg", alt: "Brand Ambassador Vishal Malhotra with Kisan Choice" },
+  { id: "m8AhKzKLKFM", thumb: "/testimonials/m8AhKzKLKFM.jpg", alt: "Kisan Choice - शुद्धता और भारतीय परंपरा" },
+  { id: "dW4cWWgFqek", thumb: "/testimonials/dW4cWWgFqek.jpg", alt: "KM Traders Authorised Distributor" },
+  { id: "MLS7IKm84io", thumb: "/testimonials/MLS7IKm84io.jpg", alt: "Pooja Oil by Brand Ambassador Gulshan Pandey" },
+  { id: "h8s9cjz244U", thumb: "/testimonials/h8s9cjz244U.jpg", alt: "आज़ादी का जश्न Kisan Choice के साथ" },
   { id: "EvjYIazTzg4", thumb: "/testimonials/EvjYIazTzg4.jpg", alt: "Pure Kachi Ghani Mustard Oil Story" },
-  { id: "2Be7YpxaHPc", thumb: "/testimonials/2Be7YpxaHPc.jpg", alt: "Kisan Choice Dealers Meeting" },
+  { id: "YcqobrZskr8", thumb: "/testimonials/YcqobrZskr8.jpg", alt: "FMCG Business with Kisan Choice" },
+  { id: "2Be7YpxaHPc", thumb: "/testimonials/2Be7YpxaHPc.jpg", alt: "Kisan Choice Telecallers & Dealers Meeting" },
+  { id: "Utv128rMHU8", thumb: "/testimonials/Utv128rMHU8.jpg", alt: "हर बूंद में शुद्धता... हर निवाले में प्यार" },
+  { id: "fGZAJtk_RJE", thumb: "/testimonials/fGZAJtk_RJE.jpg", alt: "High Profit Dealership Network" },
 ];
 
-// Duplicate for smooth seamless looping
-const marqueeVideos = [...videos, ...videos, ...videos];
+const fallbackThumbnail = "/testimonials/vAWK6QmOWfE.jpg";
+
+// Duplicate only once for seamless infinite smooth looping
+const marqueeVideos = [...videos, ...videos];
 
 export default function Testimonials() {
   const [activeVideo, setActiveVideo] = useState(null);
