@@ -5,22 +5,18 @@ import {
   X, 
   Send, 
   CheckCircle2, 
-  Download, 
   RefreshCw, 
   FileText, 
   Phone, 
   MapPin, 
   User, 
   Package, 
-  Briefcase,
-  Building2,
-  ChevronRight,
-  Copy,
-  Check,
-  Warehouse,
-  Truck,
-  Mail,
-  FileCheck
+  Briefcase, 
+  Building2, 
+  ChevronRight, 
+  Warehouse, 
+  Truck, 
+  Mail 
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
@@ -435,7 +431,6 @@ export default function FloatingActions() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [inputText, setInputText] = useState("");
   const [lastSavedRecord, setLastSavedRecord] = useState(null);
-  const [copied, setCopied] = useState(false);
   const [emailStatus, setEmailStatus] = useState("idle"); // "idle" | "sending" | "success" | "error"
 
   const messagesEndRef = useRef(null);
@@ -488,36 +483,7 @@ export default function FloatingActions() {
     }
   };
 
-  // Download inquiry as a structured JSON file
-  const downloadJSONFile = (record = null) => {
-    try {
-      const target = record || lastSavedRecord;
-      if (!target) return;
 
-      const blob = new Blob([JSON.stringify(target, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `kisan_full_lead_${target.inquiryId}.json`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      toast.success("Detailed JSON file downloaded! 📁");
-    } catch (err) {
-      toast.error("Download failed, please try again.");
-    }
-  };
-
-  // Copy raw JSON to clipboard
-  const copyJSONToClipboard = (record = null) => {
-    const target = record || lastSavedRecord;
-    if (!target) return;
-    navigator.clipboard.writeText(JSON.stringify(target, null, 2));
-    setCopied(true);
-    toast.success("JSON copied to clipboard! 📋");
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   // Send collected data via Web3Forms API directly (Zero backend required)
   const sendEmailInquiry = async (record = null) => {
@@ -560,7 +526,7 @@ export default function FloatingActions() {
         const resData = await response.json();
         if (resData.success) {
           setEmailStatus("success");
-          toast.success("Inquiry data email par bhej diya gaya hai! ✉️");
+          // Sent silently in background
           setTimeout(() => setEmailStatus("idle"), 4000);
           return;
         }
@@ -612,7 +578,7 @@ export default function FloatingActions() {
           ...prev,
           {
             sender: "bot",
-            text: `Aapki ${branchConfig.categoryTitle} ki profile successfully darj ho gayi hai aur turant email (${receiverEmail}) par send kar di gayi hai! ✅`,
+            text: `Dhanyavaad! 🙏 Aapki ${branchConfig.categoryTitle} inquiry safaltapoorvak submit ho gayi hai. Humari team aapse jald hi sampark karegi.`,
             isSummary: true,
             record: leadRecord
           }
@@ -727,33 +693,7 @@ export default function FloatingActions() {
     setMessages([INITIAL_GREETING]);
   };
 
-  // Generate WhatsApp inquiry text
-  const openWhatsAppWithInquiry = (record = null) => {
-    const rec = record || lastSavedRecord;
-    const d = rec?.details || collectedData;
-    const cat = rec?.category || "Inquiry";
 
-    let messageLines = [
-      `*Namaste Kisan Choice Team!* 🙏`,
-      `Website se nayi *${cat}* submit hui hai:`,
-      `--------------------------------------`
-    ];
-
-    Object.entries(d).forEach(([k, v]) => {
-      // Find matching human label
-      const stepConfig = activeBranch 
-        ? BRANCH_CONFIGS[activeBranch]?.steps?.find((s) => s.key === k)
-        : null;
-      const formattedKey = stepConfig?.label || k.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase());
-      messageLines.push(`• *${formattedKey}:* ${v}`);
-    });
-
-    messageLines.push(`--------------------------------------`);
-    messageLines.push(`Kripya is inquiry par follow-up karein. Dhanyavaad!`);
-
-    const textEncoded = encodeURIComponent(messageLines.join("\n"));
-    window.open(`https://wa.me/916390059995?text=${textEncoded}`, "_blank");
-  };
 
   const openGeneralWhatsApp = () => {
     window.open("https://wa.me/916390059995", "_blank");
@@ -893,7 +833,7 @@ export default function FloatingActions() {
                       <div className="flex items-center justify-between border-b border-emerald-100 pb-2.5 mb-3">
                         <div className="flex items-center gap-2 text-emerald-800 font-extrabold text-sm">
                           <CheckCircle2 size={18} className="text-emerald-600 shrink-0" />
-                          <span>{msg.record.badge} Profile (JSON Record)</span>
+                          <span>{msg.record.badge} Profile Details</span>
                         </div>
                         <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
                           {msg.record.inquiryId}
@@ -938,51 +878,13 @@ export default function FloatingActions() {
                         </div>
                       )}
 
-                      {/* Action Buttons */}
-                      <div className="mt-4 pt-3 border-t border-slate-100 flex flex-col gap-2">
-                        <div className="grid grid-cols-2 gap-2">
-                          <button
-                            onClick={() => downloadJSONFile(msg.record)}
-                            className="w-full py-2 px-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#0B3D2E] font-bold text-xs flex items-center justify-center gap-1.5 border border-emerald-300 transition-colors"
-                          >
-                            <Download size={13} /> Download JSON
-                          </button>
-
-                          <button
-                            onClick={() => copyJSONToClipboard(msg.record)}
-                            className="w-full py-2 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 border border-slate-200 transition-colors"
-                          >
-                            {copied ? <Check size={13} className="text-emerald-600" /> : <Copy size={13} />}
-                            {copied ? "Copied!" : "Copy JSON"}
-                          </button>
-                        </div>
-                        
-                        {/* 📧 Email Status / Re-send Button */}
-                        <button
-                          onClick={() => sendEmailInquiry(msg.record)}
-                          disabled={emailStatus === "sending"}
-                          className="w-full py-2.5 px-3 rounded-xl bg-[#0B3D2E] hover:bg-[#145a44] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors disabled:opacity-60 cursor-pointer"
-                        >
-                          <Mail size={15} />
-                          {emailStatus === "sending"
-                            ? "Email Bheja Ja Raha Hai..."
-                            : emailStatus === "success"
-                            ? `✓ Email Sent to ${import.meta.env.VITE_INQUIRY_RECEIVER_EMAIL || "kisandeveloper2@gmail.com"}`
-                            : `Resend to ${import.meta.env.VITE_INQUIRY_RECEIVER_EMAIL || "kisandeveloper2@gmail.com"}`}
-                        </button>
-
-                        <button
-                          onClick={() => openWhatsAppWithInquiry(msg.record)}
-                          className="w-full py-2.5 px-3 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
-                        >
-                          <FaWhatsapp size={15} /> Send Full Data on WhatsApp
-                        </button>
-
+                      {/* Clean Single Action: Reset / New Inquiry */}
+                      <div className="mt-3 pt-3 border-t border-slate-100 flex flex-col items-center">
                         <button
                           onClick={handleReset}
-                          className="w-full py-1.5 px-3 rounded-xl text-slate-500 hover:text-slate-800 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                          className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm transition-all active:scale-[0.99] cursor-pointer"
                         >
-                          <RefreshCw size={12} /> Nayi Inquiry Karein
+                          <RefreshCw size={13} /> Nayi Inquiry Karein
                         </button>
                       </div>
                     </div>
