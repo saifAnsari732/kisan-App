@@ -7,10 +7,10 @@ const ambassadors = [
   {
     id: 2,
     name: "Vishal Malhotra",
-    role: "Purity Champion",
-    tagline: "100% Pure & Cold Pressed Edible Oils",
+    role: "Official Brand Ambassador",
+    tagline: "100% शुद्ध कच्ची घानी सरसों तेल",
     img: "/BrandEmbesterIMG/bd2.jpeg",
-    badge: "Refined Oil",
+    badge: "Kisan Choice Kachighani",
   },
   {
     id: 3,
@@ -18,29 +18,29 @@ const ambassadors = [
     role: "Brand Face of Purity",
     tagline: "हर भारतीय रसोई की पहली पसंद",
     img: "/BrandEmbesterIMG/bd3.jpeg",
-    badge: "Pure Kachi Ghani",
+    badge: "Kisan Choice Kachighani",
   },
   {
     id: 4,
     name: "Vishal Malhotra",
-    role: "Health & Quality Icon",
-    tagline: "सेहत और स्वाद का बेहतरीन संगम",
+    role: "Health & Purity Icon",
+    tagline: "स्वाद भी, भरोसा भी - शुद्ध कच्ची घानी",
     img: "/BrandEmbesterIMG/bd4.jpeg",
-    badge: "Soyabean Oil",
+    badge: "Kisan Choice Kachighani",
   },
   {
     id: 5,
     name: "Vishal Malhotra & Gulshan Pandey",
     role: "Brand Ambassadors",
-    tagline: "स्वाद और सेहत की नई पहचान",
+    tagline: "कच्ची घानी स्वाद और पावन पूजा तेल",
     img: "/BrandEmbesterIMG/both.png",
-    badge: "Kisan Choice Special",
+    badge: "Kachighani & Pooja Oil",
   },
   {
     id: 6,
     name: "Vishal Malhotra & Gulshan Pandey",
     role: "Official Brand Icons",
-    tagline: "हर घर में खुशहाली और शुद्धता",
+    tagline: "हर घर में खुशहाली, स्वाद और शुद्धता",
     img: "/BrandEmbesterIMG/both2.jpeg",
     badge: "Brand Icons",
   },
@@ -55,26 +55,26 @@ const ambassadors = [
   {
     id: 8,
     name: "Gulshan Pandey",
-    role: "Health & Purity Ambassador",
-    tagline: "सेहत और स्वाद का बेहतरीन संतुलन",
+    role: "Purity Ambassador",
+    tagline: "हर पूजा हो पवित्र, तेल भी हो शुद्ध",
     img: "/BrandEmbesterIMG/gul2.jpeg",
-    badge: "Rice Bran Oil",
+    badge: "Pooja Oil",
   },
   {
     id: 9,
     name: "Gulshan Pandey",
-    role: "Quality Champion",
-    tagline: "100% रिफाइंड सोयाबीन तेल, हर पल सेहत",
+    role: "Devotion & Purity Face",
+    tagline: "आस्था और शुद्धता का पावन संगम",
     img: "/BrandEmbesterIMG/gul3.png",
-    badge: "Soyabean Refined Oil",
+    badge: "Pooja Oil",
   },
   {
     id: 10,
     name: "Gulshan Pandey",
     role: "Brand Ambassador",
-    tagline: "शुद्धता और गुणवत्ता का पक्का वादा",
+    tagline: "पूजा की थाली में शुद्धता का दीप",
     img: "/BrandEmbesterIMG/gul5.png",
-    badge: "Pooja & Edible Oils",
+    badge: "Pooja Oil",
   },
 ];
 
@@ -280,7 +280,7 @@ export default function BrandAmbassador() {
                       <ChevronLeft className="w-5 h-5" />
                     </button>
                     <span className="kc-ambassador-modal-counter">
-                      0{selectedIndex + 1} / 0{ambassadors.length}
+                      {String(selectedIndex + 1).padStart(2, "0")} / {String(ambassadors.length).padStart(2, "0")}
                     </span>
                     <button
                       type="button"

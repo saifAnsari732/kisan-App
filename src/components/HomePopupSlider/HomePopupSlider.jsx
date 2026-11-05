@@ -14,57 +14,57 @@ const slides = [
   {
     id: "slide-2",
     src: "/BrandEmbesterIMG/bd2.jpeg",
-    alt: "Kisan Choice Pure Edible Oil Showcase",
+    alt: "Kisan Choice Kachighani Mustard Oil - Vishal Malhotra",
   },
   {
     id: "slide-3",
     src: "/BrandEmbesterIMG/bd3.jpeg",
-    alt: "Kisan Choice Ambassador with Mustard Oil",
+    alt: "Kisan Choice Pure Kachighani Mustard Oil - Vishal Malhotra",
   },
   {
     id: "slide-4",
     src: "/BrandEmbesterIMG/bd4.jpeg",
-    alt: "Kisan Choice Product Line",
+    alt: "Kisan Choice Kachighani Oil Range - Vishal Malhotra",
   },
   {
     id: "slide-5",
     src: "/BrandEmbesterIMG/bd5.jpeg",
-    alt: "Kisan Choice Brand Quality Assurance",
+    alt: "Kisan Choice Kachighani Quality - Vishal Malhotra",
   },
   {
     id: "slide-7",
     src: "/BrandEmbesterIMG/bd7.jpeg",
-    alt: "Kisan Choice Pure Cooking Oil",
+    alt: "Kisan Choice Pure Kachighani Oil - Vishal Malhotra",
   },
   {
     id: "slide-8",
     src: "/BrandEmbesterIMG/both.png",
-    alt: "Kisan Choice Brand Ambassadors",
+    alt: "Kisan Choice Brand Ambassadors - Kachighani & Pooja Oil",
   },
   {
     id: "slide-9",
     src: "/BrandEmbesterIMG/both2.jpeg",
-    alt: "Kisan Choice Ambassadors Showcase",
+    alt: "Kisan Choice Brand Icons - Vishal Malhotra & Gulshan Pandey",
   },
   {
     id: "slide-10",
     src: "/BrandEmbesterIMG/gul1.jpeg",
-    alt: "Kisan Choice Gulshan Pandey 1",
+    alt: "Kisan Choice Pooja Oil - Gulshan Pandey",
   },
   {
     id: "slide-11",
     src: "/BrandEmbesterIMG/gul2.jpeg",
-    alt: "Kisan Choice Gulshan Pandey 2",
+    alt: "Kisan Choice Pooja Oil - Gulshan Pandey",
   },
   {
     id: "slide-12",
     src: "/BrandEmbesterIMG/gul3.png",
-    alt: "Kisan Choice Gulshan Pandey 3",
+    alt: "Kisan Choice Pooja Oil - Gulshan Pandey",
   },
   {
     id: "slide-13",
     src: "/BrandEmbesterIMG/gul5.png",
-    alt: "Kisan Choice Gulshan Pandey 5",
+    alt: "Kisan Choice Pooja Oil - Gulshan Pandey",
   },
 ];
 
