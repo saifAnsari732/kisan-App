@@ -1,527 +1,529 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaWhatsapp } from "react-icons/fa";
-import { Mic, MicOff, Volume2, X, Bot, Send, MessageSquare } from "lucide-react";
+import { 
+  Bot, 
+  X, 
+  Send, 
+  CheckCircle2, 
+  Download, 
+  RefreshCw, 
+  FileText, 
+  Phone, 
+  MapPin, 
+  User, 
+  Package, 
+  Briefcase,
+  ChevronRight
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 
-// =====================================================================
-// PASTE YOUR GEMINI API KEY HERE (get one free at https://aistudio.google.com/app/apikey)
-// Falls back to VITE_GEMINI_API_KEY from your .env file if this is left empty.
-// =====================================================================
-const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
-const CHAT_API_URL =
-  import.meta.env.VITE_CHAT_API_URL ||
-  "https://kisanapp-chatvoice-hlyx.onrender.com/api/chat";
+const INITIAL_GREETING = {
+  sender: "bot",
+  text: "Namaste! 🙏 Kisan Choice Assistant me aapka swagat hai. Kripya batayein aapko kis vishay me sahayata chahiye?",
+  step: "purpose",
+  options: [
+    { label: "🏢 Distributorship / Dealership", value: "Distributorship / Dealership" },
+    { label: "📦 Bulk Wholesale Order", value: "Bulk Wholesale Order" },
+    { label: "🛒 Retail / Ghar ke liye Order", value: "Retail / Ghar ke liye Order" },
+    { label: "📋 Product Catalog & Rate List", value: "Product Catalog & Rate List" }
+  ]
+};
 
-const GREETING_TEXT =
-  "Namaste! Main Kisan Choice se baat kar rahi hoon. Main aapki kaise madad kar sakti hoon?";
+const PRODUCT_OPTIONS = [
+  { label: "🟡 Kachi Ghani Mustard Oil", value: "Kachi Ghani Mustard Oil" },
+  { label: "🪔 Pooja Oil (पूजा तेल)", value: "Pooja Oil" },
+  { label: "🌾 Refined Soyabean Oil", value: "Refined Soyabean Oil" },
+  { label: "🌻 Refined Sunflower Oil", value: "Refined Sunflower Oil" },
+  { label: "🥥 Coconut / Groundnut / Alsi Oil", value: "Coconut / Groundnut / Alsi Oil" },
+  { label: "🛍️ All Edible Oils (Combo)", value: "All Edible Oils (Combo)" }
+];
 
-// FIX: Gemini sometimes replies in Markdown (**bold**, # headings, | tables |)
-// even when told not to. Since the chat UI renders msg.text as plain text
-// (no markdown parser) and this text is also read aloud by TTS, any stray
-// markdown symbols show up literally on screen and get spoken out loud
-// ("asterisk asterisk..."). This strips common markdown before we ever
-// display or speak the reply, as a safety net on top of the prompt rule.
-function sanitizeReply(text) {
-  return String(text || "")
-    .replace(/\|/g, " ")                 // table pipes
-    .replace(/^-{3,}$/gm, "")            // markdown horizontal rules
-    .replace(/^#{1,6}\s*/gm, "")         // headings
-    .replace(/\*\*(.*?)\*\*/g, "$1")     // bold
-    .replace(/\*(.*?)\*/g, "$1")         // italics
-    .replace(/`{1,3}([^`]*)`{1,3}/g, "$1") // code
-    .replace(/^\s*[-*•]\s+/gm, "")       // bullet markers
-    .replace(/^\s*\d+\.\s+/gm, "")       // numbered list markers
-    .replace(/\n{3,}/g, "\n\n")          // collapse extra blank lines
-    .trim();
-}
+const QUANTITY_OPTIONS = [
+  { label: "📦 Retail (1L, 2L, 5L Packs)", value: "Retail (1L, 2L, 5L Packs)" },
+  { label: "🛢️ 15L Tins & Bulk Cartons", value: "15L Tins & Bulk Cartons" },
+  { label: "🚛 Commercial Bulk (500L - 2000L+)", value: "Commercial Bulk (500L - 2000L+)" },
+  { label: "📄 Sample / Rate Sheet Only", value: "Sample / Rate Sheet Only" }
+];
 
 export default function FloatingActions() {
-  const [isListening, setIsListening] = useState(false);
-  const isListeningRef = useRef(false); // guards against double start()/stop() race conditions
-
-  const [chatOpenState, setChatOpenState] = useState(false);
-  const chatOpenRef = useRef(false);
-  const setChatOpen = (isOpen) => {
-    chatOpenRef.current = isOpen;
-    setChatOpenState(isOpen);
-  };
-  const chatOpen = chatOpenState;
-
-  const [showModeSelector, setShowModeSelector] = useState(false);
-  const [chatMode, setChatMode] = useState("chat"); // "voice" or "chat"
-  const chatModeRef = useRef("chat"); // Ref to avoid stale closure in async
-  const updateChatMode = (mode) => {
-    chatModeRef.current = mode;
-    setChatMode(mode);
-  };
-
-  const [messages, setMessages] = useState([
-    { sender: "bot", text: "Namaste! Main Kisan Choice se baat kar rahi hoon. Main aapki kaise madad kar sakti hoon?", isGreeting: true }
-  ]);
-  const [botSpeaking, setBotSpeaking] = useState(false);
-  const [isThinking, setIsThinking] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [messages, setMessages] = useState([INITIAL_GREETING]);
+  const [currentStep, setCurrentStep] = useState("purpose"); // 'purpose' | 'product' | 'quantity' | 'name' | 'phone' | 'city' | 'completed'
   const [inputText, setInputText] = useState("");
+  const [formData, setFormData] = useState({
+    purpose: "",
+    product: "",
+    quantity: "",
+    name: "",
+    phone: "",
+    city: ""
+  });
+  const [lastSavedInquiry, setLastSavedInquiry] = useState(null);
 
   const messagesEndRef = useRef(null);
-
-  const recognitionRef = useRef(null);
-  const synthRef = useRef(typeof window !== "undefined" ? window.speechSynthesis : null);
-  const voicesRef = useRef([]);
-  const handleUserMessageRef = useRef(null);
-  const audioRef = useRef(null);
-
-  useEffect(() => {
-    // Initialize Web Speech API (speech-to-text)
-    try {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (SpeechRecognition) {
-        recognitionRef.current = new SpeechRecognition();
-        recognitionRef.current.continuous = false;
-        recognitionRef.current.lang = "hi-IN";
-        recognitionRef.current.interimResults = false;
-
-        recognitionRef.current.onresult = (event) => {
-          const transcript = event.results[0][0].transcript;
-          // Use ref so we always call the latest version (no stale closure)
-          if (handleUserMessageRef.current) {
-            handleUserMessageRef.current(transcript);
-          }
-          isListeningRef.current = false;
-          setIsListening(false);
-        };
-
-        recognitionRef.current.onerror = (event) => {
-          console.error("Speech recognition error", event.error);
-          if (event.error !== "no-speech") {
-            isListeningRef.current = false;
-            setIsListening(false);
-          }
-        };
-
-        recognitionRef.current.onend = () => {
-          isListeningRef.current = false;
-          setIsListening(false);
-        };
-      }
-
-      // Warm voice cache
-      const loadVoices = () => {
-        if (synthRef.current) {
-          voicesRef.current = synthRef.current.getVoices();
-        }
-      };
-      loadVoices();
-      if (synthRef.current) {
-        synthRef.current.onvoiceschanged = loadVoices;
-      }
-    } catch (err) {
-      console.warn("Speech API init error:", err);
-    }
-
-    return () => {
-      try { recognitionRef.current?.abort(); } catch(e) {}
-      try { synthRef.current?.cancel(); } catch(e) {}
-    };
-  }, []);
 
   // Auto scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isThinking]);
+  }, [messages]);
 
-  // Safe wrappers so we never call start()/stop() on a recognition object
-  // that's already in that state (this was throwing InvalidStateError before)
-  const safeStartRecognition = () => {
-    if (!recognitionRef.current || isListeningRef.current) return;
+  // Save inquiry to JSON in localStorage and attempt server sync
+  const saveInquiryToJson = async (completedData) => {
     try {
-      recognitionRef.current.start();
-      isListeningRef.current = true;
-      setIsListening(true);
+      const inquiryRecord = {
+        id: `KC-${Date.now().toString().slice(-6)}`,
+        timestamp: new Date().toISOString(),
+        formattedDate: new Date().toLocaleString("en-IN", {
+          dateStyle: "medium",
+          timeStyle: "short"
+        }),
+        ...completedData
+      };
+
+      // 1. Save to browser LocalStorage
+      const existingInquiries = JSON.parse(localStorage.getItem("kisan_inquiries_data") || "[]");
+      const updatedList = [inquiryRecord, ...existingInquiries];
+      localStorage.setItem("kisan_inquiries_data", JSON.stringify(updatedList, null, 2));
+
+      setLastSavedInquiry(inquiryRecord);
+
+      // 2. Try saving to backend API if available
+      try {
+        await fetch("/api/inquiries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(inquiryRecord)
+        });
+      } catch (err) {
+        // Backend offline or running purely on static host; LocalStorage handles persistence safely
+        console.log("Local inquiry recorded (offline / static host fallback)");
+      }
+
+      return inquiryRecord;
     } catch (e) {
-      console.log("Could not start mic", e);
+      console.error("Error saving inquiry:", e);
+      return null;
     }
   };
 
-  const safeStopRecognition = () => {
-    if (!recognitionRef.current || !isListeningRef.current) return;
+  // Download all or current inquiry as a JSON file
+  const downloadInquiriesJSON = (singleRecord = null) => {
     try {
-      recognitionRef.current.stop();
-    } catch (e) {
-      console.log("Could not stop mic", e);
+      const allData = JSON.parse(localStorage.getItem("kisan_inquiries_data") || "[]");
+      const dataToExport = singleRecord || (allData.length > 0 ? allData : [lastSavedInquiry]);
+
+      const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = singleRecord 
+        ? `kisan_inquiry_${singleRecord.id || "data"}.json` 
+        : `kisan_all_inquiries_${new Date().toISOString().split("T")[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      toast.success("JSON file downloaded successfully! 📁");
+    } catch (err) {
+      toast.error("Download failed, please try again.");
     }
-    isListeningRef.current = false;
-    setIsListening(false);
   };
 
-  const handleUserMessage = (text) => {
-    setMessages((prev) => [...prev, { sender: "user", text }]);
-    generateBotResponse(text);
-  };
-  // Keep ref updated so useEffect's onresult always calls latest version
-  handleUserMessageRef.current = handleUserMessage;
+  // Handle Option selection from clickable buttons
+  const handleSelectOption = (step, option) => {
+    // Add user message
+    setMessages((prev) => [...prev, { sender: "user", text: option.label }]);
 
-  const handleSendText = () => {
-    if (!inputText.trim()) return;
-    const text = inputText;
+    if (step === "purpose") {
+      const updated = { ...formData, purpose: option.value };
+      setFormData(updated);
+      setCurrentStep("product");
+
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Kripya batayein aap kis product me ruchi rakhte hain?",
+            step: "product",
+            options: PRODUCT_OPTIONS
+          }
+        ]);
+      }, 350);
+    } else if (step === "product") {
+      const updated = { ...formData, product: option.value };
+      setFormData(updated);
+      setCurrentStep("quantity");
+
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Aapki lagbhag kitni quantity / volume ki aavashyakta hai?",
+            step: "quantity",
+            options: QUANTITY_OPTIONS
+          }
+        ]);
+      }, 350);
+    } else if (step === "quantity") {
+      const updated = { ...formData, quantity: option.value };
+      setFormData(updated);
+      setCurrentStep("name");
+
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Bahut badhiya! Aapse sampark karne ke liye, kripya apna Shubhnaam (Full Name) batayein:"
+          }
+        ]);
+      }, 350);
+    }
+  };
+
+  // Handle text input submission (Name, Phone, City)
+  const handleSendText = async () => {
+    const trimmed = inputText.trim();
+    if (!trimmed) return;
+
+    // Append user input
+    setMessages((prev) => [...prev, { sender: "user", text: trimmed }]);
     setInputText("");
 
-    // Stop voice if they type manually
-    safeStopRecognition();
-    synthRef.current?.cancel();
-    setBotSpeaking(false);
+    if (currentStep === "name") {
+      const updated = { ...formData, name: trimmed };
+      setFormData(updated);
+      setCurrentStep("phone");
 
-    handleUserMessage(text);
-  };
-
-  const generateBotResponse = async (userText) => {
-    setIsThinking(true);
-
-    try {
-      const response = await fetch(CHAT_API_URL, {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "bypass-tunnel-reminder": "true"
-        },
-        body: JSON.stringify({ text: userText, skip_audio: chatModeRef.current === "chat" })
-      });
-
-      if (!response.ok) {
-        const errText = await response.text();
-        if (response.status === 429) {
-          throw new Error("AI service quota is exhausted");
-        }
-        throw new Error(`Backend Error: ${response.status} ${errText}`);
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: `Shukriya ${trimmed} ji! Kripya apna 10-digit WhatsApp / Mobile Number enter karein:`
+          }
+        ]);
+      }, 350);
+    } else if (currentStep === "phone") {
+      const cleanedPhone = trimmed.replace(/\D/g, "");
+      if (cleanedPhone.length < 10) {
+        setTimeout(() => {
+          setMessages((prev) => [
+            ...prev,
+            {
+              sender: "bot",
+              text: "⚠️ Kripya valid 10-digit mobile number enter karein (e.g. 9876543210):"
+            }
+          ]);
+        }, 300);
+        return;
       }
 
-      const data = await response.json();
-      const botText = sanitizeReply(data.reply);
-      const audioBase64 = data.audio_base64;
+      const updated = { ...formData, phone: cleanedPhone };
+      setFormData(updated);
+      setCurrentStep("city");
 
-      const cleanBotText = botText || "Maaf kijiye, mujhe abhi jawab nahi mil paaya.";
-      setMessages((prev) => [...prev, { sender: "bot", text: cleanBotText }]);
-      setIsThinking(false);
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Aap kis City aur State (e.g. Lucknow, Uttar Pradesh) se hain?"
+          }
+        ]);
+      }, 350);
+    } else if (currentStep === "city") {
+      const completedData = { ...formData, city: trimmed };
+      setFormData(completedData);
+      setCurrentStep("completed");
 
-      if (chatModeRef.current === "voice") {
-        if (audioBase64) {
-          // Try backend audio first
-          playBackendAudio(audioBase64, cleanBotText);
-        } else {
-          // Fallback: browser TTS
-          speakWithBrowser(cleanBotText);
-        }
-      }
-    } catch (error) {
-      console.error("AI API Error:", error);
-      setIsThinking(false);
-      const fallbackReply = error.message === "AI service quota is exhausted"
-        ? "Error: AI service quota is exhausted. AI service abhi temporarily unavailable hai. Kripya WhatsApp par humse connect karein."
-        : `Technical Issue: ${error.message}. Please connect via WhatsApp.`;
-      setMessages((prev) => [...prev, { sender: "bot", text: fallbackReply }]);
+      // Save to JSON
+      const savedRecord = await saveInquiryToJson(completedData);
+
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Aapki inquiry safaltapoorvak darj ho gayi hai aur JSON file me add ho chuki hai! ✅",
+            isSummary: true,
+            summaryData: savedRecord || completedData
+          }
+        ]);
+      }, 400);
+    } else if (currentStep === "completed") {
+      // If user types anything after completion
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Aapka data pehle se save hai. Agar aap nayi inquiry karna chahte hain, to 'Nayi Inquiry Karein' button dabayein."
+          }
+        ]);
+      }, 300);
     }
   };
 
-  // Browser TTS fallback (used when backend audio is null)
-  const speakWithBrowser = (text) => {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = "hi-IN";
-    utter.rate = 0.9;
-    utter.pitch = 1.3; // Higher pitch = more feminine
-
-    // Try to pick a female Hindi voice
-    const voices = window.speechSynthesis.getVoices();
-    const femaleHindi = voices.find(v =>
-      v.lang === "hi-IN" && /female|swara|kalpana|heera/i.test(v.name)
-    ) || voices.find(v => v.lang === "hi-IN");
-    if (femaleHindi) utter.voice = femaleHindi;
-
-    utter.onstart = () => setBotSpeaking(true);
-    utter.onend = () => {
-      setBotSpeaking(false);
-      if (chatOpenRef.current) safeStartRecognition();
-    };
-    utter.onerror = () => setBotSpeaking(false);
-    window.speechSynthesis.speak(utter);
-  };
-
-  const playBackendAudio = (base64Audio, fallbackText) => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-    }
-    const audio = new Audio("data:audio/mp3;base64," + base64Audio);
-    audioRef.current = audio;
-    
-    audio.onplay = () => setBotSpeaking(true);
-    audio.onended = () => {
-      setBotSpeaking(false);
-      audioRef.current = null;
-      if (chatOpenRef.current) {
-        safeStartRecognition();
-      }
-    };
-    audio.onerror = (e) => {
-      console.error("Audio playback error:", e);
-      setBotSpeaking(false);
-      // Fallback to browser TTS if backend audio fails
-      if (fallbackText) speakWithBrowser(fallbackText);
-    };
-    
-    audio.play().catch(e => {
-      console.error("Autoplay prevented:", e);
-      setBotSpeaking(false);
-      // Fallback to browser TTS
-      if (fallbackText) speakWithBrowser(fallbackText);
+  // Reset conversational flow for a new inquiry
+  const handleResetFlow = () => {
+    setFormData({
+      purpose: "",
+      product: "",
+      quantity: "",
+      name: "",
+      phone: "",
+      city: ""
     });
-  };
-
-  const turnOffBot = () => {
-    if (isListening) safeStopRecognition();
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-    }
-    setBotSpeaking(false);
-    setChatOpen(false);
-    setShowModeSelector(false);
+    setCurrentStep("purpose");
+    setMessages([INITIAL_GREETING]);
     setInputText("");
-    setIsListening(false);
   };
 
-  const handleMainButtonClick = () => {
-    if (chatOpen) {
-      turnOffBot();
-    } else if (showModeSelector) {
-      setShowModeSelector(false);
-    } else {
-      setShowModeSelector(true);
-    }
+  // Open WhatsApp with pre-filled inquiry details
+  const openWhatsAppWithData = (data = null) => {
+    const d = data || lastSavedInquiry || formData;
+    const textMsg = encodeURIComponent(
+      `*Namaste Kisan Choice Team!* 🙏\nMaine website se inquiry submit ki hai:\n\n` +
+      `👤 *Name:* ${d.name || "Customer"}\n` +
+      `📱 *Mobile:* ${d.phone || "N/A"}\n` +
+      `📍 *Location:* ${d.city || "India"}\n` +
+      `🏢 *Requirement:* ${d.purpose || "Product Inquiry"}\n` +
+      `🛢️ *Product:* ${d.product || "Edible Oils"}\n` +
+      `📦 *Quantity:* ${d.quantity || "Retail"}\n\n` +
+      `Kripya mujhe jald se jald details aur quotation bhejein. Dhanyavaad!`
+    );
+    window.open(`https://wa.me/916390059995?text=${textMsg}`, "_blank");
   };
 
-  const startBotInMode = (mode) => {
-    updateChatMode(mode);
-    setShowModeSelector(false);
-    
-    if (recognitionRef.current) {
-      setChatOpen(true);
-
-      setMessages((prev) => {
-        const last = prev[prev.length - 1];
-        if (!last || last.text !== GREETING_TEXT) {
-          return [...prev, { sender: "bot", text: GREETING_TEXT, isGreeting: true }];
-        }
-        return prev;
-      });
-
-      if (mode === "voice") {
-        safeStartRecognition();
-      }
-    } else {
-      toast.error("Your browser doesn't support AI features.");
-    }
-  };
-
-  const openWhatsApp = () => {
+  const openGeneralWhatsApp = () => {
     window.open("https://wa.me/916390059995", "_blank");
+  };
+
+  const getPlaceholder = () => {
+    if (currentStep === "name") return "Enter your Full Name...";
+    if (currentStep === "phone") return "Enter 10-digit Mobile Number...";
+    if (currentStep === "city") return "Enter City & State (e.g. Lucknow, UP)...";
+    if (currentStep === "completed") return "Inquiry submitted! Tap New Inquiry to reset...";
+    return "Please select from the options above...";
   };
 
   return (
     <div className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-50 flex flex-col items-end gap-3 md:gap-4 font-sans">
+      
+      {/* Interactive Chat Window */}
       <AnimatePresence>
         {chatOpen && (
           <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="w-[calc(100vw-2.5rem)] sm:w-[360px] md:w-[380px] bg-white/95 backdrop-blur-xl rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] shadow-emerald-500/20 border border-white/80 overflow-hidden flex flex-col mb-2 relative"
+            transition={{ type: "spring", stiffness: 320, damping: 26 }}
+            className="w-[calc(100vw-2.5rem)] sm:w-[380px] md:w-[410px] bg-white rounded-3xl shadow-[0_25px_60px_-15px_rgba(15,81,50,0.3)] border border-emerald-100 overflow-hidden flex flex-col mb-2 relative"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 text-white p-6 pb-7 flex justify-between items-center z-10 relative overflow-hidden rounded-b-[2rem] shadow-sm">
-              {/* Decorative background shapes */}
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/20 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-12 -left-4 w-32 h-32 bg-black/10 rounded-full blur-xl"></div>
-              
-              <div className="flex items-center gap-4 relative z-10">
-                <div className="relative">
-                  <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/30 shadow-lg rotate-3">
-                    <Bot size={30} strokeWidth={1.5} className="-rotate-3" />
-                  </div>
-                  {botSpeaking && (
-                    <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-400 border-2 border-white rounded-full animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.8)]"></span>
-                  )}
+            <div className="bg-gradient-to-r from-[#0B3D2E] via-emerald-800 to-[#0F5132] text-white p-5 flex justify-between items-center z-10 relative shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-emerald-200 border border-white/20 shadow-md">
+                  <Bot size={26} strokeWidth={2} />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-black text-[18px] tracking-wide text-white drop-shadow-md">Kisan AI</span>
-                  <span className="text-[12px] font-semibold text-emerald-50 flex items-center gap-1.5 uppercase tracking-widest mt-0.5">
-                    {botSpeaking ? (
-                      <><span className="w-1.5 h-1.5 rounded-full bg-green-300 animate-ping"></span> Speaking</>
-                    ) : isThinking ? (
-                      <><span className="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse"></span> Thinking</>
-                    ) : isListening ? (
-                      <><span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span> Listening</>
-                    ) : (
-                      <><span className="w-1.5 h-1.5 rounded-full bg-emerald-200"></span> Online</>
-                    )}
+                  <span className="font-extrabold text-[17px] tracking-wide text-white flex items-center gap-2">
+                    Kisan Choice Assistant
+                  </span>
+                  <span className="text-[11px] font-semibold text-emerald-200 flex items-center gap-1.5 uppercase tracking-wider">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Quick Inquiry & Data Collector
                   </span>
                 </div>
               </div>
               <button 
-                onClick={turnOffBot} 
-                className="hover:bg-white/20 p-2.5 rounded-xl transition-all duration-300 backdrop-blur-md z-10 hover:rotate-90 hover:scale-110 bg-white/10 border border-white/20 self-start"
-                title="Close"
+                onClick={() => setChatOpen(false)} 
+                className="hover:bg-white/20 p-2 rounded-xl transition-all duration-300 text-white hover:scale-105 active:scale-95"
+                title="Close chat"
+                aria-label="Close chat"
               >
                 <X size={20} strokeWidth={2.5} />
               </button>
             </div>
 
             {/* Chat Body */}
-            <div className="p-5 h-[360px] overflow-y-auto flex flex-col gap-4 bg-gray-50/50 scrollbar-hide -mt-4 pt-8">
+            <div className="p-4 h-[380px] overflow-y-auto flex flex-col gap-3.5 bg-slate-50/70 scrollbar-thin scrollbar-thumb-emerald-200">
               {messages.map((msg, idx) => (
                 <motion.div
-                  initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   key={idx}
-                  className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"}`}
+                  initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.25 }}
+                  className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"} w-full`}
                 >
+                  {/* Bubble text */}
                   <div
-                    className={`max-w-[85%] px-4 py-3 rounded-2xl text-[14.5px] leading-[1.6] shadow-sm ${
+                    className={`max-w-[88%] px-4 py-3 rounded-2xl text-[14px] leading-relaxed shadow-xs ${
                       msg.sender === "user"
-                        ? "bg-gradient-to-tr from-emerald-500 to-teal-500 text-white rounded-br-sm shadow-emerald-500/20"
-                        : "bg-white border border-gray-100/80 text-gray-700 rounded-bl-sm shadow-gray-200/50"
+                        ? "bg-[#0B3D2E] text-white rounded-br-xs shadow-emerald-900/10"
+                        : "bg-white border border-emerald-100 text-slate-800 rounded-bl-xs shadow-slate-200/50"
                     }`}
                   >
                     {msg.text}
                   </div>
+
+                  {/* Clickable Choice Options */}
+                  {msg.options && (
+                    <div className="flex flex-col gap-2 mt-2.5 w-full pl-1">
+                      {msg.options.map((opt) => (
+                        <button
+                          key={opt.value}
+                          onClick={() => handleSelectOption(msg.step, opt)}
+                          className="w-full text-left px-3.5 py-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-emerald-200/80 hover:border-emerald-500 text-slate-800 hover:text-emerald-900 text-xs sm:text-[13px] font-semibold transition-all duration-200 shadow-xs hover:shadow-sm flex items-center justify-between group active:scale-[0.99]"
+                        >
+                          <span>{opt.label}</span>
+                          <ChevronRight size={15} className="text-emerald-500 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Completion Summary Card */}
+                  {msg.isSummary && msg.summaryData && (
+                    <div className="w-full mt-3 bg-white border border-emerald-200 rounded-2xl p-4 shadow-sm text-left">
+                      <div className="flex items-center gap-2 text-emerald-800 font-extrabold text-sm mb-3 border-b border-emerald-100 pb-2">
+                        <CheckCircle2 size={18} className="text-emerald-600" />
+                        <span>Saved Inquiry Details (JSON)</span>
+                      </div>
+
+                      <div className="space-y-1.5 text-xs text-slate-700">
+                        <div className="flex items-center gap-2">
+                          <User size={13} className="text-emerald-600 shrink-0" />
+                          <span className="text-slate-400">Name:</span>
+                          <span className="font-bold text-slate-900">{msg.summaryData.name}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Phone size={13} className="text-emerald-600 shrink-0" />
+                          <span className="text-slate-400">Phone:</span>
+                          <span className="font-bold text-slate-900">{msg.summaryData.phone}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <MapPin size={13} className="text-emerald-600 shrink-0" />
+                          <span className="text-slate-400">Location:</span>
+                          <span className="font-bold text-slate-900">{msg.summaryData.city}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Briefcase size={13} className="text-emerald-600 shrink-0" />
+                          <span className="text-slate-400">Requirement:</span>
+                          <span className="font-bold text-slate-900">{msg.summaryData.purpose}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Package size={13} className="text-emerald-600 shrink-0" />
+                          <span className="text-slate-400">Product:</span>
+                          <span className="font-bold text-slate-900">{msg.summaryData.product}</span>
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="mt-4 pt-3 border-t border-slate-100 flex flex-col gap-2">
+                        <button
+                          onClick={() => downloadInquiriesJSON(msg.summaryData)}
+                          className="w-full py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#0B3D2E] font-bold text-xs flex items-center justify-center gap-2 border border-emerald-300 transition-colors"
+                        >
+                          <Download size={14} /> Download Inquiry JSON
+                        </button>
+                        
+                        <button
+                          onClick={() => openWhatsAppWithData(msg.summaryData)}
+                          className="w-full py-2 px-3 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
+                        >
+                          <FaWhatsapp size={14} /> Send Directly on WhatsApp
+                        </button>
+
+                        <button
+                          onClick={handleResetFlow}
+                          className="w-full py-1.5 px-3 rounded-xl text-slate-500 hover:text-slate-800 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                        >
+                          <RefreshCw size={12} /> Nayi Inquiry Karein
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               ))}
-
-              {isThinking && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-start">
-                  <div className="bg-white border border-gray-100/80 px-4 py-3.5 rounded-2xl rounded-bl-sm shadow-sm flex gap-1.5 items-center h-[46px]">
-                    <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
-                    <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
-                    <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
-                  </div>
-                </motion.div>
-              )}
-
-              {isListening && (
-                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex justify-center mt-2 mb-1">
-                  <div className="text-[11px] font-bold text-rose-500 flex items-center gap-2 bg-rose-50 px-4 py-2 rounded-full animate-pulse border border-rose-100 shadow-sm uppercase tracking-wider">
-                    <Mic size={14} className="animate-bounce" /> Listening to you...
-                  </div>
-                </motion.div>
-              )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area */}
-            <div className="p-3 bg-white/80 backdrop-blur-md border-t border-gray-100 flex items-center gap-2">
-              {chatMode === "voice" && (
-                <button
-                  onClick={() => {
-                    if (isListening) safeStopRecognition();
-                    else {
-                      if (audioRef.current) audioRef.current.pause();
-                      setBotSpeaking(false);
-                      safeStartRecognition();
-                    }
-                  }}
-                  className={`p-3 rounded-2xl text-white shadow-md transition-all duration-300 ${
-                    isListening 
-                    ? "bg-rose-500 hover:bg-rose-600 shadow-rose-500/30 scale-105" 
-                    : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200 shadow-none hover:scale-105"
-                  }`}
-                  title={isListening ? "Stop Listening" : "Tap to Speak"}
-                >
-                  {isListening ? <MicOff size={20} strokeWidth={2} /> : <Mic size={20} strokeWidth={2.5} />}
-                </button>
-              )}
-              
+            {/* Input Form Area (Active during Name, Phone, City steps) */}
+            <div className="p-3 bg-white border-t border-emerald-100 flex items-center gap-2">
               <div className="flex-1 relative">
                 <input
-                  type="text"
+                  type={currentStep === "phone" ? "tel" : "text"}
                   value={inputText}
+                  disabled={["purpose", "product", "quantity"].includes(currentStep)}
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSendText()}
-                  placeholder="Ask me anything..."
-                  className="w-full bg-gray-50/80 border border-gray-200/60 rounded-2xl pl-4 pr-10 py-3 text-[14px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:bg-white transition-all shadow-inner"
+                  placeholder={getPlaceholder()}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-4 pr-10 py-3 text-[13.5px] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:bg-white transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                 />
                 <button
                   onClick={handleSendText}
-                  disabled={!inputText.trim()}
-                  className="absolute right-1.5 top-1.5 p-1.5 bg-gradient-to-tr from-emerald-500 to-teal-500 text-white rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition-all disabled:opacity-0 disabled:scale-75 disabled:pointer-events-none scale-100"
-                  title="Send message"
+                  disabled={!inputText.trim() || ["purpose", "product", "quantity"].includes(currentStep)}
+                  className="absolute right-1.5 top-1.5 p-2 bg-[#0B3D2E] hover:bg-[#125841] text-white rounded-xl transition-all disabled:opacity-0 disabled:scale-75 disabled:pointer-events-none scale-100 shadow-sm"
+                  title="Send"
+                  aria-label="Send"
                 >
-                  <Send size={16} strokeWidth={2} />
+                  <Send size={15} strokeWidth={2.5} />
                 </button>
               </div>
+
+              {/* Reset Button */}
+              <button
+                onClick={handleResetFlow}
+                className="p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors shrink-0"
+                title="Reset / Start Over"
+                aria-label="Reset chat"
+              >
+                <RefreshCw size={16} />
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Floating Action Buttons */}
       <div className="flex flex-col gap-3 relative">
-        {/* Mode Selector */}
-        <AnimatePresence>
-          {showModeSelector && !chatOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 10 }}
-              className="absolute bottom-[140px] right-0 flex flex-col gap-3 z-20"
-            >
-              <button
-                onClick={() => startBotInMode("voice")}
-                className="flex items-center gap-3 bg-gradient-to-r from-rose-500 to-pink-600 text-white px-5 py-3 rounded-full shadow-lg shadow-rose-500/30 hover:scale-105 transition-all w-44"
-              >
-                <div className="bg-white/20 p-2 rounded-full"><Mic size={18} /></div>
-                <span className="font-semibold text-[15px]">Voice Mode</span>
-              </button>
-              <button
-                onClick={() => startBotInMode("chat")}
-                className="flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-5 py-3 rounded-full shadow-lg shadow-emerald-500/30 hover:scale-105 transition-all w-44"
-              >
-                <div className="bg-white/20 p-2 rounded-full"><MessageSquare size={18} /></div>
-                <span className="font-semibold text-[15px]">Chat Mode</span>
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Voice Bot Button */}
+        
+        {/* Chat Assistant Toggle Button (Voice Mode completely removed) */}
         <div className="relative group">
-          {isListening && chatOpen && (
-             <span className="absolute -inset-3 rounded-full border border-teal-400 animate-ping opacity-50"></span>
-          )}
-          {/* Subtle pulse for the main button when closed */}
           {!chatOpen && (
-             <span className="absolute -inset-1 rounded-full bg-emerald-500/30 animate-pulse blur-md"></span>
+            <span className="absolute -inset-1 rounded-full bg-emerald-500/30 animate-pulse blur-md"></span>
           )}
           <button
-            onClick={handleMainButtonClick}
-            className={`w-[60px] h-[60px] rounded-full flex items-center justify-center text-white shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] transition-all duration-500 focus:outline-none z-10 relative ${
+            onClick={() => setChatOpen(!chatOpen)}
+            className={`w-[56px] h-[56px] md:w-[62px] md:h-[62px] rounded-full flex items-center justify-center text-white shadow-[0_10px_25px_-5px_rgba(15,81,50,0.4)] transition-all duration-300 focus:outline-none z-10 relative ${
               chatOpen 
-              ? "bg-rose-500 hover:bg-rose-600 shadow-rose-500/40 rotate-90" 
-              : "bg-gradient-to-tr from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 shadow-emerald-500/40 hover:-translate-y-1 hover:scale-105"
+                ? "bg-rose-500 hover:bg-rose-600 shadow-rose-500/30 rotate-90" 
+                : "bg-gradient-to-tr from-[#0B3D2E] via-emerald-700 to-teal-600 hover:scale-105 active:scale-95"
             }`}
-            title="Kisan AI Assistant"
+            title="Kisan Choice Inquiry Assistant"
+            aria-label="Open chat assistant"
           >
-            {chatOpen ? <X size={28} strokeWidth={2.5} className="-rotate-90" /> : <Bot size={30} strokeWidth={1.5} />}
+            {chatOpen ? (
+              <X size={26} strokeWidth={2.5} className="-rotate-90" />
+            ) : (
+              <Bot size={28} strokeWidth={2} />
+            )}
           </button>
         </div>
 
-        {/* WhatsApp Button */}
+        {/* WhatsApp Direct Connect Button */}
         <button
-          onClick={openWhatsApp}
-          className="flex w-[48px] h-[48px] md:w-[60px] md:h-[60px] rounded-full items-center justify-center bg-gradient-to-tr from-[#25D366] to-[#128C7E] text-white shadow-[0_10px_25px_-5px_rgba(37,211,102,0.4)] transition-all duration-300 hover:-translate-y-1 hover:scale-105 focus:outline-none"
-          title="Chat on WhatsApp"
+          onClick={openGeneralWhatsApp}
+          className="flex w-[48px] h-[48px] md:w-[56px] md:h-[56px] rounded-full items-center justify-center bg-gradient-to-tr from-[#25D366] to-[#128C7E] text-white shadow-[0_10px_25px_-5px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none"
+          title="Chat directly on WhatsApp"
+          aria-label="WhatsApp"
         >
-          <FaWhatsapp className="w-[26px] h-[26px] md:w-[32px] md:h-[32px]" />
+          <FaWhatsapp className="w-[26px] h-[26px] md:w-[30px] md:h-[30px]" />
           <span className="sr-only">WhatsApp</span>
         </button>
       </div>
