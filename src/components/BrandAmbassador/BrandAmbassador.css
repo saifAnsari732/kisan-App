@@ -491,37 +491,81 @@
 /* RESPONSIVE DESIGN (< 768px) */
 @media (max-width: 767px) {
   .kc-ambassador-section {
-    padding: 50px 16px;
+    padding: 40px 14px;
+  }
+
+  .kc-ambassador-header {
+    margin-bottom: 28px;
+    gap: 10px;
   }
 
   .kc-ambassador-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px 12px;
+    gap: 14px 10px;
   }
 
   .kc-ambassador-card {
-    padding: 16px 12px;
+    padding: 16px 10px 18px !important;
+    min-height: auto !important;
+    height: auto !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .kc-ambassador-card:hover {
+    transform: translateY(-4px);
   }
 
   .kc-ambassador-avatar-wrapper {
-    width: 130px;
-    height: 130px;
-    margin-bottom: 12px;
+    width: 108px !important;
+    height: 108px !important;
+    padding: 5px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .kc-ambassador-info {
+    gap: 5px !important;
+    width: 100% !important;
+  }
+
+  .kc-ambassador-tag {
+    font-size: 9.5px !important;
+    padding: 3px 8px !important;
+    line-height: 1.25 !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    border-radius: 8px !important;
+    letter-spacing: 0.02em !important;
   }
 
   .kc-ambassador-name {
-    font-size: 14px;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+    color: #0F172A !important;
+    margin-top: 2px !important;
   }
 
   .kc-ambassador-tagline {
-    font-size: 11px;
-    min-height: auto;
+    font-size: 10.5px !important;
+    line-height: 1.35 !important;
+    color: #64748B !important;
+    min-height: auto !important;
+    margin-top: 2px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
   }
 
   .kc-ambassador-footer-banner {
     flex-direction: column;
-    padding: 20px;
-    gap: 16px;
+    padding: 18px;
+    gap: 14px;
+    margin-top: 36px;
+    border-radius: 20px;
   }
 
   .kc-stat-divider {
@@ -541,5 +585,34 @@
 
   .kc-ambassador-modal-name {
     font-size: 13px;
+  }
+}
+
+/* Extra small mobile (< 380px) */
+@media (max-width: 380px) {
+  .kc-ambassador-grid {
+    gap: 12px 8px;
+  }
+
+  .kc-ambassador-card {
+    padding: 12px 8px 14px !important;
+  }
+
+  .kc-ambassador-avatar-wrapper {
+    width: 92px !important;
+    height: 92px !important;
+  }
+
+  .kc-ambassador-tag {
+    font-size: 8.5px !important;
+    padding: 2.5px 6px !important;
+  }
+
+  .kc-ambassador-name {
+    font-size: 13px !important;
+  }
+
+  .kc-ambassador-tagline {
+    font-size: 9.5px !important;
   }
 }

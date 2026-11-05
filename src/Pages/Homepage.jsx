@@ -112,19 +112,19 @@ export default function HeroCarousel() {
       </Helmet>
 
       {/* 🔥 HERO */}
-      <div className="w-full flex justify-center bg-gray-100 pt-0 md:pt-4">
+      <div className="w-full flex justify-center bg-gray-100 pt-3 sm:pt-4 md:pt-6 pb-2 px-3 sm:px-5 md:px-8">
         <div
-          className="slider-container relative"
+          className="slider-container relative max-w-[1440px] w-full rounded-2xl md:rounded-[28px] overflow-hidden shadow-md md:shadow-xl border border-gray-200/60"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
           <img
             src={slides[current].img}
-            alt="banner"
+            alt="Kisan Choice Edible Oils Banner"
             loading="eager"
             fetchPriority="high"
-            className="w-full h-full object-contain rounded-2xl"
+            className="w-full h-full object-contain rounded-2xl md:rounded-[28px]"
           />
 
           <SocialSidebar />
