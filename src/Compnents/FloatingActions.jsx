@@ -13,302 +13,496 @@ import {
   User, 
   Package, 
   Briefcase,
-  ChevronRight
+  Building2,
+  ChevronRight,
+  DollarSign,
+  Truck
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 
+// Initial Branch Selection
 const INITIAL_GREETING = {
   sender: "bot",
   text: "Namaste! 🙏 Kisan Choice Assistant me aapka swagat hai. Kripya batayein aapko kis vishay me sahayata chahiye?",
-  step: "purpose",
+  step: "branch_select",
   options: [
-    { label: "🏢 Distributorship / Dealership", value: "Distributorship / Dealership" },
-    { label: "📦 Bulk Wholesale Order", value: "Bulk Wholesale Order" },
-    { label: "🛒 Retail / Ghar ke liye Order", value: "Retail / Ghar ke liye Order" },
-    { label: "📋 Product Catalog & Rate List", value: "Product Catalog & Rate List" }
+    { label: "🏢 Distributorship / Dealership", value: "dealership" },
+    { label: "📦 Bulk Wholesale Order", value: "wholesale" },
+    { label: "🛒 Retail / Ghar ke liye Order", value: "retail" },
+    { label: "📋 Product Catalog & Rate List", value: "catalog" }
   ]
 };
 
-const PRODUCT_OPTIONS = [
-  { label: "🟡 Kachi Ghani Mustard Oil", value: "Kachi Ghani Mustard Oil" },
-  { label: "🪔 Pooja Oil (पूजा तेल)", value: "Pooja Oil" },
-  { label: "🌾 Refined Soyabean Oil", value: "Refined Soyabean Oil" },
-  { label: "🌻 Refined Sunflower Oil", value: "Refined Sunflower Oil" },
-  { label: "🥥 Coconut / Groundnut / Alsi Oil", value: "Coconut / Groundnut / Alsi Oil" },
-  { label: "🛍️ All Edible Oils (Combo)", value: "All Edible Oils (Combo)" }
-];
+// Branch-specific flow definitions
+const BRANCH_CONFIGS = {
+  dealership: {
+    categoryTitle: "Distributorship / Dealership Inquiry",
+    steps: [
+      {
+        key: "dealershipLevel",
+        botPrompt: "Aap kis level ki Dealership / Distributorship me ruchi rakhte hain?",
+        type: "options",
+        options: [
+          { label: "⭐ District Super Stockist (DSS)", value: "District Super Stockist (DSS)" },
+          { label: "🌾 Rural Super Stockist (RSS)", value: "Rural Super Stockist (RSS)" },
+          { label: "🏙️ City Retail Distributor", value: "City Retail Distributor" },
+          { label: "🚚 C&F / Wholesale Partner", value: "C&F / Wholesale Partner" }
+        ]
+      },
+      {
+        key: "investmentBudget",
+        botPrompt: "Aapka anumaanit investment budget kitna hai?",
+        type: "options",
+        options: [
+          { label: "💰 ₹2 Lakh - ₹5 Lakh", value: "₹2 Lakh - ₹5 Lakh" },
+          { label: "💼 ₹5 Lakh - ₹10 Lakh", value: "₹5 Lakh - ₹10 Lakh" },
+          { label: "🏢 ₹10 Lakh - ₹25 Lakh+", value: "₹10 Lakh - ₹25 Lakh+" },
+          { label: "📄 Pehle Scheme aur Margin samajhna hai", value: "Pehle Scheme aur Margin samajhna hai" }
+        ]
+      },
+      {
+        key: "targetProducts",
+        botPrompt: "Aap apne area me kaunse products distribute karna chahte hain?",
+        type: "options",
+        options: [
+          { label: "🟡 Kachi Ghani Mustard Oil (Main)", value: "Kachi Ghani Mustard Oil" },
+          { label: "🪔 Pooja Oil & Refined Range", value: "Pooja Oil & Refined Range" },
+          { label: "🛍️ All Products (Complete Portfolio)", value: "All Products (Complete Portfolio)" }
+        ]
+      },
+      {
+        key: "applicantName",
+        botPrompt: "Kripya apna Shubhnaam (Applicant Name) batayein:",
+        type: "input",
+        placeholder: "Enter Applicant Name..."
+      },
+      {
+        key: "firmName",
+        botPrompt: "Aapki Firm ya Business ka naam kya hai? (Firm Name):",
+        type: "input",
+        placeholder: "Enter Firm / Business Name..."
+      },
+      {
+        key: "mobileNumber",
+        botPrompt: "Apna 10-digit WhatsApp / Calling Number enter karein:",
+        type: "input",
+        inputType: "tel",
+        placeholder: "Enter 10-digit Mobile Number..."
+      },
+      {
+        key: "targetLocation",
+        botPrompt: "Aap kis District aur State (e.g. Gorakhpur, UP) me dealership chahte hain?",
+        type: "input",
+        placeholder: "Enter Target District & State..."
+      }
+    ]
+  },
 
-const QUANTITY_OPTIONS = [
-  { label: "📦 Retail (1L, 2L, 5L Packs)", value: "Retail (1L, 2L, 5L Packs)" },
-  { label: "🛢️ 15L Tins & Bulk Cartons", value: "15L Tins & Bulk Cartons" },
-  { label: "🚛 Commercial Bulk (500L - 2000L+)", value: "Commercial Bulk (500L - 2000L+)" },
-  { label: "📄 Sample / Rate Sheet Only", value: "Sample / Rate Sheet Only" }
-];
+  wholesale: {
+    categoryTitle: "Bulk Wholesale Order",
+    steps: [
+      {
+        key: "businessType",
+        botPrompt: "Aap kiske liye bulk me oil kharidna chahte hain?",
+        type: "options",
+        options: [
+          { label: "🍽️ Hotel / Restaurant / Catering (HoReCa)", value: "Hotel / Restaurant / Catering" },
+          { label: "🏭 Food Processing / Namkeen & Snacks Unit", value: "Food Processing / Namkeen Unit" },
+          { label: "🏬 Wholesale Mandi Trader / Superstore", value: "Wholesale Mandi Trader" },
+          { label: "🏢 Canteen / Institution / NGO", value: "Institution / Canteen" }
+        ]
+      },
+      {
+        key: "bulkProduct",
+        botPrompt: "Aapko kaunsa oil bulk me chahiye?",
+        type: "options",
+        options: [
+          { label: "🟡 Kachi Ghani Mustard Oil (15L Tin / Drum)", value: "Kachi Ghani Mustard (15L Tin / Drum)" },
+          { label: "🌾 Refined Soyabean Oil (15L Tin / Cartons)", value: "Refined Soyabean (15L Tin / Cartons)" },
+          { label: "🌻 Refined Sunflower / Palmolein Oil", value: "Sunflower / Palmolein Oil" },
+          { label: "🔀 Mixed Multi-Product Load", value: "Mixed Multi-Product Load" }
+        ]
+      },
+      {
+        key: "monthlyVolume",
+        botPrompt: "Aapki monthly requirement lagbhag kitni rehti hai?",
+        type: "options",
+        options: [
+          { label: "📦 50 to 100 Tins / Cartons", value: "50 - 100 Tins/Cartons" },
+          { label: "🛢️ 200 to 500 Tins / Cartons", value: "200 - 500 Tins/Cartons" },
+          { label: "🚛 Full Truck Load (FTL / 10-15 Tonnes)", value: "Full Truck Load (FTL)" },
+          { label: "📄 Sample Pack / Pehle Rate Chahiye", value: "Sample Pack / Rate Sheet" }
+        ]
+      },
+      {
+        key: "contactName",
+        botPrompt: "Kripya Contact Person ka naam batayein:",
+        type: "input",
+        placeholder: "Enter Contact Person Name..."
+      },
+      {
+        key: "businessName",
+        botPrompt: "Aapke Business / Restaurant / Firm ka naam:",
+        type: "input",
+        placeholder: "Enter Business Name..."
+      },
+      {
+        key: "mobileNumber",
+        botPrompt: "WhatsApp / Contact Number enter karein:",
+        type: "input",
+        inputType: "tel",
+        placeholder: "Enter 10-digit Mobile Number..."
+      },
+      {
+        key: "deliveryLocation",
+        botPrompt: "Delivery Location (City & Mandi / Industrial Area) batayein:",
+        type: "input",
+        placeholder: "Enter Delivery City & Area..."
+      }
+    ]
+  },
+
+  retail: {
+    categoryTitle: "Retail / Ghar ke liye Order",
+    steps: [
+      {
+        key: "retailProduct",
+        botPrompt: "Aap ghar ke liye kaunsa tel order karna chahte hain?",
+        type: "options",
+        options: [
+          { label: "🟡 Kisan Choice Kachi Ghani Mustard (कच्ची घानी)", value: "Kachi Ghani Mustard Oil" },
+          { label: "🪔 Kisan Choice Pooja Oil (पूजा व दीप के लिए)", value: "Pooja Oil" },
+          { label: "🌾 Refined Soyabean Oil (हल्का व सुपाच्य)", value: "Refined Soyabean Oil" },
+          { label: "🌻 Refined Sunflower Oil (Heart Friendly)", value: "Refined Sunflower Oil" },
+          { label: "🥗 Monthly Family Kitchen Combo", value: "Monthly Family Kitchen Combo" }
+        ]
+      },
+      {
+        key: "packSize",
+        botPrompt: "Aapko kaunsi pack size chahiye?",
+        type: "options",
+        options: [
+          { label: "🍾 1 Litre Bottle / Pouch (Trial Pack)", value: "1 Litre Pack" },
+          { label: "🏺 2 Litre / 5 Litre Can", value: "2L / 5L Can" },
+          { label: "🛢️ 15 Litre Kitchen Tin (Bachat Pack)", value: "15 Litre Kitchen Tin" },
+          { label: "🎁 All-in-One Family Combo Pack", value: "All-in-One Family Combo" }
+        ]
+      },
+      {
+        key: "deliveryPreference",
+        botPrompt: "Aap delivery kaise prefer karenge?",
+        type: "options",
+        options: [
+          { label: "🚚 Home Delivery (Doorstep)", value: "Home Delivery" },
+          { label: "🏪 Nearest Retail Store / Dealership se", value: "Nearest Store Pickup" }
+        ]
+      },
+      {
+        key: "customerName",
+        botPrompt: "Kripya apna Shubhnaam (Name) batayein:",
+        type: "input",
+        placeholder: "Enter your Full Name..."
+      },
+      {
+        key: "mobileNumber",
+        botPrompt: "Apna 10-digit Mobile / WhatsApp Number enter karein:",
+        type: "input",
+        inputType: "tel",
+        placeholder: "Enter 10-digit Mobile Number..."
+      },
+      {
+        key: "pincodeCity",
+        botPrompt: "Delivery Area ka Pincode aur City (e.g. 226001, Lucknow):",
+        type: "input",
+        placeholder: "Enter Pincode & City..."
+      }
+    ]
+  },
+
+  catalog: {
+    categoryTitle: "Product Catalog & Rate List",
+    steps: [
+      {
+        key: "catalogType",
+        botPrompt: "Aapko kiska Catalog & Rate List chahiye?",
+        type: "options",
+        options: [
+          { label: "🛍️ Consumer Product Catalog & Brochure", value: "Consumer Product Catalog" },
+          { label: "📋 Trade & Wholesale Rate Sheet", value: "Trade & Wholesale Rate Sheet" },
+          { label: "💼 Distributorship Margin & ROI Guide", value: "Distributor Margin Guide" },
+          { label: "📑 Complete Company Portfolio (PDF)", value: "Complete Company Portfolio" }
+        ]
+      },
+      {
+        key: "receiveMode",
+        botPrompt: "Aap catalog kis madhyam se paana chahte hain?",
+        type: "options",
+        options: [
+          { label: "📱 Instant WhatsApp Delivery (PDF File)", value: "Instant WhatsApp" },
+          { label: "📥 Direct Website Download", value: "Direct Download" }
+        ]
+      },
+      {
+        key: "recipientName",
+        botPrompt: "Kripya apna Naam (Name) batayein:",
+        type: "input",
+        placeholder: "Enter your Name..."
+      },
+      {
+        key: "mobileNumber",
+        botPrompt: "Apna WhatsApp / Mobile Number batayein jaha catalog bhejna hai:",
+        type: "input",
+        inputType: "tel",
+        placeholder: "Enter WhatsApp Number..."
+      },
+      {
+        key: "city",
+        botPrompt: "Aap kis City / State se hain?",
+        type: "input",
+        placeholder: "Enter your City & State..."
+      }
+    ]
+  }
+};
 
 export default function FloatingActions() {
   const [chatOpen, setChatOpen] = useState(false);
   const [messages, setMessages] = useState([INITIAL_GREETING]);
-  const [currentStep, setCurrentStep] = useState("purpose"); // 'purpose' | 'product' | 'quantity' | 'name' | 'phone' | 'city' | 'completed'
+  
+  // Tracking active branch and step index
+  const [activeBranch, setActiveBranch] = useState(null); // 'dealership' | 'wholesale' | 'retail' | 'catalog'
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [collectedData, setCollectedData] = useState({});
+  const [isCompleted, setIsCompleted] = useState(false);
   const [inputText, setInputText] = useState("");
-  const [formData, setFormData] = useState({
-    purpose: "",
-    product: "",
-    quantity: "",
-    name: "",
-    phone: "",
-    city: ""
-  });
-  const [lastSavedInquiry, setLastSavedInquiry] = useState(null);
+  const [lastSavedRecord, setLastSavedRecord] = useState(null);
 
   const messagesEndRef = useRef(null);
 
-  // Auto scroll to bottom
+  // Auto-scroll
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Save inquiry to JSON in localStorage and attempt server sync
-  const saveInquiryToJson = async (completedData) => {
+  // Save finalized inquiry to JSON (LocalStorage + optional Backend)
+  const saveCompletedInquiry = async (finalData, branchKey) => {
     try {
-      const inquiryRecord = {
-        id: `KC-${Date.now().toString().slice(-6)}`,
+      const record = {
+        id: `KC-${branchKey.toUpperCase().slice(0, 3)}-${Date.now().toString().slice(-6)}`,
+        category: BRANCH_CONFIGS[branchKey].categoryTitle,
+        branch: branchKey,
         timestamp: new Date().toISOString(),
         formattedDate: new Date().toLocaleString("en-IN", {
           dateStyle: "medium",
           timeStyle: "short"
         }),
-        ...completedData
+        data: finalData
       };
 
-      // 1. Save to browser LocalStorage
-      const existingInquiries = JSON.parse(localStorage.getItem("kisan_inquiries_data") || "[]");
-      const updatedList = [inquiryRecord, ...existingInquiries];
-      localStorage.setItem("kisan_inquiries_data", JSON.stringify(updatedList, null, 2));
+      // 1. Browser LocalStorage persistence
+      const existing = JSON.parse(localStorage.getItem("kisan_inquiries_data") || "[]");
+      const updated = [record, ...existing];
+      localStorage.setItem("kisan_inquiries_data", JSON.stringify(updated, null, 2));
 
-      setLastSavedInquiry(inquiryRecord);
+      setLastSavedRecord(record);
 
-      // 2. Try saving to backend API if available
+      // 2. Server persistence if backend is available
       try {
         await fetch("/api/inquiries", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(inquiryRecord)
+          body: JSON.stringify(record)
         });
       } catch (err) {
-        // Backend offline or running purely on static host; LocalStorage handles persistence safely
-        console.log("Local inquiry recorded (offline / static host fallback)");
+        console.log("Recorded to LocalStorage successfully");
       }
 
-      return inquiryRecord;
+      return record;
     } catch (e) {
-      console.error("Error saving inquiry:", e);
+      console.error("Failed to save inquiry:", e);
       return null;
     }
   };
 
-  // Download all or current inquiry as a JSON file
-  const downloadInquiriesJSON = (singleRecord = null) => {
+  // Download inquiry as a structured JSON file
+  const downloadJSONFile = (record = null) => {
     try {
-      const allData = JSON.parse(localStorage.getItem("kisan_inquiries_data") || "[]");
-      const dataToExport = singleRecord || (allData.length > 0 ? allData : [lastSavedInquiry]);
+      const target = record || lastSavedRecord;
+      if (!target) return;
 
-      const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+      const blob = new Blob([JSON.stringify(target, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = singleRecord 
-        ? `kisan_inquiry_${singleRecord.id || "data"}.json` 
-        : `kisan_all_inquiries_${new Date().toISOString().split("T")[0]}.json`;
+      link.download = `kisan_${target.branch || "inquiry"}_${target.id}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      toast.success("JSON file downloaded successfully! 📁");
+      toast.success("JSON file downloaded! 📁");
     } catch (err) {
       toast.error("Download failed, please try again.");
     }
   };
 
-  // Handle Option selection from clickable buttons
-  const handleSelectOption = (step, option) => {
-    // Add user message
-    setMessages((prev) => [...prev, { sender: "user", text: option.label }]);
-
-    if (step === "purpose") {
-      const updated = { ...formData, purpose: option.value };
-      setFormData(updated);
-      setCurrentStep("product");
-
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            text: "Kripya batayein aap kis product me ruchi rakhte hain?",
-            step: "product",
-            options: PRODUCT_OPTIONS
-          }
-        ]);
-      }, 350);
-    } else if (step === "product") {
-      const updated = { ...formData, product: option.value };
-      setFormData(updated);
-      setCurrentStep("quantity");
+  // Move to next step in the current branch
+  const advanceToNextStep = async (newCollectedData, nextIndex) => {
+    const branchConfig = BRANCH_CONFIGS[activeBranch];
+    
+    // Check if branch steps are finished
+    if (nextIndex >= branchConfig.steps.length) {
+      setIsCompleted(true);
+      const saved = await saveCompletedInquiry(newCollectedData, activeBranch);
 
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
           {
             sender: "bot",
-            text: "Aapki lagbhag kitni quantity / volume ki aavashyakta hai?",
-            step: "quantity",
-            options: QUANTITY_OPTIONS
+            text: `Aapki ${branchConfig.categoryTitle} ki details safaltapoorvak JSON file me darj ho gayi hain! ✅`,
+            isSummary: true,
+            record: saved || { data: newCollectedData, category: branchConfig.categoryTitle }
           }
         ]);
       }, 350);
-    } else if (step === "quantity") {
-      const updated = { ...formData, quantity: option.value };
-      setFormData(updated);
-      setCurrentStep("name");
-
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            text: "Bahut badhiya! Aapse sampark karne ke liye, kripya apna Shubhnaam (Full Name) batayein:"
-          }
-        ]);
-      }, 350);
+      return;
     }
+
+    // Otherwise, show the next step question
+    setActiveStepIndex(nextIndex);
+    const nextStep = branchConfig.steps[nextIndex];
+
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: nextStep.botPrompt,
+          stepKey: nextStep.key,
+          stepType: nextStep.type,
+          options: nextStep.options || null
+        }
+      ]);
+    }, 300);
   };
 
-  // Handle text input submission (Name, Phone, City)
-  const handleSendText = async () => {
-    const trimmed = inputText.trim();
-    if (!trimmed) return;
+  // Handle User clicking an option chip
+  const handleSelectOption = (option) => {
+    // 1. Initial Branch Selection
+    if (!activeBranch) {
+      const branchKey = option.value;
+      setActiveBranch(branchKey);
+      setMessages((prev) => [...prev, { sender: "user", text: option.label }]);
 
-    // Append user input
-    setMessages((prev) => [...prev, { sender: "user", text: trimmed }]);
-    setInputText("");
-
-    if (currentStep === "name") {
-      const updated = { ...formData, name: trimmed };
-      setFormData(updated);
-      setCurrentStep("phone");
+      const firstStep = BRANCH_CONFIGS[branchKey].steps[0];
+      setActiveStepIndex(0);
 
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
           {
             sender: "bot",
-            text: `Shukriya ${trimmed} ji! Kripya apna 10-digit WhatsApp / Mobile Number enter karein:`
+            text: firstStep.botPrompt,
+            stepKey: firstStep.key,
+            stepType: firstStep.type,
+            options: firstStep.options || null
           }
         ]);
       }, 350);
-    } else if (currentStep === "phone") {
-      const cleanedPhone = trimmed.replace(/\D/g, "");
-      if (cleanedPhone.length < 10) {
-        setTimeout(() => {
-          setMessages((prev) => [
-            ...prev,
-            {
-              sender: "bot",
-              text: "⚠️ Kripya valid 10-digit mobile number enter karein (e.g. 9876543210):"
-            }
-          ]);
-        }, 300);
+      return;
+    }
+
+    // 2. Step inside the active branch
+    const currentStepConfig = BRANCH_CONFIGS[activeBranch].steps[activeStepIndex];
+    const updatedData = { ...collectedData, [currentStepConfig.key]: option.value };
+    setCollectedData(updatedData);
+
+    setMessages((prev) => [...prev, { sender: "user", text: option.label }]);
+    advanceToNextStep(updatedData, activeStepIndex + 1);
+  };
+
+  // Handle User text submission
+  const handleSendText = () => {
+    const trimmed = inputText.trim();
+    if (!trimmed || !activeBranch || isCompleted) return;
+
+    const currentStepConfig = BRANCH_CONFIGS[activeBranch].steps[activeStepIndex];
+
+    // Phone number validation if step is mobileNumber
+    if (currentStepConfig.inputType === "tel") {
+      const digits = trimmed.replace(/\D/g, "");
+      if (digits.length < 10) {
+        setMessages((prev) => [
+          ...prev,
+          { sender: "user", text: trimmed },
+          { sender: "bot", text: "⚠️ Kripya ek valid 10-digit mobile number enter karein (e.g. 9876543210):" }
+        ]);
+        setInputText("");
         return;
       }
-
-      const updated = { ...formData, phone: cleanedPhone };
-      setFormData(updated);
-      setCurrentStep("city");
-
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            text: "Aap kis City aur State (e.g. Lucknow, Uttar Pradesh) se hain?"
-          }
-        ]);
-      }, 350);
-    } else if (currentStep === "city") {
-      const completedData = { ...formData, city: trimmed };
-      setFormData(completedData);
-      setCurrentStep("completed");
-
-      // Save to JSON
-      const savedRecord = await saveInquiryToJson(completedData);
-
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            text: "Aapki inquiry safaltapoorvak darj ho gayi hai aur JSON file me add ho chuki hai! ✅",
-            isSummary: true,
-            summaryData: savedRecord || completedData
-          }
-        ]);
-      }, 400);
-    } else if (currentStep === "completed") {
-      // If user types anything after completion
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            text: "Aapka data pehle se save hai. Agar aap nayi inquiry karna chahte hain, to 'Nayi Inquiry Karein' button dabayein."
-          }
-        ]);
-      }, 300);
     }
-  };
 
-  // Reset conversational flow for a new inquiry
-  const handleResetFlow = () => {
-    setFormData({
-      purpose: "",
-      product: "",
-      quantity: "",
-      name: "",
-      phone: "",
-      city: ""
-    });
-    setCurrentStep("purpose");
-    setMessages([INITIAL_GREETING]);
+    const updatedData = { ...collectedData, [currentStepConfig.key]: trimmed };
+    setCollectedData(updatedData);
     setInputText("");
+
+    setMessages((prev) => [...prev, { sender: "user", text: trimmed }]);
+    advanceToNextStep(updatedData, activeStepIndex + 1);
   };
 
-  // Open WhatsApp with pre-filled inquiry details
-  const openWhatsAppWithData = (data = null) => {
-    const d = data || lastSavedInquiry || formData;
-    const textMsg = encodeURIComponent(
-      `*Namaste Kisan Choice Team!* 🙏\nMaine website se inquiry submit ki hai:\n\n` +
-      `👤 *Name:* ${d.name || "Customer"}\n` +
-      `📱 *Mobile:* ${d.phone || "N/A"}\n` +
-      `📍 *Location:* ${d.city || "India"}\n` +
-      `🏢 *Requirement:* ${d.purpose || "Product Inquiry"}\n` +
-      `🛢️ *Product:* ${d.product || "Edible Oils"}\n` +
-      `📦 *Quantity:* ${d.quantity || "Retail"}\n\n` +
-      `Kripya mujhe jald se jald details aur quotation bhejein. Dhanyavaad!`
-    );
-    window.open(`https://wa.me/916390059995?text=${textMsg}`, "_blank");
+  // Reset entire flow
+  const handleReset = () => {
+    setActiveBranch(null);
+    setActiveStepIndex(0);
+    setCollectedData({});
+    setIsCompleted(false);
+    setInputText("");
+    setMessages([INITIAL_GREETING]);
+  };
+
+  // Generate WhatsApp inquiry text
+  const openWhatsAppWithInquiry = (record = null) => {
+    const rec = record || lastSavedRecord;
+    const d = rec?.data || collectedData;
+    const cat = rec?.category || "Inquiry";
+
+    let messageLines = [
+      `*Namaste Kisan Choice Team!* 🙏`,
+      `Website se nayi *${cat}* darj hui hai:`,
+      ``
+    ];
+
+    Object.entries(d).forEach(([k, v]) => {
+      // Readable format
+      const formattedKey = k.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase());
+      messageLines.push(`• *${formattedKey}:* ${v}`);
+    });
+
+    messageLines.push(``);
+    messageLines.push(`Kripya mujhe jald se jald details & confirmation bhejein. Dhanyavaad!`);
+
+    const textEncoded = encodeURIComponent(messageLines.join("\n"));
+    window.open(`https://wa.me/916390059995?text=${textEncoded}`, "_blank");
   };
 
   const openGeneralWhatsApp = () => {
     window.open("https://wa.me/916390059995", "_blank");
   };
 
-  const getPlaceholder = () => {
-    if (currentStep === "name") return "Enter your Full Name...";
-    if (currentStep === "phone") return "Enter 10-digit Mobile Number...";
-    if (currentStep === "city") return "Enter City & State (e.g. Lucknow, UP)...";
-    if (currentStep === "completed") return "Inquiry submitted! Tap New Inquiry to reset...";
-    return "Please select from the options above...";
+  // Determine input placeholder based on current active step
+  const getInputPlaceholder = () => {
+    if (!activeBranch) return "Please choose an option above...";
+    if (isCompleted) return "Inquiry saved! Tap Reset to start new...";
+    const cur = BRANCH_CONFIGS[activeBranch]?.steps[activeStepIndex];
+    if (cur?.type === "input") return cur.placeholder || "Type your answer here...";
+    return "Please choose an option above...";
+  };
+
+  const isInputDisabled = () => {
+    if (!activeBranch || isCompleted) return true;
+    const cur = BRANCH_CONFIGS[activeBranch]?.steps[activeStepIndex];
+    return cur?.type !== "input";
   };
 
   return (
@@ -322,7 +516,7 @@ export default function FloatingActions() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 320, damping: 26 }}
-            className="w-[calc(100vw-2.5rem)] sm:w-[380px] md:w-[410px] bg-white rounded-3xl shadow-[0_25px_60px_-15px_rgba(15,81,50,0.3)] border border-emerald-100 overflow-hidden flex flex-col mb-2 relative"
+            className="w-[calc(100vw-2.5rem)] sm:w-[390px] md:w-[420px] bg-white rounded-3xl shadow-[0_25px_60px_-15px_rgba(15,81,50,0.3)] border border-emerald-100 overflow-hidden flex flex-col mb-2 relative"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#0B3D2E] via-emerald-800 to-[#0F5132] text-white p-5 flex justify-between items-center z-10 relative shadow-sm">
@@ -331,12 +525,12 @@ export default function FloatingActions() {
                   <Bot size={26} strokeWidth={2} />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-extrabold text-[17px] tracking-wide text-white flex items-center gap-2">
+                  <span className="font-extrabold text-[16.5px] tracking-wide text-white flex items-center gap-2">
                     Kisan Choice Assistant
                   </span>
                   <span className="text-[11px] font-semibold text-emerald-200 flex items-center gap-1.5 uppercase tracking-wider">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Quick Inquiry & Data Collector
+                    {activeBranch ? BRANCH_CONFIGS[activeBranch].categoryTitle : "Interactive Data Collector"}
                   </span>
                 </div>
               </div>
@@ -350,8 +544,8 @@ export default function FloatingActions() {
               </button>
             </div>
 
-            {/* Chat Body */}
-            <div className="p-4 h-[380px] overflow-y-auto flex flex-col gap-3.5 bg-slate-50/70 scrollbar-thin scrollbar-thumb-emerald-200">
+            {/* Chat Messages Body */}
+            <div className="p-4 h-[390px] overflow-y-auto flex flex-col gap-3.5 bg-slate-50/70 scrollbar-thin scrollbar-thumb-emerald-200">
               {messages.map((msg, idx) => (
                 <motion.div
                   key={idx}
@@ -371,13 +565,13 @@ export default function FloatingActions() {
                     {msg.text}
                   </div>
 
-                  {/* Clickable Choice Options */}
+                  {/* Dynamic Clickable Options for this Step */}
                   {msg.options && (
                     <div className="flex flex-col gap-2 mt-2.5 w-full pl-1">
                       {msg.options.map((opt) => (
                         <button
                           key={opt.value}
-                          onClick={() => handleSelectOption(msg.step, opt)}
+                          onClick={() => handleSelectOption(opt)}
                           className="w-full text-left px-3.5 py-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-emerald-200/80 hover:border-emerald-500 text-slate-800 hover:text-emerald-900 text-xs sm:text-[13px] font-semibold transition-all duration-200 shadow-xs hover:shadow-sm flex items-center justify-between group active:scale-[0.99]"
                         >
                           <span>{opt.label}</span>
@@ -387,60 +581,69 @@ export default function FloatingActions() {
                     </div>
                   )}
 
-                  {/* Completion Summary Card */}
-                  {msg.isSummary && msg.summaryData && (
+                  {/* Tailored Summary Card when this branch completes */}
+                  {msg.isSummary && msg.record && (
                     <div className="w-full mt-3 bg-white border border-emerald-200 rounded-2xl p-4 shadow-sm text-left">
                       <div className="flex items-center gap-2 text-emerald-800 font-extrabold text-sm mb-3 border-b border-emerald-100 pb-2">
-                        <CheckCircle2 size={18} className="text-emerald-600" />
-                        <span>Saved Inquiry Details (JSON)</span>
+                        <CheckCircle2 size={18} className="text-emerald-600 shrink-0" />
+                        <span>{msg.record.category || "Inquiry Saved"} (JSON File)</span>
                       </div>
 
-                      <div className="space-y-1.5 text-xs text-slate-700">
-                        <div className="flex items-center gap-2">
-                          <User size={13} className="text-emerald-600 shrink-0" />
-                          <span className="text-slate-400">Name:</span>
-                          <span className="font-bold text-slate-900">{msg.summaryData.name}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Phone size={13} className="text-emerald-600 shrink-0" />
-                          <span className="text-slate-400">Phone:</span>
-                          <span className="font-bold text-slate-900">{msg.summaryData.phone}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin size={13} className="text-emerald-600 shrink-0" />
-                          <span className="text-slate-400">Location:</span>
-                          <span className="font-bold text-slate-900">{msg.summaryData.city}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Briefcase size={13} className="text-emerald-600 shrink-0" />
-                          <span className="text-slate-400">Requirement:</span>
-                          <span className="font-bold text-slate-900">{msg.summaryData.purpose}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Package size={13} className="text-emerald-600 shrink-0" />
-                          <span className="text-slate-400">Product:</span>
-                          <span className="font-bold text-slate-900">{msg.summaryData.product}</span>
-                        </div>
+                      {/* Display each specific field collected for this branch */}
+                      <div className="space-y-2 text-xs text-slate-700">
+                        {Object.entries(msg.record.data || {}).map(([fieldKey, val]) => {
+                          const readableLabel = fieldKey
+                            .replace(/([A-Z])/g, " $1")
+                            .replace(/^./, (s) => s.toUpperCase());
+                          
+                          return (
+                            <div key={fieldKey} className="flex items-start gap-2">
+                              <span className="text-slate-400 font-medium shrink-0 min-w-[90px]">
+                                {readableLabel}:
+                              </span>
+                              <span className="font-bold text-slate-900 break-words">
+                                {val}
+                              </span>
+                            </div>
+                          );
+                        })}
                       </div>
+
+                      {/* Direct PDF Catalog Download if user came via catalog flow */}
+                      {msg.record.branch === "catalog" && (
+                        <div className="mt-3 p-2.5 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-xs font-bold text-amber-900">
+                            <FileText size={16} className="text-amber-700" />
+                            <span>Kisan Choice Product Catalog</span>
+                          </div>
+                          <a
+                            href="/new-catalog.pdf"
+                            download="KisanChoice_Catalog.pdf"
+                            className="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-bold text-[11px] shadow-xs"
+                          >
+                            Open PDF
+                          </a>
+                        </div>
+                      )}
 
                       {/* Action Buttons */}
                       <div className="mt-4 pt-3 border-t border-slate-100 flex flex-col gap-2">
                         <button
-                          onClick={() => downloadInquiriesJSON(msg.summaryData)}
+                          onClick={() => downloadJSONFile(msg.record)}
                           className="w-full py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#0B3D2E] font-bold text-xs flex items-center justify-center gap-2 border border-emerald-300 transition-colors"
                         >
-                          <Download size={14} /> Download Inquiry JSON
+                          <Download size={14} /> Download This Inquiry JSON
                         </button>
                         
                         <button
-                          onClick={() => openWhatsAppWithData(msg.summaryData)}
+                          onClick={() => openWhatsAppWithInquiry(msg.record)}
                           className="w-full py-2 px-3 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
                         >
                           <FaWhatsapp size={14} /> Send Directly on WhatsApp
                         </button>
 
                         <button
-                          onClick={handleResetFlow}
+                          onClick={handleReset}
                           className="w-full py-1.5 px-3 rounded-xl text-slate-500 hover:text-slate-800 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
                         >
                           <RefreshCw size={12} /> Nayi Inquiry Karein
@@ -453,21 +656,25 @@ export default function FloatingActions() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Form Area (Active during Name, Phone, City steps) */}
+            {/* Input Form Area */}
             <div className="p-3 bg-white border-t border-emerald-100 flex items-center gap-2">
               <div className="flex-1 relative">
                 <input
-                  type={currentStep === "phone" ? "tel" : "text"}
+                  type={
+                    activeBranch && BRANCH_CONFIGS[activeBranch]?.steps[activeStepIndex]?.inputType === "tel"
+                      ? "tel"
+                      : "text"
+                  }
                   value={inputText}
-                  disabled={["purpose", "product", "quantity"].includes(currentStep)}
+                  disabled={isInputDisabled()}
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSendText()}
-                  placeholder={getPlaceholder()}
+                  placeholder={getInputPlaceholder()}
                   className="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-4 pr-10 py-3 text-[13.5px] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:bg-white transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                 />
                 <button
                   onClick={handleSendText}
-                  disabled={!inputText.trim() || ["purpose", "product", "quantity"].includes(currentStep)}
+                  disabled={!inputText.trim() || isInputDisabled()}
                   className="absolute right-1.5 top-1.5 p-2 bg-[#0B3D2E] hover:bg-[#125841] text-white rounded-xl transition-all disabled:opacity-0 disabled:scale-75 disabled:pointer-events-none scale-100 shadow-sm"
                   title="Send"
                   aria-label="Send"
@@ -478,7 +685,7 @@ export default function FloatingActions() {
 
               {/* Reset Button */}
               <button
-                onClick={handleResetFlow}
+                onClick={handleReset}
                 className="p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors shrink-0"
                 title="Reset / Start Over"
                 aria-label="Reset chat"
@@ -493,7 +700,7 @@ export default function FloatingActions() {
       {/* Floating Action Buttons */}
       <div className="flex flex-col gap-3 relative">
         
-        {/* Chat Assistant Toggle Button (Voice Mode completely removed) */}
+        {/* Chat Assistant Toggle Button */}
         <div className="relative group">
           {!chatOpen && (
             <span className="absolute -inset-1 rounded-full bg-emerald-500/30 animate-pulse blur-md"></span>
