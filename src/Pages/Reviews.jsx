@@ -105,6 +105,28 @@ const reviews = [
 export default function Reviews() {
   const [selectedImg, setSelectedImg] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const minSwipeDistance = 40;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance) {
+      nextSlide();
+    } else if (distance < -minSwipeDistance) {
+      prevSlide();
+    }
+  };
 
   // Auto-slide functionality for the 3D Carousel
   useEffect(() => {
@@ -232,30 +254,36 @@ export default function Reviews() {
       </section>
 
       {/* ============ PROFESSIONAL 3D COVERFLOW TESTIMONIALS ============ */}
-      <section className="relative py-20 overflow-hidden flex-1 flex flex-col items-center bg-gradient-to-b from-slate-50 via-emerald-50/20 to-slate-100/70">
+      <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden flex-1 flex flex-col items-center bg-gradient-to-b from-slate-50 via-emerald-50/20 to-slate-100/70">
         
         {/* Clean Header matching the professional theme */}
-        <div className="text-center mb-16 relative z-10 px-4">
-          <h2 className="text-3xl sm:text-4xl md:text-[50px] font-extrabold text-gray-900 tracking-tight uppercase mb-4">
-            What Our <span className="text-emerald-600 text-8xl">Clients Say</span>
+        <div className="text-center mb-8 sm:mb-12 md:mb-16 relative z-10 px-4 max-w-2xl mx-auto w-full">
+          <span className="inline-block px-3 py-1 mb-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-emerald-100/90 text-emerald-800 border border-emerald-200">
+            Real Customer Feedback
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-black text-gray-900 tracking-tight uppercase mb-3">
+            What Our <span className="text-emerald-600 block sm:inline">Clients Say</span>
           </h2>
-          <p className="text-gray-600 text-base md:text-lg font-medium max-w-2xl mx-auto">
+          <p className="text-gray-600 text-sm sm:text-base md:text-lg font-medium leading-relaxed max-w-xl mx-auto">
             Real feedback from our trusted network and families across India.
           </p>
         </div>
 
-        {/* 3D Carousel Container */}
+        {/* 3D Carousel Container with touch swipe support */}
         <div 
-          className="relative w-full max-w-[1200px] mx-auto h-[480px] md:h-[550px] flex justify-center items-center"
+          className="relative w-full max-w-[1200px] mx-auto h-[440px] sm:h-[480px] md:h-[550px] flex justify-center items-center select-none"
           style={{ perspective: "1500px" }}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
-          {/* Left Arrow */}
+          {/* Left Arrow (Desktop) */}
           <button 
             onClick={prevSlide}
             className="absolute left-2 md:left-6 lg:left-12 z-[100] p-2 md:p-3 bg-white hover:bg-emerald-600 text-emerald-700 hover:text-white rounded-full transition-colors shadow-lg border border-gray-200 hidden sm:flex"
             aria-label="Previous review"
           >
-            <ChevronLeft size={32} />
+            <ChevronLeft size={30} />
           </button>
 
           {/* Cards */}
@@ -270,7 +298,7 @@ export default function Reviews() {
                 initial={false}
                 animate={anim}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
-                className={`absolute w-[280px] md:w-[340px] h-[390px] md:h-[450px] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col cursor-pointer bg-white border border-slate-200/90 transition-all ${
+                className={`absolute w-[280px] sm:w-[310px] md:w-[340px] h-[380px] sm:h-[410px] md:h-[450px] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col cursor-pointer bg-white border border-slate-200/90 transition-all select-none ${
                   isCenter
                     ? "shadow-[0_25px_60px_-10px_rgba(15,81,50,0.22),0_8px_20px_rgba(0,0,0,0.06)] ring-2 ring-emerald-500/35"
                     : "shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1),0_4px_12px_rgba(0,0,0,0.04)]"
@@ -279,42 +307,42 @@ export default function Reviews() {
                 style={{ transformStyle: "preserve-3d" }}
               >
                 {/* Decorative Top Accent Stripe */}
-                <div className="h-2 w-full bg-gradient-to-r from-emerald-600 via-amber-400 to-emerald-500 shrink-0" />
+                <div className="h-1.5 sm:h-2 w-full bg-gradient-to-r from-emerald-600 via-amber-400 to-emerald-500 shrink-0" />
 
-                <div className="relative w-full flex-1 p-6 md:p-8 flex flex-col justify-between items-center text-center">
+                <div className="relative w-full flex-1 p-5 sm:p-6 md:p-8 flex flex-col justify-between items-center text-center">
                   {/* Top Header: Tag Badge & Golden Stars */}
-                  <div className="flex flex-col items-center gap-2.5 w-full">
-                    <span className="px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-xs">
+                  <div className="flex flex-col items-center gap-2 w-full">
+                    <span className="px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-xs">
                       {review.tag}
                     </span>
-                    <div className="flex gap-1.5 mt-1">
+                    <div className="flex gap-1 mt-0.5">
                       {[...Array(5)].map((_, idx) => (
                         <FaStar
                           key={idx}
                           className="text-amber-400 drop-shadow-[0_1px_2px_rgba(217,119,6,0.3)]"
-                          size={18}
+                          size={16}
                         />
                       ))}
                     </div>
                   </div>
 
-                  {/* Center Quote Area with Clean Text */}
-                  <div className="my-auto py-3 px-2 relative">
-                    <span className="text-4xl text-emerald-600/20 font-serif leading-none block mb-1.5 pointer-events-none select-none">
+                  {/* Center Quote Area with Clean Responsive Text */}
+                  <div className="my-auto py-2 sm:py-3 px-1 sm:px-2 relative">
+                    <span className="text-3xl text-emerald-600/20 font-serif leading-none block mb-1 pointer-events-none select-none">
                       “
                     </span>
-                    <p className="text-slate-700 text-[15px] md:text-[16.5px] leading-relaxed font-medium">
+                    <p className="text-slate-700 text-[14px] sm:text-[15px] md:text-[16.5px] leading-relaxed font-medium">
                       {review.content}
                     </p>
-                    <span className="text-4xl text-emerald-600/20 font-serif leading-none block mt-1.5 pointer-events-none select-none">
+                    <span className="text-3xl text-emerald-600/20 font-serif leading-none block mt-1 pointer-events-none select-none">
                       ”
                     </span>
                   </div>
 
                   {/* Bottom Verified Feedback Badge */}
-                  <div className="mt-2">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200/90 text-slate-600 text-xs font-semibold shadow-xs">
-                      <CheckCircle2 size={14} className="text-emerald-600" />
+                  <div className="mt-1 sm:mt-2">
+                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1 sm:py-1.5 rounded-full bg-slate-50 border border-slate-200/90 text-slate-600 text-[11px] sm:text-xs font-semibold shadow-xs">
+                      <CheckCircle2 size={13} className="text-emerald-600" />
                       Verified Customer Review
                     </div>
                   </div>
@@ -323,26 +351,44 @@ export default function Reviews() {
             );
           })}
 
-          {/* Right Arrow */}
+          {/* Right Arrow (Desktop) */}
           <button 
             onClick={nextSlide}
             className="absolute right-2 md:right-6 lg:right-12 z-[100] p-2 md:p-3 bg-white hover:bg-emerald-600 text-emerald-700 hover:text-white rounded-full transition-colors shadow-lg border border-gray-200 hidden sm:flex"
             aria-label="Next review"
           >
-            <ChevronRight size={32} />
+            <ChevronRight size={30} />
           </button>
         </div>
         
-        {/* Pagination Dots */}
-        <div className="flex flex-wrap justify-center items-center gap-1.5 md:gap-2 mt-4 md:mt-8 z-10 relative max-w-md mx-auto px-4">
-          {reviews.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentIndex(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-emerald-600 w-6' : 'bg-emerald-200 hover:bg-emerald-400 w-2'}`}
-              aria-label={`Go to review ${i + 1}`}
-            />
-          ))}
+        {/* Pagination Dots & Mobile Prev/Next controls */}
+        <div className="flex items-center justify-center gap-3 mt-4 md:mt-8 z-10 relative max-w-md mx-auto px-4">
+          <button 
+            onClick={prevSlide}
+            className="p-1.5 bg-white hover:bg-emerald-600 text-emerald-700 hover:text-white rounded-full transition-colors shadow-md border border-gray-200 sm:hidden flex items-center justify-center active:scale-95 shrink-0"
+            aria-label="Previous review"
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <div className="flex flex-wrap justify-center items-center gap-1.5 max-w-[240px]">
+            {reviews.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-emerald-600 w-5' : 'bg-emerald-200 hover:bg-emerald-400 w-2'}`}
+                aria-label={`Go to review ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <button 
+            onClick={nextSlide}
+            className="p-1.5 bg-white hover:bg-emerald-600 text-emerald-700 hover:text-white rounded-full transition-colors shadow-md border border-gray-200 sm:hidden flex items-center justify-center active:scale-95 shrink-0"
+            aria-label="Next review"
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
       </section>
 

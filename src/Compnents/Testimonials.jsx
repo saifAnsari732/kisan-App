@@ -32,12 +32,12 @@ export default function Testimonials() {
       {/* Header matching reference UI */}
       <div className="relative z-20 max-w-[1400px] mx-auto w-full px-4 md:px-8 lg:px-12 mb-16 md:mb-20">
         <div className="inline-block bg-white/15 px-3 py-1 md:px-5 md:py-2 backdrop-blur-sm mb-1 md:mb-3 shadow-sm border border-white/10">
-          <h2 className="text-white font-serif text-3xl sm:text-5xl lg:text-[64px] leading-tight">
+          <h2 className="text-white font-serif text-2xl sm:text-4xl md:text-5xl lg:text-[64px] leading-tight">
             Real stories and testimonials
           </h2>
         </div>
         <br />
-        <h3 className="text-white font-black text-5xl sm:text-7xl lg:text-[100px] tracking-tight uppercase leading-none drop-shadow-md">
+        <h3 className="text-white font-black text-3xl sm:text-5xl md:text-7xl lg:text-[100px] tracking-tight uppercase leading-none drop-shadow-md">
           FROM OUR CLIENTS
         </h3>
       </div>

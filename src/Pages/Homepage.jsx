@@ -114,7 +114,7 @@ export default function HeroCarousel() {
       {/* 🔥 HERO */}
       <div className="w-full flex justify-center bg-gray-100 pt-3 sm:pt-4 md:pt-6 pb-2 px-3 sm:px-5 md:px-8">
         <div
-          className="slider-container relative max-w-[1440px] w-full rounded-2xl md:rounded-[28px] overflow-hidden shadow-md md:shadow-xl border border-gray-200/60"
+          className="slider-container relative max-w-[1440px] w-full rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] overflow-hidden shadow-md md:shadow-lg border-0 outline-none"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
@@ -124,7 +124,7 @@ export default function HeroCarousel() {
             alt="Kisan Choice Edible Oils Banner"
             loading="eager"
             fetchPriority="high"
-            className="w-full h-full object-contain rounded-2xl md:rounded-[28px]"
+            className="w-full h-full object-contain rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] border-0 outline-none block"
           />
 
           <SocialSidebar />
