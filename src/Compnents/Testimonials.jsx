@@ -3,21 +3,20 @@ import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 
-// 10 Unique Official Kisan Choice Video Testimonials & Shorts (No on-screen duplicates)
+// 10 Unique Official Kisan Choice Video Testimonials & Shorts
+// Using fast YouTube Edge CDN for instant loading and zero server 422 errors
 const videos = [
-  { id: "vAWK6QmOWfE", thumb: "/testimonials/vAWK6QmOWfE.jpg", alt: "Brand Ambassador Vishal Malhotra with Kisan Choice" },
-  { id: "m8AhKzKLKFM", thumb: "/testimonials/m8AhKzKLKFM.jpg", alt: "Kisan Choice - शुद्धता और भारतीय परंपरा" },
-  { id: "dW4cWWgFqek", thumb: "/testimonials/dW4cWWgFqek.jpg", alt: "KM Traders Authorised Distributor" },
-  { id: "MLS7IKm84io", thumb: "/testimonials/MLS7IKm84io.jpg", alt: "Pooja Oil by Brand Ambassador Gulshan Pandey" },
-  { id: "h8s9cjz244U", thumb: "/testimonials/h8s9cjz244U.jpg", alt: "आज़ादी का जश्न Kisan Choice के साथ" },
-  { id: "EvjYIazTzg4", thumb: "/testimonials/EvjYIazTzg4.jpg", alt: "Pure Kachi Ghani Mustard Oil Story" },
-  { id: "YcqobrZskr8", thumb: "/testimonials/YcqobrZskr8.jpg", alt: "FMCG Business with Kisan Choice" },
-  { id: "2Be7YpxaHPc", thumb: "/testimonials/2Be7YpxaHPc.jpg", alt: "Kisan Choice Telecallers & Dealers Meeting" },
-  { id: "Utv128rMHU8", thumb: "/testimonials/Utv128rMHU8.jpg", alt: "हर बूंद में शुद्धता... हर निवाले में प्यार" },
-  { id: "fGZAJtk_RJE", thumb: "/testimonials/fGZAJtk_RJE.jpg", alt: "High Profit Dealership Network" },
+  { id: "vAWK6QmOWfE", thumb: "https://i.ytimg.com/vi/vAWK6QmOWfE/hqdefault.jpg", alt: "Brand Ambassador Vishal Malhotra with Kisan Choice" },
+  { id: "m8AhKzKLKFM", thumb: "https://i.ytimg.com/vi/m8AhKzKLKFM/hqdefault.jpg", alt: "Kisan Choice - शुद्धता और भारतीय परंपरा" },
+  { id: "dW4cWWgFqek", thumb: "https://i.ytimg.com/vi/dW4cWWgFqek/hqdefault.jpg", alt: "KM Traders Authorised Distributor" },
+  { id: "MLS7IKm84io", thumb: "https://i.ytimg.com/vi/MLS7IKm84io/hqdefault.jpg", alt: "Pooja Oil by Brand Ambassador Gulshan Pandey" },
+  { id: "h8s9cjz244U", thumb: "https://i.ytimg.com/vi/h8s9cjz244U/hqdefault.jpg", alt: "आज़ादी का जश्न Kisan Choice के साथ" },
+  { id: "EvjYIazTzg4", thumb: "https://i.ytimg.com/vi/EvjYIazTzg4/hqdefault.jpg", alt: "Pure Kachi Ghani Mustard Oil Story" },
+  { id: "YcqobrZskr8", thumb: "https://i.ytimg.com/vi/YcqobrZskr8/hqdefault.jpg", alt: "FMCG Business with Kisan Choice" },
+  { id: "2Be7YpxaHPc", thumb: "https://i.ytimg.com/vi/2Be7YpxaHPc/hqdefault.jpg", alt: "Kisan Choice Telecallers & Dealers Meeting" },
+  { id: "Utv128rMHU8", thumb: "https://i.ytimg.com/vi/Utv128rMHU8/hqdefault.jpg", alt: "हर बूंद में शुद्धता... हर निवाले में प्यार" },
+  { id: "fGZAJtk_RJE", thumb: "https://i.ytimg.com/vi/fGZAJtk_RJE/hqdefault.jpg", alt: "High Profit Dealership Network" },
 ];
-
-const fallbackThumbnail = "/testimonials/vAWK6QmOWfE.jpg";
 
 // Duplicate only once for seamless infinite smooth looping
 const marqueeVideos = [...videos, ...videos];
@@ -69,12 +68,16 @@ export default function Testimonials() {
                 <div className="w-[180px] sm:w-[220px] md:w-[260px] lg:w-[280px] aspect-[9/16] rounded-2xl md:rounded-[32px] overflow-hidden bg-gray-900 border border-white/20 shadow-[0_15px_40px_rgba(0,0,0,0.4)] relative group-hover:border-emerald-400/80 group-hover:shadow-[0_20px_50px_rgba(16,185,129,0.3)] transition-all duration-300">
                   <img 
                     src={vid.thumb} 
-                    alt="Kisan Choice Client Video"
-                    onError={(e) => {
-                      e.currentTarget.src = fallbackThumbnail;
-                    }}
-                    className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
+                    alt={vid.alt}
                     loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      // Fallback to alternative YouTube CDN endpoint if primary fails
+                      if (!e.currentTarget.src.includes("img.youtube.com")) {
+                        e.currentTarget.src = `https://img.youtube.com/vi/${vid.id}/0.jpg`;
+                      }
+                    }}
+                    className="absolute inset-0 w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
                   />
                   
                   {/* Green / Gold Play Button Overlay */}
@@ -100,7 +103,7 @@ export default function Testimonials() {
           >
             {/* Close Button */}
             <button 
-              className="absolute top-4 right-4 md:top-8 md:right-8 w-11 h-11 md:w-12 md:h-12 bg-white/10 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-colors z-50 border border-white/20"
+              className="absolute top-4 right-4 md:top-8 md:right-8 w-11 h-11 md:w-12 md:h-12 bg-white/10 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-colors z-50 border border-white/20 cursor-pointer"
               onClick={() => setActiveVideo(null)}
               aria-label="Close video"
             >
