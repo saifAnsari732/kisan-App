@@ -534,7 +534,7 @@ export default function FloatingActions() {
       formattedDetails[label] = v;
     });
 
-    const web3Key = import.meta.env.VITE_WEB3FORMS_KEY;
+    const web3Key = import.meta.env.VITE_WEB3FORMS_KEY || "25a16ee6-974e-4a6c-9b43-ded086c6f465";
 
     try {
       // If Web3Forms Access Key is provided in .env, send background HTTP POST
