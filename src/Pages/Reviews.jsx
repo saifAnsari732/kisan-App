@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, CheckCircle2 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { FaStar } from "react-icons/fa";
@@ -30,39 +30,42 @@ const marqueeItemsReverse = [...marqueeItems].reverse();
 const reviews = [
   {
     tag: "Authentic Purity",
-    highlight: "Truly Authentic",
     content: (
       <>
         Kisan Choice's mustard oil feels{" "}
-        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
           truly authentic
         </span>
         . Every meal tastes better with{" "}
-        <span className="text-emerald-300 font-semibold">great natural quality</span>.
+        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
+          great natural quality
+        </span>
+        .
       </>
     ),
   },
   {
     tag: "Aroma & Taste",
-    highlight: "Smells & Tastes Amazing",
     content: (
       <>
         This oil{" "}
-        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
           smells and tastes amazing
         </span>
         . Even the packaging is premium and{" "}
-        <span className="text-emerald-300 font-semibold">everyone in our home loves it</span>.
+        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
+          everyone in our home loves it
+        </span>
+        .
       </>
     ),
   },
   {
     tag: "Distributor Trust",
-    highlight: "On-Time Supplies",
     content: (
       <>
         Extremely happy with their services as a distributor.{" "}
-        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
           Supplies always come on time
         </span>{" "}
         with dependable business support.
@@ -71,14 +74,13 @@ const reviews = [
   },
   {
     tag: "Family Health",
-    highlight: "100% Pure Oil",
     content: (
       <>
-        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
           Very pure oil
         </span>
         . Our family{" "}
-        <span className="text-emerald-300 font-semibold">
+        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
           switched completely to this brand
         </span>{" "}
         for healthy, everyday cooking.
@@ -87,11 +89,13 @@ const reviews = [
   },
   {
     tag: "Premium Standards",
-    highlight: "Excellent Packaging",
     content: (
       <>
-        <span className="text-emerald-300 font-semibold">Packaging is excellent</span> and{" "}
-        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
+          Packaging is excellent
+        </span>{" "}
+        and{" "}
+        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
           delivery is always on time
         </span>{" "}
         with factory seal intact.
@@ -100,14 +104,13 @@ const reviews = [
   },
   {
     tag: "Value & Purity",
-    highlight: "Highly Recommended",
     content: (
       <>
-        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
           Affordable and high quality
         </span>
         .{" "}
-        <span className="text-emerald-300 font-semibold">
+        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
           Highly recommended
         </span>{" "}
         for every kitchen in India.
@@ -116,25 +119,29 @@ const reviews = [
   },
   {
     tag: "Traditional Heritage",
-    highlight: "Traditional Homemade Taste",
     content: (
       <>
         Taste reminds me of{" "}
-        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
           traditional homemade oil
         </span>{" "}
         extracted with{" "}
-        <span className="text-emerald-300 font-semibold">pure kachi ghani perfection</span>.
+        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
+          pure kachi ghani perfection
+        </span>
+        .
       </>
     ),
   },
   {
     tag: "Partner Network",
-    highlight: "Responsive Support",
     content: (
       <>
-        <span className="text-emerald-300 font-semibold">Business support is very good</span>. The team is{" "}
-        <span className="text-amber-300 font-bold bg-amber-400/15 px-1.5 py-0.5 rounded border border-amber-300/30 inline-block my-0.5">
+        <span className="text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80 inline-block my-0.5">
+          Business support is very good
+        </span>
+        . The team is{" "}
+        <span className="text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80 inline-block my-0.5">
           responsive, helpful and transparent
         </span>
         .
@@ -273,7 +280,7 @@ export default function Reviews() {
       </section>
 
       {/* ============ PROFESSIONAL 3D COVERFLOW TESTIMONIALS ============ */}
-      <section className="relative py-20 overflow-hidden flex-1 flex flex-col items-center bg-gradient-to-b from-rose-50 to-pink-100">
+      <section className="relative py-20 overflow-hidden flex-1 flex flex-col items-center bg-gradient-to-b from-slate-50 via-emerald-50/20 to-slate-100/70">
         
         {/* Clean Header matching the professional theme */}
         <div className="text-center mb-16 relative z-10 px-4">
@@ -303,6 +310,7 @@ export default function Reviews() {
           {reviews.map((review, i) => {
             const offset = getOffset(i);
             const anim = getCardAnimation(offset);
+            const isCenter = offset === 0;
             
             return (
               <motion.div
@@ -310,25 +318,28 @@ export default function Reviews() {
                 initial={false}
                 animate={anim}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="absolute w-[280px] md:w-[340px] h-[390px] md:h-[450px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col cursor-pointer bg-gradient-to-br from-[#0c4a34] via-[#083827] to-[#042419] border-2 border-amber-400/35 backdrop-blur-md"
+                className={`absolute w-[280px] md:w-[340px] h-[390px] md:h-[450px] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col cursor-pointer bg-white border border-slate-200/90 transition-all ${
+                  isCenter
+                    ? "shadow-[0_25px_60px_-10px_rgba(15,81,50,0.22),0_8px_20px_rgba(0,0,0,0.06)] ring-2 ring-emerald-500/35"
+                    : "shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1),0_4px_12px_rgba(0,0,0,0.04)]"
+                }`}
                 onClick={() => setCurrentIndex(i)}
                 style={{ transformStyle: "preserve-3d" }}
               >
-                {/* Ambient Card Background Glow */}
-                <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-amber-400/10 blur-2xl pointer-events-none" />
-                <div className="absolute -bottom-12 -left-12 w-36 h-36 rounded-full bg-emerald-400/10 blur-2xl pointer-events-none" />
+                {/* Decorative Top Accent Stripe */}
+                <div className="h-2 w-full bg-gradient-to-r from-emerald-600 via-amber-400 to-emerald-500 shrink-0" />
 
-                <div className="relative w-full h-full p-6 md:p-8 flex flex-col justify-between items-center text-center z-10">
+                <div className="relative w-full flex-1 p-6 md:p-8 flex flex-col justify-between items-center text-center">
                   {/* Top Header: Tag Badge & Golden Stars */}
                   <div className="flex flex-col items-center gap-2.5 w-full">
-                    <span className="px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/30 shadow-sm">
+                    <span className="px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-xs">
                       {review.tag}
                     </span>
                     <div className="flex gap-1.5 mt-1">
                       {[...Array(5)].map((_, idx) => (
                         <FaStar
                           key={idx}
-                          className="text-amber-400 drop-shadow-[0_0_8px_rgba(245,179,1,0.5)]"
+                          className="text-amber-400 drop-shadow-[0_1px_2px_rgba(217,119,6,0.3)]"
                           size={18}
                         />
                       ))}
@@ -337,21 +348,21 @@ export default function Reviews() {
 
                   {/* Center Quote Area with Highlighted Text */}
                   <div className="my-auto py-2 px-1 relative">
-                    <span className="text-4xl text-amber-400/25 font-serif leading-none block mb-1 pointer-events-none select-none">
+                    <span className="text-4xl text-emerald-600/15 font-serif leading-none block mb-1 pointer-events-none select-none">
                       “
                     </span>
-                    <p className="text-white/95 text-[15px] md:text-[16px] leading-relaxed font-normal">
+                    <p className="text-slate-700 text-[15px] md:text-[16px] leading-relaxed font-normal">
                       {review.content}
                     </p>
-                    <span className="text-4xl text-amber-400/25 font-serif leading-none block mt-1 pointer-events-none select-none">
+                    <span className="text-4xl text-emerald-600/15 font-serif leading-none block mt-1 pointer-events-none select-none">
                       ”
                     </span>
                   </div>
 
                   {/* Bottom Verified Feedback Badge */}
                   <div className="mt-2">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-emerald-100 text-xs font-semibold backdrop-blur-sm shadow-inner">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200/90 text-slate-600 text-xs font-semibold shadow-xs">
+                      <CheckCircle2 size={14} className="text-emerald-600" />
                       Verified Customer Review
                     </div>
                   </div>
