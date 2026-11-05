@@ -33,31 +33,71 @@ const reviews = [
     content: "Kisan Choice's mustard oil feels truly authentic. Every meal tastes better with great natural quality.",
   },
   {
-    tag: "Aroma & Taste",
-    content: "This oil smells and tastes amazing. Even the packaging is premium and everyone in our home loves it.",
+    tag: "असली कच्ची घानी",
+    content: "सरसों तेल का तीखापन और खुशबू एकदम गांव की कच्ची घानी जैसी है। खाने में असली देसी स्वाद आ जाता है।",
+  },
+  {
+    tag: "Pure Aroma",
+    content: "Kisan Choice tel ka jhaanjh aur aroma bilkul perfect hai. Sabzi me thoda sa daalo to pura ghar mehak jata hai.",
+  },
+  {
+    tag: "शुद्ध पूजा तेल",
+    content: "पूजा के लिए हमने किसान चॉइस का पूजा तेल इस्तेमाल किया, दीया बहुत देर तक शांत और बिना काले धुएं के जलता है।",
+  },
+  {
+    tag: "Healthy & Light",
+    content: "Refined soyabean aur sunflower oil daily cooking ke liye bahut halka hai. Puri aur pakode bilkul oily nahi lagte.",
   },
   {
     tag: "Distributor Trust",
     content: "Extremely happy with their services as a distributor. Supplies always come on time with dependable business support.",
   },
   {
-    tag: "Family Health",
-    content: "Very pure oil. Our family switched completely to this brand for healthy, everyday cooking.",
+    tag: "घर का भरोसा",
+    content: "हमारे घर में पिछले 2 सालों से सिर्फ किसान चॉइस का ही तेल आता है। बच्चों की सेहत और बड़ों के स्वाद दोनों के लिए बेस्ट है।",
   },
   {
-    tag: "Premium Standards",
-    content: "Packaging is excellent and delivery is always on time with factory seal intact.",
+    tag: "Value & Quality",
+    content: "Market me bohot saare brands try kiye, lekin purity aur price dono me Kisan Choice sabse best laga.",
   },
   {
-    tag: "Value & Purity",
-    content: "Affordable and high quality. Highly recommended for every kitchen in India.",
+    tag: "सेहतमंद रसोई",
+    content: "शुद्धता की पूरी गारंटी है। भोजन पचने में आसान रहता है और तेल में किसी तरह की मिलावट या बदबू नहीं आती।",
+  },
+  {
+    tag: "Timely Delivery",
+    content: "Retail shop ke liye regular stock chahiye hota hai, aur inki delivery aur packaging hamesha factory-sealed rehti hai.",
   },
   {
     tag: "Traditional Heritage",
     content: "Taste reminds me of traditional homemade oil extracted with pure kachi ghani perfection.",
   },
   {
-    tag: "Partner Network",
+    tag: "दुकानदारों की पसंद",
+    content: "हमारे ग्राहक बार-बार इसी तेल की मांग करते हैं। ब्रांड पर लोगों का भरोसा और बिक्री लगातार बढ़ रही है।",
+  },
+  {
+    tag: "Super Fresh",
+    content: "Bottle kholte hi taaza sarson ki natural fragrance aati hai. 100% natural feeling aati hai, taste lajawab hai!",
+  },
+  {
+    tag: "Family Health",
+    content: "Very pure oil. Our family switched completely to this brand for healthy, everyday cooking.",
+  },
+  {
+    tag: "भक्ति और पवित्रता",
+    content: "मंदिर और घर के अनुष्ठानों में इस पूजा तेल का उपयोग करने से एक अलग ही सात्विक शांति और पवित्रता महसूस होती है।",
+  },
+  {
+    tag: "Budget Friendly",
+    content: "Budget me premium quality mil rahi hai. Har parivar ke liye Kisan Choice ekdum safe aur genuine option hai.",
+  },
+  {
+    tag: "स्वाद और सुगंध",
+    content: "अचार बनाने के लिए कच्ची घानी सरसों तेल का इस्तेमाल किया, अचार बहुत ही स्वादिष्ट बना और लंबे समय तक सुरक्षित रहा।",
+  },
+  {
+    tag: "Reliable Support",
     content: "Business support is very good. The team is responsive, helpful and transparent.",
   },
 ];
@@ -294,12 +334,12 @@ export default function Reviews() {
         </div>
         
         {/* Pagination Dots */}
-        <div className="flex justify-center gap-3 mt-4 md:mt-8 z-10 relative">
+        <div className="flex flex-wrap justify-center items-center gap-1.5 md:gap-2 mt-4 md:mt-8 z-10 relative max-w-md mx-auto px-4">
           {reviews.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentIndex(i)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-emerald-600 w-8' : 'bg-emerald-200 hover:bg-emerald-400 w-2.5'}`}
+              className={`h-2 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-emerald-600 w-6' : 'bg-emerald-200 hover:bg-emerald-400 w-2'}`}
               aria-label={`Go to review ${i + 1}`}
             />
           ))}
