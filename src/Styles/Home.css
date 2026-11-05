@@ -6,8 +6,8 @@
   width: 100%;
   border-radius: 14px 14px 38px 38px; border: none !important;
   overflow: hidden;
-  background: #f3f4f6;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .slide {

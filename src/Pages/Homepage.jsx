@@ -62,6 +62,14 @@ export default function HeroCarousel() {
     setCurrent(0);
   }, [isMobile]);
 
+  // 🔄 Smooth Auto Slide on both Phone & Desktop
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
   // 👉 Manual Buttons
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % slides.length);
@@ -114,17 +122,18 @@ export default function HeroCarousel() {
       {/* 🔥 HERO */}
       <div className="w-full flex justify-center bg-gray-100 pt-3 sm:pt-4 md:pt-6 pb-2 px-3 sm:px-5 md:px-8">
         <div
-          className="slider-container relative max-w-[1440px] w-full rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] overflow-hidden shadow-md md:shadow-lg border-0 outline-none"
+          className="slider-container relative max-w-[1440px] w-full rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] overflow-hidden shadow-none border-0 ring-0 outline-none bg-transparent"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
           <img
+            key={current}
             src={slides[current].img}
             alt="Kisan Choice Edible Oils Banner"
             loading="eager"
             fetchPriority="high"
-            className="w-full h-full object-contain rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] border-0 outline-none block"
+            className="w-full h-full object-contain rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] border-0 outline-none block transition-opacity duration-700 ease-in-out"
           />
 
           <SocialSidebar />
