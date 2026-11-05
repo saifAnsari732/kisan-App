@@ -63,16 +63,7 @@ export default function HeroCarousel() {
     setCurrent(0);
   }, [isMobile]);
 
-  // 🔄 Smooth Auto Slide on both Phone & Desktop with pause on user hover/interaction
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    if (isHovered) return;
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [slides.length, isHovered]);
+  // 👉 Only Manual Swipe / Drag & Click Navigation (Auto slide stopped as requested)
 
   // 👉 Manual Buttons
   const nextSlide = () => {
@@ -127,8 +118,6 @@ export default function HeroCarousel() {
       <div className="w-full flex justify-center bg-gray-100 pt-3 sm:pt-4 md:pt-6 pb-2 px-3 sm:px-5 md:px-8">
         <div
           className="slider-container relative max-w-[1440px] w-full rounded-t-xl sm:rounded-t-2xl rounded-b-[26px] sm:rounded-b-[36px] md:rounded-b-[44px] overflow-hidden shadow-none border-0 ring-0 outline-none bg-transparent select-none"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
         >
           {/* 🚀 Horizontal Swipe Track with Spring Physics and Touch/Mouse Drag */}
           <motion.div
